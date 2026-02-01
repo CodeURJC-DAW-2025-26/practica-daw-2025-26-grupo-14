@@ -4,7 +4,7 @@
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
 | Sara Tuset Villoria | s.tuset.2020@alumnos.urjc.es | SaraTuset |
-| [Nombre 2] | [email2]@alumnos.urjc.es | [User2] |
+| Alejandro Triguero Ruiz | a.trigueror.2020@alumnos.urjc.es | A-Trigue |
 | [Nombre 3] | [email3]@alumnos.urjc.es | [User3] |
 | [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
 
@@ -24,9 +24,10 @@ Indicar las entidades principales que gestionará la aplicación y las relacione
 4. **Entidad 4**: Vendedor
 
 **Relaciones entre entidades:**
-- Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)
+-  Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)
 -  Pedido - Producto: Un pedido puede contener múltiples productos y un producto puede estar en múltiples pedidos (N:M)
 -  Producto - Vendedor: Un producto pertenece a un vendedor (N:1)
+-  Usuario - Vendedor:  Un usuario puede convertirse en un vendedor (1:1)
 - [Descripción de otras relaciones relevantes]
 
 ### **Permisos de los Usuarios**
@@ -37,7 +38,7 @@ Describir los permisos de cada tipo de usuario e indicar de qué entidades es du
   - No es dueño de ninguna entidad
 
 * **Usuario Registrado**: 
-  - Permisos:  Gestión de perfil, crear valoraciones, realizar pedidos y las del anonimo
+  - Permisos:  Gestión de perfil, crear valoraciones, realizar pedidos y permisos del usuario anónimo 
   - Es dueño de: Sus propios Pedidos, su Perfil de Usuario, sus Valoraciones
 
 * **Vendedor**: 
