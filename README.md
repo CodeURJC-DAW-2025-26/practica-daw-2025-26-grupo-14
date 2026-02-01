@@ -3,7 +3,7 @@
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
-| [Nombre 1] | [email1]@alumnos.urjc.es | [User1] |
+| Sara Tuset Villoria | s.tuset.2020@alumnos.urjc.es | SaraTuset |
 | [Nombre 2] | [email2]@alumnos.urjc.es | [User2] |
 | [Nombre 3] | [email3]@alumnos.urjc.es | [User3] |
 | [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
@@ -13,58 +13,63 @@
 ## 🎭 **Preparación 1: Definición del Proyecto**
 
 ### **Descripción del Tema**
-[Escribe aquí una descripción breve y concisa de qué trata tu aplicación, el sector al que pertenece y qué valor aporta al usuario].
+Es una aplicación de compra-venta de objetos usados. Es de la sección de ventas. Al usuario le permite contribuir con el mercado circular y adquirir objetos en buen estado a buen precio.
 
 ### **Entidades**
 Indicar las entidades principales que gestionará la aplicación y las relaciones entre ellas:
 
-1. **[Entidad 1]**: [Ej: Usuario]
-2. **[Entidad 2]**: [Ej: Producto]
-3. **[Entidad 3]**: [Ej: Pedido]
-4. **[Entidad 4]**: [Ej: Categoría]
+1. **Entidad 1**: Comprador
+2. **Entidad 2**: Producto
+3. **Entidad 3**: Pedido
+4. **Entidad 4**: Vendedor
 
 **Relaciones entre entidades:**
-- [Ej: Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)]
-- [Ej: Pedido - Producto: Un pedido puede contener múltiples productos y un producto puede estar en múltiples pedidos (N:M)]
-- [Ej: Producto - Categoría: Un producto pertenece a una categoría (N:1)]
+- Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)
+-  Pedido - Producto: Un pedido puede contener múltiples productos y un producto puede estar en múltiples pedidos (N:M)
+-  Producto - Vendedor: Un producto pertenece a un vendedor (N:1)
 - [Descripción de otras relaciones relevantes]
 
 ### **Permisos de los Usuarios**
 Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
 
 * **Usuario Anónimo**: 
-  - Permisos: [Ej: Visualización de catálogo, búsqueda de productos, registro]
+  - Permisos: Visualización de productos y perfiles de vendedores, búsqueda de productos y registro
   - No es dueño de ninguna entidad
 
 * **Usuario Registrado**: 
-  - Permisos: [Ej: Gestión de perfil, realizar pedidos, crear valoraciones]
-  - Es dueño de: [Ej: Sus propios Pedidos, su Perfil de Usuario, sus Valoraciones]
+  - Permisos:  Gestión de perfil, crear valoraciones, realizar pedidos y las del anonimo
+  - Es dueño de: Sus propios Pedidos, su Perfil de Usuario, sus Valoraciones
+
+* **Vendedor**: 
+  - Permisos: Gestión de sus productos, visualización de estadísticas y gestión del perfil
+  - Es dueño de: Sus propios Productos, su Perfil de Vendedor
 
 * **Administrador**: 
-  - Permisos: [Ej: Gestión completa de productos (CRUD), visualización de estadísticas, moderación de contenido]
-  - Es dueño de: [Ej: Productos, Categorías, puede gestionar todos los Pedidos y Usuarios]
+  - Permisos: Gestión completa de la página, banear cuentas y moderación de contenido
+  - Es dueño de: Puede gestionar todos los Pedidos y Usuarios
 
 ### **Imágenes**
 Indicar qué entidades tendrán asociadas una o varias imágenes:
 
-- **[Entidad con imágenes 1]**: [Ej: Usuario - Una imagen de avatar por usuario]
-- **[Entidad con imágenes 2]**: [Ej: Producto - Múltiples imágenes por producto (galería)]
-- **[Entidad con imágenes 3]**: [Ej: Categoría - Una imagen representativa por categoría]
+- **Usuario**: Una imagen de avatar por usuario
+- **Producto**:  Múltiples imágenes por producto (galería)
+- **Vendedor**: Una imagen de avatar o logo por vendedor
 
 ### **Gráficos**
 Indicar qué información se mostrará usando gráficos y de qué tipo serán:
 
-- **Gráfico 1**: [Ej: Ventas mensuales - Gráfico de barras]
-- **Gráfico 2**: [Ej: Productos más vendidos - Gráfico de tarta/circular]
-- **Gráfico 3**: [Ej: Evolución de usuarios registrados - Gráfico de líneas]
-- **Gráfico 4**: [Ej: Distribución de pedidos por categoría - Gráfico de barras horizontales]
+- **Ventas mensuales**: Gráfico de barras
+- **Mejores Valoraciones**: Gráfico de tarta/circular
+- **Gastos ultimas 10 compras**: Gráfico de líneas
+- **Distribución de valoraciones de un producto**: Gráfico de barras horizontales
 
 ### **Tecnología Complementaria**
 Indicar qué tecnología complementaria se empleará:
 
+- [Ver ubicación de los vendedores por maps]
 - [Ej: Envío de correos electrónicos automáticos mediante JavaMailSender]
-- [Ej: Generación de PDFs de facturas usando iText o similar]
-- [Ej: Sistema de autenticación OAuth2 o JWT]
+- [Generación de PDFs de facturas usando iText o similar]
+- [Sistema de autenticación OAuth2 o JWT]
 - [Otras tecnologías externas que se integrarán]
 
 ### **Algoritmo o Consulta Avanzada**
