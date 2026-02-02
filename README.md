@@ -1,11 +1,11 @@
-# [Nombre de la Aplicación]
+# Lado B
 
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
 | Sara Tuset Villoria | s.tuset.2020@alumnos.urjc.es | SaraTuset |
 | Alejandro Triguero Ruiz | a.trigueror.2020@alumnos.urjc.es | A-Trigue |
-| [Nombre 3] | [email3]@alumnos.urjc.es | [User3] |
+| Sergio Villagarcía Sánchez | s.villagarcia.2019@alumnos.urjc.es | Sergio-1502 |
 | [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
 
 ---
@@ -18,17 +18,16 @@ Es una aplicación de compra-venta de objetos usados. Es de la sección de venta
 ### **Entidades**
 Indicar las entidades principales que gestionará la aplicación y las relaciones entre ellas:
 
-1. **Entidad 1**: Comprador
+1. **Entidad 1**: Usuario
 2. **Entidad 2**: Producto
 3. **Entidad 3**: Pedido
-4. **Entidad 4**: Vendedor
+4. **Entidad 4**: Valoración
 
 **Relaciones entre entidades:**
 -  Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)
 -  Pedido - Producto: Un pedido puede contener múltiples productos y un producto puede estar en múltiples pedidos (N:M)
--  Producto - Vendedor: Un producto pertenece a un vendedor (N:1)
--  Usuario - Vendedor:  Un usuario puede convertirse en un vendedor (1:1)
-- [Descripción de otras relaciones relevantes]
+-  Producto - Ususario: Un usuario puede vender productos (N:1)
+-  Usuario - Valoración- Producto:  Un usuario puede valorar un producto (1:1:1)
 
 ### **Permisos de los Usuarios**
 Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
@@ -38,15 +37,11 @@ Describir los permisos de cada tipo de usuario e indicar de qué entidades es du
   - No es dueño de ninguna entidad
 
 * **Usuario Registrado**: 
-  - Permisos:  Gestión de perfil, crear valoraciones, realizar pedidos y permisos del usuario anónimo 
-  - Es dueño de: Sus propios Pedidos, su Perfil de Usuario, sus Valoraciones
-
-* **Vendedor**: 
-  - Permisos: Gestión de sus productos, visualización de estadísticas y gestión del perfil
-  - Es dueño de: Sus propios Productos, su Perfil de Vendedor
+  - Permisos:  Gestión de perfil, gestión de sus producto, crear valoraciones, realizar pedidos y permisos del usuario anónimo 
+  - Es dueño de: Sus propios Pedidos y Productos, su Perfil de Usuario, sus Valoraciones
 
 * **Administrador**: 
-  - Permisos: Gestión completa de la página, banear cuentas y moderación de contenido
+  - Permisos: Gestión completa de la página, visualización de estadísticas, banear cuentas y moderación de contenido
   - Es dueño de: Puede gestionar todos los Pedidos y Usuarios
 
 ### **Imágenes**
@@ -54,31 +49,30 @@ Indicar qué entidades tendrán asociadas una o varias imágenes:
 
 - **Usuario**: Una imagen de avatar por usuario
 - **Producto**:  Múltiples imágenes por producto (galería)
-- **Vendedor**: Una imagen de avatar o logo por vendedor
 
 ### **Gráficos**
 Indicar qué información se mostrará usando gráficos y de qué tipo serán:
 
-- **Ventas mensuales**: Gráfico de barras
-- **Mejores Valoraciones**: Gráfico de tarta/circular
-- **Gastos ultimas 10 compras**: Gráfico de líneas
-- **Distribución de valoraciones de un producto**: Gráfico de barras horizontales
+- **Ventas mensuales**: Gráfico de barras - Para ususario vendedor
+- **Mejores Valoraciones**: Gráfico de tarta/circular - Para usuario vendedor
+- **Gráficos de categorías**: Gráfico de tarta/circular - Para admin
+- **Gráficos de estadisticas**: Gráfico de líneas - Para admin
+- **Distribución de valoraciones de un producto**: Gráfico de barras horizontales -Para producto, todos
 
 ### **Tecnología Complementaria**
 Indicar qué tecnología complementaria se empleará:
 
-- [Ver ubicación de los vendedores por maps]
-- [Ej: Envío de correos electrónicos automáticos mediante JavaMailSender]
-- [Generación de PDFs de facturas usando iText o similar]
-- [Sistema de autenticación OAuth2 o JWT]
-- [Otras tecnologías externas que se integrarán]
+- Envío de correos electrónicos automáticos mediante JavaMailSender
+- Generación de PDFs de facturas usando iText o similar
+- Ver ubicación de los vendedores por maps
+- Sistema de autenticación OAuth2 o JWT
 
 ### **Algoritmo o Consulta Avanzada**
 Indicar cuál será el algoritmo o consulta avanzada que se implementará:
 
-- **Algoritmo/Consulta**: [Ej: Sistema de recomendaciones basado en el historial de compras del usuario]
-- **Descripción**: [Ej: Analiza los productos comprados previamente y sugiere productos similares o complementarios utilizando filtrado colaborativo]
-- **Alternativa**: [Ej: Consulta compleja que agrupe ventas por categoría, mes y región, con cálculo de tendencias]
+- **Algoritmo/Consulta**: Sistema de recomendaciones de vendedores basado en la ubicación
+- **Descripción**: Mira el area del usuario comprador y sugiere vendedores cercanos a él
+- **Alternativa**: Sistema de recomendaciones por el historial del usuario
 
 ---
 
