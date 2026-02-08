@@ -35,7 +35,7 @@
       <div class="row gy-3">
         <!-- Left elements -->
         <div class="col-lg-2 col-sm-4 col-4">
-          <a href="main.html" target="_blank" class="float-start">
+          <a href="main.html" class="float-start">
             <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
           </a>
         </div>
@@ -43,10 +43,13 @@
 
         <!-- Center elements -->
         <div class="order-lg-last col-lg-4 col-sm-6 col-6">
-          <div class="d-flex float-end">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i class="fas fa-user-alt m-1 me-md-2"></i><p class="d-none d-md-block mb-0">Log in</p> </a>
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i class="fas fa-shopping-cart m-1 me-md-2"></i><p class="d-none d-md-block mb-0">Sell</p> </a>
-            <a href="my_listings.html" class="border rounded py-1 px-3 nav-link d-flex align-items-center"><i class="fas fa-user m-1 me-md-2"></i><p class="d-none d-md-block mb-0">My items</p></a>
+          <div class="d-flex align-items-center gap-1 flex-wrap">
+            <a href="login.html" class="btn btn-outline-dark btn-sm d-flex align-items-center"><i class="fas fa-user-alt me-2"></i><span>Log in</span></a>
+            <a href="register.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-user-plus me-2"></i><span>Register</span> </a>
+            <a href="publish.html" class="btn btn-primary btn-sm d-flex align-items-center"><i class="fas fa-tag me-2"></i><span>Sell</span></a>
+            <a href="my-listings.html" class="btn btn-outline-primary btn-sm d-flex align-items-center"><i class="fas fa-box me-2"></i><span>My items</span> </a>
+            <a href="administrator.html" class="btn btn-dark btn-sm d-flex align-items-center"><i class="fas fa-user-shield me-2"></i><span>admin</span> </a>
+            <a href="my_deals.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-shopping-cart me-2"></i><span>My deals</span> </a>
           </div>
         </div>
         <!-- Center elements -->
@@ -58,9 +61,9 @@
               <input type="search" id="form1" class="form-control" />
               <label class="form-label" for="form1">Search</label>
             </div>
-            <button type="button" class="btn btn-primary shadow-0">
+            <a type="button" class="btn btn-primary shadow-0" href="normal_search.html">
               <i class="fas fa-search"></i>
-            </button>
+            </a>
           </div>
         </div>
         <!-- Right elements -->
@@ -91,25 +94,31 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link text-dark" aria-current="page" href="#">All</a>
+            <a class="nav-link text-dark" aria-current="page" href="category_search.html">All</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Clothing</a>
+            <a class="nav-link text-dark" href="category_search.html">Clothing</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Electronics</a>
+            <a class="nav-link text-dark" href="category_search.html">Electronics</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Furniture</a>
+            <a class="nav-link text-dark" href="category_search.html">Furniture</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Accessories</a>
+            <a class="nav-link text-dark" href="category_search.html">Accessories</a>
           </li>
           <!-- Navbar dropdown -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark mb-0" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle text-dark mb-0"
+              href="category_search.html"
+              id="navbarDropdown"
+              role="button"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false">
               Others
             </a>
+
             <!-- Dropdown menu -->
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
@@ -122,8 +131,6 @@
               <li>
                 <a class="dropdown-item" href="#">Something else here</a>
               </li>
-<!-- category -->
-
             </ul>
           </li>
         </ul>

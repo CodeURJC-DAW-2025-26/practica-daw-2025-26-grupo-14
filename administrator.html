@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Shop Item - Start Bootstrap Template</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
 
@@ -18,15 +15,43 @@
                 href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
                 rel="stylesheet"
                 />
+        <!-- Bootstrap icons-->
+        
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Font Awesome -->
         <link
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
                 rel="stylesheet"
                 />
-    </head>
-<body>
 
-<!-- NAVBAR -->
+<style>
+body{background:#f4f6f9;}
+.sidebar{
+  height:100vh;
+  background:#212529;
+}
+.sidebar a{
+  color:#adb5bd;
+  text-decoration:none;
+  padding:12px 18px;
+  display:block;
+}
+.sidebar a:hover{
+  background:#343a40;
+  color:white;
+}
+.sidebar .active{
+  background:#0d6efd;
+  color:white;
+}
+.card-stat{
+  border:none;
+  border-radius:12px;
+}
+</style>
+</head>
+<body>
 <!--Main Navigation-->
 <header>
   <!-- Jumbotron -->
@@ -56,8 +81,8 @@
 
         <!-- Right elements -->
         <div class="col-lg-5 col-md-12 col-12">
-          <div class="input-group float-center">
-            <div class="form-outline">
+          <div class="input-group float-center" style="max-width: 500px;">
+            <div class="form-outline flex-grow-1">
               <input type="search" id="form1" class="form-control" />
               <label class="form-label" for="form1">Search</label>
             </div>
@@ -140,104 +165,86 @@
     <!-- Container wrapper -->
   </nav>
   <!-- Navbar -->
+</header>
 
-<!-- PAGE HEADER -->
-<div class="bg-primary text-white py-4 mb-4">
-  <div class="container">
-    <h2 class="mb-0">Post a new item</h2>
-    <small>Create a listing to sell your product</small>
-  </div>
-</div>
+<div class="container-fluid">
+  <div class="row">
 
-<!-- FORM -->
-<div class="container mb-5">
-  <div class="card shadow-sm">
-    <div class="card-body p-4">
+    <!-- SIDEBAR -->
+    <div class="col-md-2 sidebar p-0">
+      <h4 class="text-white text-center py-3 border-bottom">Admin Panel</h4>
+      <a href="administrator.html" class="active"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
+      <a href="admin_users.html"><i class="fas fa-users me-2"></i>Users</a>
+      <a href="admin_listings.html"><i class="fas fa-flag me-2"></i>Moderation</a>
+      <a href="admin_stats.html"><i class="fas fa-chart-pie me-2"></i>Statistics</a>
+      <a href="main.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+    </div>
 
-      <form>
-        <div class="row g-4">
+    <!-- MAIN CONTENT -->
+    <div class="col-md-10 p-4">
+      <h2 class="mb-4">Dashboard</h2>
 
-          <!-- title -->
-          <div class="col-12">
-            <label class="form-label">Item title</label>
-            <input type="text" class="form-control" placeholder="e.g. iPhone 12 128GB Black">
+      <div class="row g-4">
+
+        <div class="col-md-3">
+          <div class="card card-stat shadow-sm p-3">
+            <h6 class="text-muted">Total Users</h6>
+            <h3>1,284</h3>
           </div>
+        </div>
 
-          <!-- price -->
+        <div class="col-md-3">
+          <div class="card card-stat shadow-sm p-3">
+            <h6 class="text-muted">Active Listings</h6>
+            <h3>542</h3>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card card-stat shadow-sm p-3">
+            <h6 class="text-muted">Items Sold Today</h6>
+            <h3>37</h3>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card card-stat shadow-sm p-3">
+            <h6 class="text-muted">Reports Pending</h6>
+            <h3>12</h3>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-5">
+        <h4>Quick actions</h4>
+        <div class="row g-3 mt-2">
+
           <div class="col-md-4">
-            <label class="form-label">Price (€)</label>
-            <input type="number" class="form-control" placeholder="150">
+            <a href="admin_users.html" class="btn btn-outline-primary w-100 p-3">
+              <i class="fas fa-user-slash me-2"></i>Manage Users
+            </a>
           </div>
 
-          <!-- category -->
           <div class="col-md-4">
-            <label class="form-label">Category</label>
-            <select class="form-select">
-              <option>Electronics</option>
-              <option>Clothing</option>
-              <option>Home</option>
-              <option>Sports</option>
-              <option>Books</option>
-              <option>Other</option>
-            </select>
+            <a href="admin_listings.html" class="btn btn-outline-danger w-100 p-3">
+              <i class="fas fa-ban me-2"></i>Moderate Listings
+            </a>
           </div>
 
-          <!-- condition -->
           <div class="col-md-4">
-            <label class="form-label">Condition</label>
-            <select class="form-select">
-              <option>New</option>
-              <option>Like new</option>
-              <option>Good</option>
-              <option>Acceptable</option>
-              <option>For parts</option>
-            </select>
-          </div>
-
-          <!-- description -->
-          <div class="col-12">
-            <label class="form-label">Description</label>
-            <textarea class="form-control" rows="5" placeholder="Describe your item, condition, pickup or shipping..."></textarea>
-          </div>
-
-          <!-- images -->
-          <div class="col-12">
-            <label class="form-label">Upload images</label>
-            <input type="file" class="form-control" multiple>
-            <small class="text-muted">(Only visual, files are not actually uploaded)</small>
-          </div>
-
-          <!-- location -->
-          <div class="col-md-6">
-            <label class="form-label">City</label>
-            <input type="text" class="form-control" placeholder="Madrid">
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-label">Contact preference</label>
-            <select class="form-select">
-              <option>Chat</option>
-              <option>Phone</option>
-              <option>Both</option>
-            </select>
-          </div>
-
-          <!-- submit -->
-          <div class="col-12 text-end">
-            <a href="my_listings.html" class="btn btn-primary btn-lg">Publish item</a>
+            <a href="admin_stats.html" class="btn btn-outline-success w-100 p-3">
+              <i class="fas fa-chart-bar me-2"></i>View Statistics
+            </a>
           </div>
 
         </div>
-      </form>
+      </div>
 
     </div>
   </div>
 </div>
 
-<footer class="bg-light text-center py-3 border-top">
-  <small class="text-muted">© 2026 SecondHand Marketplace</small>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
 </body>
 </html>

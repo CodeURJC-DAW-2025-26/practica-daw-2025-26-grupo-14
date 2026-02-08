@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Shop Item - Start Bootstrap Template</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create account</title>
+
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -23,10 +22,9 @@
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
                 rel="stylesheet"
                 />
-    </head>
-<body>
+</head>
+<body class="bg-light">
 
-<!-- NAVBAR -->
 <!--Main Navigation-->
 <header>
   <!-- Jumbotron -->
@@ -140,101 +138,96 @@
     <!-- Container wrapper -->
   </nav>
   <!-- Navbar -->
+</header>
 
-<!-- PAGE HEADER -->
-<div class="bg-primary text-white py-4 mb-4">
-  <div class="container">
-    <h2 class="mb-0">Post a new item</h2>
-    <small>Create a listing to sell your product</small>
-  </div>
-</div>
+<!-- REGISTER FORM -->
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
 
-<!-- FORM -->
-<div class="container mb-5">
-  <div class="card shadow-sm">
-    <div class="card-body p-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
 
-      <form>
-        <div class="row g-4">
-
-          <!-- title -->
-          <div class="col-12">
-            <label class="form-label">Item title</label>
-            <input type="text" class="form-control" placeholder="e.g. iPhone 12 128GB Black">
+          <div class="text-center mb-4">
+            <h2 class="fw-bold">Create your account</h2>
+            <p class="text-muted mb-0">Join our marketplace to buy and sell items</p>
           </div>
 
-          <!-- price -->
-          <div class="col-md-4">
-            <label class="form-label">Price (€)</label>
-            <input type="number" class="form-control" placeholder="150">
-          </div>
+          <form>
 
-          <!-- category -->
-          <div class="col-md-4">
-            <label class="form-label">Category</label>
-            <select class="form-select">
-              <option>Electronics</option>
-              <option>Clothing</option>
-              <option>Home</option>
-              <option>Sports</option>
-              <option>Books</option>
-              <option>Other</option>
-            </select>
-          </div>
+            <!-- Full name -->
+            <div class="mb-3">
+              <label class="form-label">Full name</label>
+              <input type="text" class="form-control" placeholder="John Doe" required>
+            </div>
 
-          <!-- condition -->
-          <div class="col-md-4">
-            <label class="form-label">Condition</label>
-            <select class="form-select">
-              <option>New</option>
-              <option>Like new</option>
-              <option>Good</option>
-              <option>Acceptable</option>
-              <option>For parts</option>
-            </select>
-          </div>
+            <!-- Username -->
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input type="text" class="form-control" placeholder="john_doe123" required>
+            </div>
 
-          <!-- description -->
-          <div class="col-12">
-            <label class="form-label">Description</label>
-            <textarea class="form-control" rows="5" placeholder="Describe your item, condition, pickup or shipping..."></textarea>
-          </div>
+            <!-- Email -->
+            <div class="mb-3">
+              <label class="form-label">Email address</label>
+              <input type="email" class="form-control" placeholder="name@example.com" required>
+            </div>
 
-          <!-- images -->
-          <div class="col-12">
-            <label class="form-label">Upload images</label>
-            <input type="file" class="form-control" multiple>
-            <small class="text-muted">(Only visual, files are not actually uploaded)</small>
-          </div>
+            <!-- Location -->
+            <div class="mb-3">
+              <label class="form-label">City</label>
+              <input type="text" class="form-control" placeholder="Madrid">
+            </div>
 
-          <!-- location -->
-          <div class="col-md-6">
-            <label class="form-label">City</label>
-            <input type="text" class="form-control" placeholder="Madrid">
-          </div>
+            <!-- Password -->
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control" required>
+            </div>
 
-          <div class="col-md-6">
-            <label class="form-label">Contact preference</label>
-            <select class="form-select">
-              <option>Chat</option>
-              <option>Phone</option>
-              <option>Both</option>
-            </select>
-          </div>
+            <!-- Confirm password -->
+            <div class="mb-3">
+              <label class="form-label">Confirm password</label>
+              <input type="password" class="form-control" required>
+            </div>
 
-          <!-- submit -->
-          <div class="col-12 text-end">
-            <a href="my_listings.html" class="btn btn-primary btn-lg">Publish item</a>
-          </div>
+            <!-- Terms -->
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" id="terms" required>
+              <label class="form-check-label" for="terms">
+                I agree to the Terms & Conditions
+              </label>
+            </div>
 
+            <!-- Register button -->
+            <div class="d-grid mb-3">
+              <a href="index.html" class="btn btn-primary btn-lg">Create account</a>
+            </div>
+
+            <div class="text-center text-muted">
+              Already have an account?
+              <a href="login.html">Sign in</a>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Social login (visual only) -->
+            <div class="text-center">
+              <p class="text-muted small mb-2">or sign up with</p>
+              <a href="#" class="btn btn-outline-secondary me-2"><i class="fab fa-google"></i></a>
+              <a href="#" class="btn btn-outline-secondary me-2"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="btn btn-outline-secondary"><i class="fab fa-apple"></i></a>
+            </div>
+
+          </form>
         </div>
-      </form>
+      </div>
 
     </div>
   </div>
 </div>
 
-<footer class="bg-light text-center py-3 border-top">
+<footer class="bg-white border-top text-center py-3">
   <small class="text-muted">© 2026 SecondHand Marketplace</small>
 </footer>
 
