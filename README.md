@@ -99,9 +99,9 @@ Este encabezado estará presente en todas las ventanas de la web, manteniendo la
 En la página  principal, aparecerán unos anuncios sobre la pagina, instando al usuario tanto a probarla como a crear una cuenta para conseguir nuevos vendedores.
 Mas abajo, aparecerá un listado con productos mas recientes añadidos que podrían interesar al usuario. Sin el usuario no esta registrado, esta opción no aparecerá, puesto que no se tendrían los datos del usuario, sino que se agrandaría la sección de recomendaciones  para ocupar el espacio.
 Abajo de esta, aparecerá la sección de recomendados para el usuario que si basara en:
-- Si el usuario esta registrado, se le recomendará productos relacionados con sus ultimas compras.
-- Si no esta registrado, las recomendaciones se basarán en los productos más vendidos gracias a las métricas recopiladas de los administradores.
-La página se rellenara hacia abajo con productos recomendados basado en lo mas vendido, siendo si esta registrado productos que le puedan interesar y si no lo esta con productos populares.
+>- Si el usuario esta registrado, se le recomendará productos relacionados con sus ultimas compras.
+>- Si no esta registrado, las recomendaciones se basarán en los productos más vendidos gracias a las métricas recopiladas de los administradores.
+>La página se rellenara hacia abajo con productos recomendados basado en lo mas vendido, siendo si esta registrado productos que le puedan interesar y si no lo esta con productos populares.
 
 #### **2. Inicio de Sesión / Login**
 ![Página Principal](images/login.png)
@@ -119,9 +119,9 @@ La página se rellenara hacia abajo con productos recomendados basado en lo mas 
 >La pagina de administrador es la pagina de control de la web. Esta página es solo accesible para usuarios que son administradores de la tienda, dejándoles monitorizar el estado de la tienda en todo momento.
 Nada más entrar en la zona de administrador, la página muestra un dashboard con diferentes datos de la web, como los usuarios, pedidos, ítems vendidos o reportes. Debajo de esto hay una lista de acciones rápidas para el administrador
 A su vez, en la parte izquierda de la pagina, se puede ver un panel de administrador que te deja acceder a las diferentes características que puede usar el administrador:
-- Users: para ver usuarios de la aplicación, y banearlos en caso de que sea necesario.
-- Moderation: reportes de moderación de la web.
-- Statistics: muestra las principales estadísticas de la página.
+>- Users: para ver usuarios de la aplicación, y banearlos en caso de que sea necesario.
+>- Moderation: reportes de moderación de la web.
+>- Statistics: muestra las principales estadísticas de la página.
 
 #### **5. Gestion de Usuarios/ Admin_users**
 ![Página Principal](images/admin_users.png)
