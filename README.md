@@ -133,13 +133,45 @@ A su vez, en la parte izquierda de la pagina, se puede ver un panel de administr
 
 >Esta página de administrador trata sobre reportes de usuario para su moderación. En este caso es un listado con los diferentes reportes de usuarios sobre posibles productos fráudenlos de diferentes vendedores, y actuar en consecuencia, baneando en caso de que sea necesario, y quitando el producto fraudulento de la tienda.
 
-#### **7.Esyadisticas de la página/ Admin_stats**
+#### **7.Estadisticas de la página/ Admin_stats**
 ![Página Principal](images/admin_stats.png)
 
 >Esta página muestra las diferentes estadísticas de ventas de la páginas, asi como otras estadísticas varias. Esto sirve a los administradores para saber que esta funcionando mejor en las ventas, asi como estadictas sobre nuevos usuarios o listas de pepidos creadas en los últimos días.
 
-#### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
+#### **8.Productos en interés/ my_deals**
+![Página Principal](images/mydeals.png)
 
+>Esta página muestra todos los artículos en los que tienes interés de cualquier tipo, ya sea interés en comprar, interés en reservarlo para lanzar una futura oferta o bien artículos en los que ya tienes una oferta realizada activa. Como podemos ver tenemos las opciones de abrir chat con el vendedor para cualquier duda y también se muestra de forma simple toda la información de relevancia de cada artículo (Estado del pedido, vendedor, fotos, precio, etc).
+
+#### **9.Artículos en venta/ my_listings**
+![Página Principal](images/mylistings.png)
+
+>Esta página muestra los artículos que un usuario tiene en venta, y tendrá la opción de poner otro artículo a la venta. También se muestra una pequeña previsualización de cada artículo con su precio y la fecha en la que se publicó.
+
+#### **10.Búsqueda de artículos/ normal_search**
+![Página Principal](images/normalsearch.png)
+
+>Esta página muestra un buscador completo para los artículos que se encuentren en venta dentro de la web. En ella podemos diferenciar las diferentes previsualizaciones de los artículos, un menú lateral con tags que a futuro tendrá cada item, y también por supuesto la opción de añadir al carrito y de añadir a favoritos.
+
+#### **11.Producto/ product**
+![Página Principal](images/product.png)
+
+>En esta página nos encontramos la página dedicada a cada producto, en la cual podemos diferenciar que se pueden visualizar diferentes imágenes para las diferentes perspectivas posibles, una descripción breve del producto, el precio y el vendedor. Por supuesto también se podrá realizar una oferta o directamente comprar el producto.
+
+#### **12.Publicar un nuevo producto/ publish**
+![Página Principal](images/publish.png)
+
+>Esta página muestra el cuestionario a rellenar para publicar un nuevo producto. En él podemos ver que se nos pide el nombre del artículo, el precio, la categoría (tag) y la condición, por si tiene algún defecto. También se nos pide una breve descripción y por último las imágenes a mostrar, la ciudad desde la que se vende y la preferencia de contacto.
+
+#### **13.Registro/ register**
+![Página Principal](images/register.png)
+
+>Esta página muestra el formulario para crear una cuenta en el portal. Se pide el nombre completo, un nickname, el correo, la ciudad, una contraseña y también un apartado para confirmar la contraseña. Por último también hay un check para aceptar los términos y condiciones de la web.
+
+#### **14.Cuenta de usuario/ user_account**
+![Página Principal](images/useraccount.png)
+
+>Esta página muestra la página de perfil. En ella se puede ver los artículos que cada usuario tiene en venta y también un apartado para seguir a ese vendedor. También se ve la ciudad, desde cuando se unió a la página web, las estrellas en forma de valoración que posee el vendedor y el número de reseñas que tiene. Por último también se tiene la posibilidad de mandar un mensaje por chat al vendedor mediante el botón send message.
 
 ---
 
