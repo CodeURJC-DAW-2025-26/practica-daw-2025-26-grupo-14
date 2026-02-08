@@ -10824,3 +10824,55 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+/*new */
+
+/* hide radios */
+.product-gallery input{
+    display:none;
+}
+
+/* main image */
+.main-image{
+    width:100%;
+    height:500px;
+    position:relative;
+    border:1px solid #ddd;
+    margin-bottom:15px;
+    overflow:hidden;
+}
+
+.main-image img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:none;
+}
+
+/* show the first one */
+#img1:checked ~ .main-image .image1,
+#img2:checked ~ .main-image .image2,
+#img3:checked ~ .main-image .image3,
+#img4:checked ~ .main-image .image4{
+    display:block;
+}
+
+/* thumbnails */
+.thumbnails{
+    display:flex;
+    gap:10px;
+}
+
+.thumbnails img{
+    width:90px;
+    height:90px;
+    object-fit:cover;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.thumbnails img:hover{
+    border:2px solid #0d6efd;
+}

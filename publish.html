@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Item - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+
+        <!-- MDB CSS -->
+        <link
+                href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+                rel="stylesheet"
+                />
+        <!-- Font Awesome -->
+        <link
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+                rel="stylesheet"
+                />
+    </head>
+<body>
+
+<!-- NAVBAR -->
+<!--Main Navigation-->
+<header>
+  <!-- Jumbotron -->
+  <div class="p-3 text-center bg-white border-bottom">
+    <div class="container">
+      <div class="row gy-3">
+        <!-- Left elements -->
+        <div class="col-lg-2 col-sm-4 col-4">
+          <a href="main.html" target="_blank" class="float-start">
+            <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
+          </a>
+        </div>
+        <!-- Left elements -->
+
+        <!-- Center elements -->
+        <div class="order-lg-last col-lg-4 col-sm-6 col-6">
+          <div class="d-flex float-end">
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i class="fas fa-user-alt m-1 me-md-2"></i><p class="d-none d-md-block mb-0">Log in</p> </a>
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i class="fas fa-shopping-cart m-1 me-md-2"></i><p class="d-none d-md-block mb-0">Sell</p> </a>
+            <a href="my_listings.html" class="border rounded py-1 px-3 nav-link d-flex align-items-center"><i class="fas fa-user m-1 me-md-2"></i><p class="d-none d-md-block mb-0">My items</p></a>
+          </div>
+        </div>
+        <!-- Center elements -->
+
+        <!-- Right elements -->
+        <div class="col-lg-5 col-md-12 col-12">
+          <div class="input-group float-center">
+            <div class="form-outline">
+              <input type="search" id="form1" class="form-control" />
+              <label class="form-label" for="form1">Search</label>
+            </div>
+            <button type="button" class="btn btn-primary shadow-0">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Right elements -->
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f5f5f5;">
+    <!-- Container wrapper -->
+    <div class="container justify-content-center justify-content-md-between">
+      <!-- Toggle button -->
+      <button
+              class="navbar-toggler border text-dark py-2"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarLeftAlignExample"
+              aria-controls="navbarLeftAlignExample"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+              >
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+        <!-- Left links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link text-dark" aria-current="page" href="#">All</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#">Clothing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#">Electronics</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#">Furniture</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#">Accessories</a>
+          </li>
+          <!-- Navbar dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark mb-0" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+              Others
+            </a>
+            <!-- Dropdown menu -->
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="#">Action</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Another action xddd</a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </li>
+<!-- category -->
+
+            </ul>
+          </li>
+        </ul>
+        <!-- Left links -->
+      </div>
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+
+<!-- PAGE HEADER -->
+<div class="bg-primary text-white py-4 mb-4">
+  <div class="container">
+    <h2 class="mb-0">Post a new item</h2>
+    <small>Create a listing to sell your product</small>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="container mb-5">
+  <div class="card shadow-sm">
+    <div class="card-body p-4">
+
+      <form>
+        <div class="row g-4">
+
+          <!-- title -->
+          <div class="col-12">
+            <label class="form-label">Item title</label>
+            <input type="text" class="form-control" placeholder="e.g. iPhone 12 128GB Black">
+          </div>
+
+          <!-- price -->
+          <div class="col-md-4">
+            <label class="form-label">Price (€)</label>
+            <input type="number" class="form-control" placeholder="150">
+          </div>
+
+          <!-- category -->
+          <div class="col-md-4">
+            <label class="form-label">Category</label>
+            <select class="form-select">
+              <option>Electronics</option>
+              <option>Clothing</option>
+              <option>Home</option>
+              <option>Sports</option>
+              <option>Books</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <!-- condition -->
+          <div class="col-md-4">
+            <label class="form-label">Condition</label>
+            <select class="form-select">
+              <option>New</option>
+              <option>Like new</option>
+              <option>Good</option>
+              <option>Acceptable</option>
+              <option>For parts</option>
+            </select>
+          </div>
+
+          <!-- description -->
+          <div class="col-12">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" rows="5" placeholder="Describe your item, condition, pickup or shipping..."></textarea>
+          </div>
+
+          <!-- images -->
+          <div class="col-12">
+            <label class="form-label">Upload images</label>
+            <input type="file" class="form-control" multiple>
+            <small class="text-muted">(Only visual, files are not actually uploaded)</small>
+          </div>
+
+          <!-- location -->
+          <div class="col-md-6">
+            <label class="form-label">City</label>
+            <input type="text" class="form-control" placeholder="Madrid">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Contact preference</label>
+            <select class="form-select">
+              <option>Chat</option>
+              <option>Phone</option>
+              <option>Both</option>
+            </select>
+          </div>
+
+          <!-- submit -->
+          <div class="col-12 text-end">
+            <a href="my_listings.html" class="btn btn-primary btn-lg">Publish item</a>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<footer class="bg-light text-center py-3 border-top">
+  <small class="text-muted">© 2026 SecondHand Marketplace</small>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
