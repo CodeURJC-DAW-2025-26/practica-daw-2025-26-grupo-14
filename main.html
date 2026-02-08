@@ -1,3 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Homepage example 2</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+
+        <!-- MDB CSS -->
+        <link
+                href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+                rel="stylesheet"
+                />
+        <!-- Font Awesome -->
+        <link
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+                rel="stylesheet"
+                />
+</head>
+<body>
 <!--Main Navigation-->
 <header>
   <!-- Jumbotron -->
@@ -6,32 +31,35 @@
       <div class="row gy-3">
         <!-- Left elements -->
         <div class="col-lg-2 col-sm-4 col-4">
-          <a href="https://mdbootstrap.com/" target="_blank" class="float-start">
-            <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="35" />
+          <a href="main.html" class="float-start">
+            <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
           </a>
         </div>
         <!-- Left elements -->
 
         <!-- Center elements -->
-        <div class="order-lg-last col-lg-5 col-sm-8 col-8">
-          <div class="d-flex float-end">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i class="fas fa-user-alt m-1 me-md-2"></i><p class="d-none d-md-block mb-0">Sign in</p> </a>
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i class="fas fa-heart m-1 me-md-2"></i><p class="d-none d-md-block mb-0">Wishlist</p> </a>
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i class="fas fa-shopping-cart m-1 me-md-2"></i><p class="d-none d-md-block mb-0">My cart</p> </a>
+        <div class="order-lg-last col-lg-4 col-sm-6 col-6">
+          <div class="d-flex align-items-center gap-1 flex-wrap">
+            <a href="login.html" class="btn btn-outline-dark btn-sm d-flex align-items-center"><i class="fas fa-user-alt me-2"></i><span>Log in</span></a>
+            <a href="register.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-user-plus me-2"></i><span>Register</span> </a>
+            <a href="publish.html" class="btn btn-primary btn-sm d-flex align-items-center"><i class="fas fa-tag me-2"></i><span>Sell</span></a>
+            <a href="my-listings.html" class="btn btn-outline-primary btn-sm d-flex align-items-center"><i class="fas fa-box me-2"></i><span>My items</span> </a>
+            <a href="administrator.html" class="btn btn-dark btn-sm d-flex align-items-center"><i class="fas fa-user-shield me-2"></i><span>admin</span> </a>
+            <a href="my_deals.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-shopping-cart me-2"></i><span>My deals</span> </a>  
           </div>
         </div>
         <!-- Center elements -->
 
         <!-- Right elements -->
         <div class="col-lg-5 col-md-12 col-12">
-          <div class="input-group float-center">
-            <div class="form-outline">
+          <div class="input-group float-center" style="max-width: 500px;">
+            <div class="form-outline flex-grow-1">
               <input type="search" id="form1" class="form-control" />
               <label class="form-label" for="form1">Search</label>
             </div>
-            <button type="button" class="btn btn-primary shadow-0">
+            <a type="button" class="btn btn-primary shadow-0" href="normal_search.html">
               <i class="fas fa-search"></i>
-            </button>
+            </a>
           </div>
         </div>
         <!-- Right elements -->
@@ -62,38 +90,38 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link text-dark" aria-current="page" href="#">Home</a>
+            <a class="nav-link text-dark" aria-current="page" href="category_search.html">All</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Categories</a>
+            <a class="nav-link text-dark" href="category_search.html">Clothing</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Hot offers</a>
+            <a class="nav-link text-dark" href="category_search.html">Electronics</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Gift boxes</a>
+            <a class="nav-link text-dark" href="category_search.html">Furniture</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Projects</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Menu item</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Menu name</a>
+            <a class="nav-link text-dark" href="category_search.html">Accessories</a>
           </li>
           <!-- Navbar dropdown -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark mb-0" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle text-dark mb-0"
+              href="category_search.html"
+              id="navbarDropdown"
+              role="button"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false">
               Others
             </a>
+
             <!-- Dropdown menu -->
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
                 <a class="dropdown-item" href="#">Action</a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Another action xddd</a>
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
@@ -118,10 +146,9 @@
         <div class="card-banner p-5 bg-primary rounded-5" style="height: 350px;">
           <div style="max-width: 500px;">
             <h2 class="text-white">
-              Great products with <br />
-              best deals
+              Everything you need, for less.
             </h2>
-            <p class="text-white">No matter how far along you are in your sophistication as an amateur astronomer, there is always one.</p>
+            <p class="text-white">Discover what you’ve been looking for at unbeatable prices on our marketplace, where users sell the things they don’t use anymore.</p>
             <a href="#" class="btn btn-light shadow-0 text-primary"> View more </a>
           </div>
         </div>
@@ -129,9 +156,9 @@
       <aside class="col-lg-3">
         <div class="card-banner h-100 rounded-5" style="background-color: #f87217;">
           <div class="card-body text-center pb-5">
-            <h5 class="pt-5 text-white">Amazing Gifts</h5>
-            <p class="text-white">No matter how far along you are in your sophistication</p>
-            <a href="#" class="btn btn-outline-light"> View more </a>
+            <h5 class="pt-5 text-white">Don’t use it anymore? Sell it.</h5>
+            <p class="text-white">oin our website and start selling your unused items easily.</p>
+            <a href="#" class="btn btn-light shadow-0 text-primary"><i class="fas fa-user-alt m-1 me-md-2"></i> Sign in </a>
           </div>
         </div>
       </aside>
@@ -142,170 +169,17 @@
 </section>
 <!-- intro -->
 
-<!-- category -->
-<section>
-  <div class="container pt-5">
-    <nav class="row gy-4">
-      <div class="col-lg-6 col-md-12">
-        <div class="row">
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-couch fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Interior items</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-basketball-ball fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Sport and travel</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-ring fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Jewellery</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-clock fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Accessories</div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-12">
-        <div class="row">
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-car-side fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Automobiles</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-home fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Home items</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-guitar fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Musical items</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-book fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Book, reading</div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-12">
-        <div class="row">
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-baby-carriage fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Kid's toys</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-paw fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Pet items</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-tshirt fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Men's clothing</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-shoe-prints fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Men's clothing</div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-12">
-        <div class="row">
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-mobile fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Smartphones</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-tools fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Tools</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-pencil-ruler fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Education</div>
-            </a>
-          </div>
-          <div class="col-3">
-            <a href="#" class="text-center d-flex flex-column justify-content-center">
-              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
-                <i class="fas fa-warehouse fa-xl fa-fw"></i>
-              </button>
-              <div class="text-dark">Other items</div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
-</section>
-<!-- category -->
-
 <!-- Products -->
 <section>
   <div class="container my-5">
     <header class="mb-4">
-      <h3>New products</h3>
+      <h3>New Listings, Near You!</h3>
     </header>
 
     <div class="row">
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card my-2 shadow-0">
-          <a href="#" class="">
+          <a href="product.html" class="">
             <div class="mask" style="height: 50px;">
               <div class="d-flex justify-content-start align-items-start h-100 m-2">
                 <h6><span class="badge bg-danger pt-1">New</span></h6>
@@ -314,7 +188,7 @@
             <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/1.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
           </a>
           <div class="card-body p-0 pt-3">
-            <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
+            <a href="#" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
             <h5 class="card-title">$29.95</h5>
             <p class="card-text mb-0">GoPro action camera 4K</p>
             <p class="text-muted">
@@ -325,42 +199,7 @@
       </div>
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card my-2 shadow-0">
-          <a href="#" class="">
-            <div class="mask" style="height: 50px;">
-              <div class="d-flex justify-content-start align-items-start h-100 m-2">
-                <h6><span class="badge pt-1" style="background-color: #f87217;">Offer</span></h6>
-              </div>
-            </div>
-            <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/2.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
-          </a>
-          <div class="card-body p-0 pt-2">
-            <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$590.00</h5>
-            <p class="card-text mb-0">Canon EOS professional</p>
-            <p class="text-muted">
-              Capacity: 128GB
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card my-2 shadow-0">
-          <a href="#" class="">
-            <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/3.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
-          </a>
-          <div class="card-body p-0 pt-2">
-            <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$29.95</h5>
-            <p class="card-text mb-0">Modern product name here</p>
-            <p class="text-muted">
-              Sizes: S, M, XL
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card my-2 shadow-0">
-          <a href="#" class="">
+          <a href="product.html" class="">
             <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/4.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
           </a>
           <div class="card-body p-0 pt-2">
@@ -375,7 +214,7 @@
       </div>
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card my-2 shadow-0">
-          <a href="#" class="">
+          <a href="product.html" class="">
             <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/5.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
           </a>
           <div class="card-body p-0 pt-2">
@@ -390,37 +229,7 @@
       </div>
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card my-2 shadow-0">
-          <a href="#" class="">
-            <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/6.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
-          </a>
-          <div class="card-body p-0 pt-2">
-            <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$29.95</h5>
-            <p class="card-text mb-0">Modern product name here</p>
-            <p class="text-muted">
-              Model: X-200
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card my-2 shadow-0">
-          <a href="#" class="">
-            <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/7.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
-          </a>
-          <div class="card-body p-0 pt-2">
-            <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$29.95</h5>
-            <p class="card-text mb-0">Modern product name here</p>
-            <p class="text-muted">
-              Sizes: S, M, XL
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card my-2 shadow-0">
-          <a href="#" class="">
+          <a href="product.html" class="">
             <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/8.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
           </a>
           <div class="card-body p-0 pt-2">
@@ -438,33 +247,17 @@
 </section>
 <!-- Products -->
 
-<!-- Features -->
-<section>
-  <div class="container">
-    <div class="card p-4 bg-primary">
-      <div class="row align-items-center">
-        <div class="col">
-          <h4 class="mb-0 text-white">Best products and brands in store</h4>
-          <p class="mb-0 text-white-50">Trendy products and text to build on the card title</p>
-        </div>
-        <div class="col-auto"><a class="btn btn-white text-primary shadow-0" href="#">Discover</a></div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- Features -->
-
 <!-- Recommended -->
 <section>
   <div class="container my-5">
     <header class="mb-4">
-      <h3>Recommended</h3>
+      <h3>Recommended for You</h3>
     </header>
 
     <div class="row">
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card my-2 shadow-0">
-          <a href="#" class="">
+          <a href="product.html" class="">
             <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/9.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
           </a>
           <div class="card-body p-0 pt-3">
@@ -479,7 +272,7 @@
       </div>
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card my-2 shadow-0">
-          <a href="#" class="">
+          <a href="product.html" class="">
             <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp" class="card-img-top rounded-2"style="aspect-ratio: 1 / 1" />
           </a>
           <div class="card-body p-0 pt-2">
@@ -494,7 +287,7 @@
       </div>
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card my-2 shadow-0">
-          <a href="#" class="">
+          <a href="product.html" class="">
             <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/11.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
           </a>
           <div class="card-body p-0 pt-2">
@@ -509,7 +302,7 @@
       </div>
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card my-2 shadow-0">
-          <a href="#" class="">
+          <a href="product.html" class="">
             <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/12.webp" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
           </a>
           <div class="card-body p-0 pt-2">
@@ -689,3 +482,165 @@
   </div>
 </footer>
 <!-- Footer -->
+
+ <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+<!--adap this for use when you press "All"-->
+<!--
+
+<section>
+  <div class="container pt-5">
+    <nav class="row gy-4">
+      <div class="col-lg-6 col-md-12">
+        <div class="row">
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-couch fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Interior items</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-basketball-ball fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Sport and travel</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-ring fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Jewellery</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-clock fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Accessories</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div class="row">
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-car-side fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Automobiles</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-home fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Home items</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-guitar fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Musical items</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-book fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Book, reading</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div class="row">
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-baby-carriage fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Kid's toys</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-paw fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Pet items</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-tshirt fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Men's clothing</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-shoe-prints fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Men's clothing</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div class="row">
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-mobile fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Smartphones</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-tools fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Tools</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-pencil-ruler fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Education</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="#" class="text-center d-flex flex-column justify-content-center">
+              <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2" data-mdb-ripple-color="dark">
+                <i class="fas fa-warehouse fa-xl fa-fw"></i>
+              </button>
+              <div class="text-dark">Other items</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
+
+-->
+</html>
