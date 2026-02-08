@@ -92,7 +92,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 ### **Capturas de Pantalla y Descripción de Páginas**
 
 #### **1. Página Principal / Main**
-![Página Principal](images/home-page.png)
+![Página Principal](images/main.png)
 
 > Se trata de la página principal de la web de compra y venta de segunda mano. posee un encabezado  con diferentes opciones, como una barra de búsqueda, icono de la web para ir a esta misma página, asi como diferentes opciones que solo aparecerán dependiendo del tipo de usuario que sea, como por ejemplo en el botón de administrador, que solo será visible cuando un usuario registrado sea administrador.
 Este encabezado estará presente en todas las ventanas de la web, manteniendo la cohesión de la misma y dejando la función de buscar productos siempre activa.
@@ -104,17 +104,17 @@ Abajo de esta, aparecerá la sección de recomendados para el usuario que si bas
 La página se rellenara hacia abajo con productos recomendados basado en lo mas vendido, siendo si esta registrado productos que le puedan interesar y si no lo esta con productos populares.
 
 #### **2. Inicio de Sesión / Login**
-![Página Principal](images/home-page.png)
+![Página Principal](images/login.png)
 
 > Esta es la página HTML encargada del inicio de sesión de los usuarios registrados. Es una página básica, la cual comprueba el nombre de usuario o email y la contraseña para saber si la cuenta esta registrada y es correcta, dando también la opción de recuperar contraseña en caso de que sea necesario. También da la opción de crear una cuenta en caso de no tenerla. La página mantiene el estilo del resto de páginas, manteniendo el encabezado como en el resto de páginas. Una vez el usuario inicie sesión, esta ventana no aparecerá hasta que cierre sesión.
 
 #### **3. Busqueda por categoría/ Category_Search**
-![Página Principal](images/home-page.png)
+![Página Principal](images/Category.png)
 
 > La pagina es la encargada de mostrar los ítems cuando se busca por cagerías. La página será al final la misma que la página que muestra por búsqueda en la barra, pero se vera ligeramente diferenciada, ya que aquí se mostrará los productos específicos de la categoría que el usuario haya mostrado, asi como una lista de opciones a la izquierda de la página que el usuario podrá ajustar a sus necesidades. Se mantiene el encabezado de la página, manteniendo la cohesión con el resto de página.
 
 #### **4. Página de administrador/ Administrator**
-![Página Principal](images/home-page.png)
+![Página Principal](images/admin.png)
 
 >La pagina de administrador es la pagina de control de la web. Esta página es solo accesible para usuarios que son administradores de la tienda, dejándoles monitorizar el estado de la tienda en todo momento.
 Nada más entrar en la zona de administrador, la página muestra un dashboard con diferentes datos de la web, como los usuarios, pedidos, ítems vendidos o reportes. Debajo de esto hay una lista de acciones rápidas para el administrador
@@ -124,17 +124,17 @@ A su vez, en la parte izquierda de la pagina, se puede ver un panel de administr
 - Statistics: muestra las principales estadísticas de la página.
 
 #### **5. Gestion de Usuarios/ Admin_users**
-![Página Principal](images/home-page.png)
+![Página Principal](images/admin_users.png)
 
 >Esta pagina muestra una lista de los usuarios registrados de la pagina web, asi como su estado dentro de la misma, el nombre y el correo. En caso de que sea necesario, se pueden tomar acciones como un baneo del usuario, asi como accedera al perfil del mismo.
 
 #### **6.Moderación/ Admin_listings**
-![Página Principal](images/home-page.png)
+![Página Principal](images/admin_mod.png)
 
 >Esta página de administrador trata sobre reportes de usuario para su moderación. En este caso es un listado con los diferentes reportes de usuarios sobre posibles productos fráudenlos de diferentes vendedores, y actuar en consecuencia, baneando en caso de que sea necesario, y quitando el producto fraudulento de la tienda.
 
 #### **7.Esyadisticas de la página/ Admin_stats**
-![Página Principal](images/home-page.png)
+![Página Principal](images/admin_stats.png)
 
 >Esta página muestra las diferentes estadísticas de ventas de la páginas, asi como otras estadísticas varias. Esto sirve a los administradores para saber que esta funcionando mejor en las ventas, asi como estadictas sobre nuevos usuarios o listas de pepidos creadas en los últimos días.
 
