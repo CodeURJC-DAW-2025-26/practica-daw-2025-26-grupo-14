@@ -6,7 +6,6 @@
 | Sara Tuset Villoria | s.tuset.2020@alumnos.urjc.es | SaraTuset |
 | Alejandro Triguero Ruiz | a.trigueror.2020@alumnos.urjc.es | A-Trigue |
 | Sergio Villagarcía Sánchez | s.villagarcia.2019@alumnos.urjc.es | Sergio-1502 |
-| [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
 
 ---
 
