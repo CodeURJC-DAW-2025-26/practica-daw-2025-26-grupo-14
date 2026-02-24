@@ -26,119 +26,7 @@
     </head>
     <body>
         <!--Main Navigation-->
-<header>
-  <!-- Jumbotron -->
-  <div class="p-3 text-center bg-white border-bottom">
-    <div class="container">
-      <div class="row gy-3">
-        <!-- Left elements -->
-        <div class="col-lg-2 col-sm-4 col-4">
-          <a href="main.html" class="float-start">
-            <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
-          </a>
-        </div>
-        <!-- Left elements -->
-
-        <!-- Center elements -->
-        <div class="order-lg-last col-lg-4 col-sm-6 col-6">
-          <div class="d-flex align-items-center gap-1 flex-wrap">
-            <a href="login.html" class="btn btn-outline-dark btn-sm d-flex align-items-center"><i class="fas fa-user-alt me-2"></i><span>Log in</span></a>
-            <a href="register.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-user-plus me-2"></i><span>Register</span> </a>
-            <a href="publish.html" class="btn btn-primary btn-sm d-flex align-items-center"><i class="fas fa-tag me-2"></i><span>Sell</span></a>
-            <a href="my-listings.html" class="btn btn-outline-primary btn-sm d-flex align-items-center"><i class="fas fa-box me-2"></i><span>My items</span> </a>
-            <a href="administrator.html" class="btn btn-dark btn-sm d-flex align-items-center"><i class="fas fa-user-shield me-2"></i><span>admin</span> </a>
-            <a href="my_deals.html" class="btn btn-dark btn-sm d-flex align-items-center"><i class="fas fa-deal me-2"></i><span>My deals</span> </a>
-          </div>
-        </div>
-        <!-- Center elements -->
-
-        <!-- Right elements -->
-        <div class="col-lg-5 col-md-12 col-12">
-          <div class="input-group float-center">
-            <div class="form-outline">
-              <input type="search" id="form1" class="form-control" />
-              <label class="form-label" for="form1">Search</label>
-            </div>
-            <a type="button" class="btn btn-primary shadow-0" href="normal_search.html">
-              <i class="fas fa-search"></i>
-            </a>
-          </div>
-        </div>
-        <!-- Right elements -->
-      </div>
-    </div>
-  </div>
-  <!-- Jumbotron -->
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f5f5f5;">
-    <!-- Container wrapper -->
-    <div class="container justify-content-center justify-content-md-between">
-      <!-- Toggle button -->
-        <button
-              class="navbar-toggler border text-dark py-2"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarLeftAlignExample"
-              aria-controls="navbarLeftAlignExample"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-              >
-            <i class="fas fa-bars"></i>
-        </button>
-
-      <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-        <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link text-dark" aria-current="page" href="category_search.html">All</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Clothing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Electronics</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Furniture</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Accessories</a>
-          </li>
-          <!-- Navbar dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark mb-0"
-              href="category_search.html"
-              id="navbarDropdown"
-              role="button"
-              data-mdb-toggle="dropdown"
-              aria-expanded="false">
-              Others
-            </a>
-
-            <!-- Dropdown menu -->
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li>
-                <a class="dropdown-item" href="#">Action</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Another action xddd</a>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <!-- Left links -->
-      </div>
-    </div>
-    <!-- Container wrapper -->
-  </nav>
-  <!-- Navbar -->
-</header>
+        {{> header}}
         <!-- Product section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
@@ -162,12 +50,12 @@
 
                         <!-- small images -->
                         <div class="thumbnails">
-                            <label for="img1"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
-                            <label for="img2"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
-                            <label for="img3"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
-                            <label for="img4"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
-                            <label for="img5"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
-                            <label for="img5"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
+                            <label for="image1"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
+                            <label for="image2"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
+                            <label for="image3"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
+                            <label for="image4"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
+                            <label for="image5"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
+                            <label for="image6"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
                         </div>
 
                     </div>
@@ -208,7 +96,7 @@
 
                         </div>
                         <!--new seller profile-->
-                        <a href="user_account.html" class="seller-link">
+                        <a href="user_account" class="seller-link">
                             <div class="seller-box">
 
                                 <div class="seller-card p-3 border rounded">
@@ -466,9 +354,7 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-        </footer>
+        {{> footer}}
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

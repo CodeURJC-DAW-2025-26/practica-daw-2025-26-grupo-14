@@ -27,138 +27,7 @@
   <body>
 
 <!--Main Navigation-->
-<header>
-  <!-- Jumbotron -->
-  <div class="p-3 text-center bg-white border-bottom">
-    <div class="container">
-      <div class="row gy-3">
-        <!-- Left elements -->
-        <div class="col-lg-2 col-sm-4 col-4">
-          <a href="main.html" class="float-start">
-            <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
-          </a>
-        </div>
-        <!-- Left elements -->
-
-        <!-- Center elements -->
-        <div class="order-lg-last col-lg-4 col-sm-6 col-6">
-          <div class="d-flex align-items-center gap-1 flex-wrap">
-            <a href="login.html" class="btn btn-outline-dark btn-sm d-flex align-items-center"><i class="fas fa-user-alt me-2"></i><span>Log in</span></a>
-            <a href="register.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-user-plus me-2"></i><span>Register</span> </a>
-            <a href="publish.html" class="btn btn-primary btn-sm d-flex align-items-center"><i class="fas fa-tag me-2"></i><span>Sell</span></a>
-            <a href="my-listings.html" class="btn btn-outline-primary btn-sm d-flex align-items-center"><i class="fas fa-box me-2"></i><span>My items</span> </a>
-            <a href="administrator.html" class="btn btn-dark btn-sm d-flex align-items-center"><i class="fas fa-user-shield me-2"></i><span>admin</span> </a>
-            <a href="my_deals.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-shopping-cart me-2"></i><span>My deals</span> </a>
-          </div>
-        </div>
-        <!-- Center elements -->
-
-        <!-- Right elements -->
-        <div class="col-lg-5 col-md-12 col-12">
-          <div class="input-group float-center">
-            <div class="form-outline">
-              <input type="search" id="form1" class="form-control" />
-              <label class="form-label" for="form1">Search</label>
-            </div>
-            <a type="button" class="btn btn-primary shadow-0" href="normal_search.html">
-              <i class="fas fa-search"></i>
-            </a>
-          </div>
-        </div>
-        <!-- Right elements -->
-      </div>
-    </div>
-  </div>
-  <!-- Jumbotron -->
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f5f5f5;">
-    <!-- Container wrapper -->
-    <div class="container justify-content-center justify-content-md-between">
-      <!-- Toggle button -->
-      <button
-              class="navbar-toggler border text-dark py-2"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarLeftAlignExample"
-              aria-controls="navbarLeftAlignExample"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-              >
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-        <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link text-dark" aria-current="page" href="category_search.html">All</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Clothing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Electronics</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Furniture</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Accessories</a>
-          </li>
-          <!-- Navbar dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark mb-0"
-              href="category_search.html"
-              id="navbarDropdown"
-              role="button"
-              data-mdb-toggle="dropdown"
-              aria-expanded="false">
-              Others
-            </a>
-
-            <!-- Dropdown menu -->
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li>
-                <a class="dropdown-item" href="#">Action</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Another action xddd</a>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <!-- Left links -->
-      </div>
-    </div>
-    <!-- Container wrapper -->
-  </nav>
-  <!-- Navbar -->
-
-  <!-- Heading -->
-  <div class="bg-primary mb-4">
-    <div class="container py-4">
-      <h3 class="text-white mt-2">Men's wear</h3>
-      <!-- Breadcrumb -->
-      <nav class="d-flex mb-2">
-        <h6 class="mb-0">
-          <a href="" class="text-white-50">Home</a>
-          <span class="text-white-50 mx-2"> > </span>
-          <a href="" class="text-white-50">Library</a>
-          <span class="text-white-50 mx-2"> > </span>
-          <a href="" class="text-white"><u>Data</u></a>
-        </h6>
-      </nav>
-      <!-- Breadcrumb -->
-    </div>
-  </div>
-  <!-- Heading -->
-</header>
+{{> header}}
 
 <!-- sidebar + content -->
 <section class="">
@@ -420,8 +289,8 @@
                 </div>
                 <p class="card-text">T-shirts with multiple colors, for men and lady</p>
                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                  <a href="product.html" class="btn btn-primary shadow-0 me-1">Add to cart</a>
-                  <a href="product.html" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
+                  <a href="product" class="btn btn-primary shadow-0 me-1">Add to cart</a>
+                  <a href="product" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                 </div>
               </div>
             </div>
@@ -433,8 +302,8 @@
                 <h5 class="card-title">$120.00</h5>
                 <p class="card-text">Winter Jacket for Men and Women, All sizes</p>
                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                  <a href="product.html" class="btn btn-primary shadow-0 me-1">Add to cart</a>
-                  <a href="product.html" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
+                  <a href="product" class="btn btn-primary shadow-0 me-1">Add to cart</a>
+                  <a href="product" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                 </div>
               </div>
             </div>
@@ -446,8 +315,8 @@
                 <h5 class="card-title">$120.00</h5>
                 <p class="card-text">T-shirts with multiple colors, for men and lady</p>
                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                  <a href="product.html" class="btn btn-primary shadow-0 me-1">Add to cart</a>
-                  <a href="product.html" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
+                  <a href="product" class="btn btn-primary shadow-0 me-1">Add to cart</a>
+                  <a href="product" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                 </div>
               </div>
             </div>
@@ -459,8 +328,8 @@
                 <h5 class="card-title">$120.00</h5>
                 <p class="card-text">Blazer Suit Dress Jacket for Men, Blue color</p>
                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                  <a href="product.html" class="btn btn-primary shadow-0 me-1">Add to cart</a>
-                  <a href="product.html" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
+                  <a href="product" class="btn btn-primary shadow-0 me-1">Add to cart</a>
+                  <a href="product" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                 </div>
               </div>
             </div>
@@ -472,8 +341,8 @@
                 <h5 class="card-title">$510.00</h5>
                 <p class="card-text">Slim sleeve wallet Italian leather - multiple colors</p>
                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                  <a href="product.html" class="btn btn-primary shadow-0 me-1">Add to cart</a>
-                  <a href="product.html" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
+                  <a href="product" class="btn btn-primary shadow-0 me-1">Add to cart</a>
+                  <a href="product" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                 </div>
               </div>
             </div>
@@ -485,8 +354,8 @@
                 <h5 class="card-title">$79.99</h5>
                 <p class="card-text">T-shirts with multiple colors, for men and lady</p>
                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                  <a href="product.html" class="btn btn-primary shadow-0 me-1">Add to cart</a>
-                  <a href="product.html" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
+                  <a href="product" class="btn btn-primary shadow-0 me-1">Add to cart</a>
+                  <a href="product" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                 </div>
               </div>
             </div>
@@ -498,8 +367,8 @@
                 <h5 class="card-title">$120.00</h5>
                 <p class="card-text">Winter Jacket for Men and Women, All sizes</p>
                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                  <a href="product.html" class="btn btn-primary shadow-0 me-1">Add to cart</a>
-                  <a href="product.html" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
+                  <a href="product" class="btn btn-primary shadow-0 me-1">Add to cart</a>
+                  <a href="product" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                 </div>
               </div>
             </div>
@@ -511,8 +380,8 @@
                 <h5 class="card-title">$120.00</h5>
                 <p class="card-text">T-shirts with multiple colors, for men and lady</p>
                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                  <a href="product.html" class="btn btn-primary shadow-0 me-1">Add to cart</a>
-                  <a href="product.html" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
+                  <a href="product" class="btn btn-primary shadow-0 me-1">Add to cart</a>
+                  <a href="product" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                 </div>
               </div>
             </div>
@@ -524,8 +393,8 @@
                 <h5 class="card-title">$43.50</h5>
                 <p class="card-text">Summer New Men's Denim Jeans Shorts</p>
                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                  <a href="product.html" class="btn btn-primary shadow-0 me-1">Add to cart</a>
-                  <a href="product.html" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
+                  <a href="product" class="btn btn-primary shadow-0 me-1">Add to cart</a>
+                  <a href="product" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                 </div>
               </div>
             </div>
@@ -562,140 +431,7 @@
 <!-- sidebar + content -->
 
 <!-- Footer -->
-<footer class="text-center text-lg-start text-muted bg-primary mt-3">
-  <!-- Section: Links  -->
-  <section class="">
-    <div class="container text-center text-md-start pt-4 pb-4">
-      <!-- Grid row -->
-      <div class="row mt-3">
-        <!-- Grid column -->
-        <div class="col-12 col-lg-3 col-sm-12 mb-2">
-          <!-- Content -->
-          <a href="https://mdbootstrap.com/" target="_blank" class="text-white h2">
-            MDB
-          </a>
-          <p class="mt-1 text-white">
-            © 2023 Copyright: MDBootstrap.com
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-6 col-sm-4 col-lg-2">
-          <!-- Links -->
-          <h6 class="text-uppercase text-white fw-bold mb-2">
-            Store
-          </h6>
-          <ul class="list-unstyled mb-4">
-            <li><a class="text-white-50" href="#">About us</a></li>
-            <li><a class="text-white-50" href="#">Find store</a></li>
-            <li><a class="text-white-50" href="#">Categories</a></li>
-            <li><a class="text-white-50" href="#">Blogs</a></li>
-          </ul>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-6 col-sm-4 col-lg-2">
-          <!-- Links -->
-          <h6 class="text-uppercase text-white fw-bold mb-2">
-            Information
-          </h6>
-          <ul class="list-unstyled mb-4">
-            <li><a class="text-white-50" href="#">Help center</a></li>
-            <li><a class="text-white-50" href="#">Money refund</a></li>
-            <li><a class="text-white-50" href="#">Shipping info</a></li>
-            <li><a class="text-white-50" href="#">Refunds</a></li>
-          </ul>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-6 col-sm-4 col-lg-2">
-          <!-- Links -->
-          <h6 class="text-uppercase text-white fw-bold mb-2">
-            Support
-          </h6>
-          <ul class="list-unstyled mb-4">
-            <li><a class="text-white-50" href="#">Help center</a></li>
-            <li><a class="text-white-50" href="#">Documents</a></li>
-            <li><a class="text-white-50" href="#">Account restore</a></li>
-            <li><a class="text-white-50" href="#">My orders</a></li>
-          </ul>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-12 col-sm-12 col-lg-3">
-          <!-- Links -->
-          <h6 class="text-uppercase text-white fw-bold mb-2">Newsletter</h6>
-          <p class="text-white">Stay in touch with latest updates about our products and offers</p>
-          <div class="input-group mb-3">
-            <input type="email" class="form-control border" placeholder="Email" aria-label="Email" aria-describedby="button-addon2" />
-            <button class="btn btn-light border shadow-0" type="button" id="button-addon2" data-mdb-ripple-color="dark">
-              Join
-            </button>
-          </div>
-        </div>
-        <!-- Grid column -->
-      </div>
-      <!-- Grid row -->
-    </div>
-  </section>
-  <!-- Section: Links  -->
-
-  <div class="">
-    <div class="container">
-      <div class="d-flex justify-content-between py-4 border-top">
-        <!--- payment --->
-        <div>
-          <i class="fab fa-lg fa-cc-visa text-white"></i>
-          <i class="fab fa-lg fa-cc-amex text-white"></i>
-          <i class="fab fa-lg fa-cc-mastercard text-white"></i>
-          <i class="fab fa-lg fa-cc-paypal text-white"></i>
-        </div>
-        <!--- payment --->
-
-        <!--- language selector --->
-        <div class="dropdown dropup">
-          <a class="dropdown-toggle text-white" href="#" id="Dropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i class="flag-united-kingdom flag m-0 me-1"></i>English </a>
-
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="Dropdown">
-            <li>
-              <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English <i class="fa fa-check text-success ms-2"></i></a>
-            </li>
-            <li><hr class="dropdown-divider" /></li>
-            <li>
-              <a class="dropdown-item" href="#"><i class="flag-poland flag"></i>Polski</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#"><i class="flag-china flag"></i>中文</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#"><i class="flag-japan flag"></i>日本語</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#"><i class="flag-germany flag"></i>Deutsch</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#"><i class="flag-france flag"></i>Français</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#"><i class="flag-spain flag"></i>Español</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#"><i class="flag-russia flag"></i>Русский</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#"><i class="flag-portugal flag"></i>Português</a>
-            </li>
-          </ul>
-        </div>
-        <!--- language selector --->
-      </div>
-    </div>
-  </div>
-</footer>
+{{> footer}}
 <!-- Footer -->
 
   </body>

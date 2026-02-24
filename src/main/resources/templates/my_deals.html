@@ -30,72 +30,7 @@
 <body class="bg-light">
 
 <!-- HEADER -->
-<header>
-  <div class="p-3 text-center bg-white border-bottom">
-    <div class="container">
-      <div class="row gy-3 align-items-center">
-
-        <!-- Logo -->
-        <div class="col-lg-2 col-sm-4 col-4">
-          <a href="main.html" class="float-start">
-            <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
-          </a>
-        </div>
-
-        <!-- Action buttons -->
-        <div class="order-lg-last col-lg-4 col-sm-6 col-6">
-          <div class="d-flex align-items-center gap-2 justify-content-end flex-wrap">
-            <a href="login.html" class="btn btn-outline-dark btn-sm d-flex align-items-center"><i class="fas fa-user-alt me-1"></i><span class="d-none d-md-inline">Log in</span></a>
-            <a href="register.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"> <i class="fas fa-user-plus me-1"></i><span class="d-none d-md-inline">Register</span></a>
-            <a href="publish.html" class="btn btn-primary btn-sm d-flex align-items-center"><i class="fas fa-tag me-1"></i><span class="d-none d-md-inline">Sell</span></a>
-            <a href="my-listings.html" class="btn btn-outline-primary btn-sm d-flex align-items-center"><i class="fas fa-box me-1"></i><span class="d-none d-md-inline">My items</span> </a>
-            <a href="administrator.html" class="btn btn-dark btn-sm d-flex align-items-center"><i class="fas fa-user-shield me-2"></i><span>admin</span> </a>
-            <a href="my_deals.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-shopping-cart me-2"></i><span>My deals</span> </a>
-          </div>
-        </div>
-
-        <!-- Search -->
-        <div class="col-lg-6 col-md-12 col-12 d-flex justify-content-center justify-content-lg-end">
-          <form action="normal_search.html" class="input-group" style="max-width:520px">
-            <div class="form-outline flex-grow-1">
-              <input type="search" id="searchDeals" class="form-control" />
-              <label class="form-label" for="searchDeals">Search</label>
-            </div>
-            <button class="btn btn-primary shadow-0"><i class="fas fa-search"></i></button>
-          </form>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Category navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#f5f5f5;">
-    <div class="container justify-content-center justify-content-md-between">
-      <button class="navbar-toggler border text-dark py-2" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarLeftAlignExample" aria-controls="navbarLeftAlignExample" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link text-dark" href="category_search.html">All</a></li>
-          <li class="nav-item"><a class="nav-link text-dark" href="category_search.html">Clothing</a></li>
-          <li class="nav-item"><a class="nav-link text-dark" href="category_search.html">Electronics</a></li>
-          <li class="nav-item"><a class="nav-link text-dark" href="category_search.html">Furniture</a></li>
-          <li class="nav-item"><a class="nav-link text-dark" href="category_search.html">Accessories</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">Others</a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Books</a></li>
-              <li><a class="dropdown-item" href="#">Toys</a></li>
-              <li><hr class="dropdown-divider"/></li>
-              <li><a class="dropdown-item" href="#">Other items</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
+{{> header}}
 
 <!-- BREADCRUMB -->
 <section class="bg-primary text-white py-3">
@@ -116,7 +51,7 @@
           <div class="d-flex">
             <img src="https://m.media-amazon.com/images/I/61XqEVC8Z4L._AC_SY300_SX300_QL70_ML2_.jpg" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
             <div>
-              <a href="product.html" class="nav-link fw-bold">iPhone 11 64GB</a>
+              <a href="product" class="nav-link fw-bold">iPhone 11 64GB</a>
               <p class="text-muted mb-1">Seller: Carlos_Madrid</p>
               <span class="badge bg-warning text-dark">Offer sent</span>
               <p class="mt-2 mb-0"><strong>Price:</strong> 240€</p>
@@ -124,7 +59,7 @@
           </div>
         </div>
         <div class="col-lg-5 text-lg-end">
-          <a href="product.html" class="btn btn-outline-primary me-2">View product</a>
+          <a href="product" class="btn btn-outline-primary me-2">View product</a>
           <a href="#" class="btn btn-success me-2">Open chat</a>
           <a href="#" class="btn btn-outline-danger">Cancel deal</a>
         </div>
@@ -138,7 +73,7 @@
           <div class="d-flex">
             <img src="https://m.media-amazon.com/images/I/71puyxtAGXL._AC_SX679_.jpg" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
             <div>
-              <a href="product.html" class="nav-link fw-bold">Mountain Bike</a>
+              <a href="product" class="nav-link fw-bold">Mountain Bike</a>
               <p class="text-muted mb-1">Seller: BikeStore23</p>
               <span class="badge bg-success">Accepted</span>
               <p class="mt-2 mb-0"><strong>Price:</strong> 150€</p>
@@ -146,7 +81,7 @@
           </div>
         </div>
         <div class="col-lg-5 text-lg-end">
-          <a href="product.html" class="btn btn-outline-primary me-2">View product</a>
+          <a href="product" class="btn btn-outline-primary me-2">View product</a>
           <a href="#" class="btn btn-success me-2">Open chat</a>
           <a href="#" class="btn btn-outline-secondary">Mark as received</a>
         </div>
@@ -160,7 +95,7 @@
           <div class="d-flex">
             <img src="https://m.media-amazon.com/images/I/61OAQ+JLmiL._AC_SY879_.jpg" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
             <div>
-              <a href="product.html" class="nav-link fw-bold">Nike Sneakers</a>
+              <a href="product" class="nav-link fw-bold">Nike Sneakers</a>
               <p class="text-muted mb-1">Seller: MartaShop</p>
               <span class="badge bg-secondary">Reserved</span>
               <p class="mt-2 mb-0"><strong>Price:</strong> 60€</p>
@@ -168,7 +103,7 @@
           </div>
         </div>
         <div class="col-lg-5 text-lg-end">
-          <a href="product.html" class="btn btn-outline-primary me-2">View product</a>
+          <a href="product" class="btn btn-outline-primary me-2">View product</a>
           <a href="#" class="btn btn-success me-2">Open chat</a>
           <a href="#" class="btn btn-outline-danger">Cancel reservation</a>
         </div>
@@ -178,9 +113,7 @@
   </div>
 </section>
 
-<footer class="bg-white border-top text-center py-3">
-  <small class="text-muted">© 2026 SecondHand Marketplace</small>
-</footer>
+{{> footer}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
 </body>

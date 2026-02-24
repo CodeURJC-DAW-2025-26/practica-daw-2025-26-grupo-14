@@ -26,119 +26,7 @@
 <body class="bg-light">
 
 <!--Main Navigation-->
-<header>
-  <!-- Jumbotron -->
-  <div class="p-3 text-center bg-white border-bottom">
-    <div class="container">
-      <div class="row gy-3">
-        <!-- Left elements -->
-        <div class="col-lg-2 col-sm-4 col-4">
-          <a href="main.html" class="float-start">
-            <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
-          </a>
-        </div>
-        <!-- Left elements -->
-
-        <!-- Center elements -->
-        <div class="order-lg-last col-lg-4 col-sm-6 col-6">
-          <div class="d-flex align-items-center gap-1 flex-wrap">
-            <a href="login.html" class="btn btn-outline-dark btn-sm d-flex align-items-center"><i class="fas fa-user-alt me-2"></i><span>Log in</span></a>
-            <a href="register.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-user-plus me-2"></i><span>Register</span> </a>
-            <a href="publish.html" class="btn btn-primary btn-sm d-flex align-items-center"><i class="fas fa-tag me-2"></i><span>Sell</span></a>
-            <a href="my-listings.html" class="btn btn-outline-primary btn-sm d-flex align-items-center"><i class="fas fa-box me-2"></i><span>My items</span> </a>
-            <a href="administrator.html" class="btn btn-dark btn-sm d-flex align-items-center"><i class="fas fa-user-shield me-2"></i><span>admin</span> </a>
-            <a href="my_deals.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-shopping-cart me-2"></i><span>My deals</span> </a>
-          </div>
-        </div>
-        <!-- Center elements -->
-
-        <!-- Right elements -->
-        <div class="col-lg-5 col-md-12 col-12">
-          <div class="input-group float-center">
-            <div class="form-outline">
-              <input type="search" id="form1" class="form-control" />
-              <label class="form-label" for="form1">Search</label>
-            </div>
-            <a type="button" class="btn btn-primary shadow-0" href="normal_search.html">
-              <i class="fas fa-search"></i>
-            </a>
-          </div>
-        </div>
-        <!-- Right elements -->
-      </div>
-    </div>
-  </div>
-  <!-- Jumbotron -->
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f5f5f5;">
-    <!-- Container wrapper -->
-    <div class="container justify-content-center justify-content-md-between">
-      <!-- Toggle button -->
-      <button
-              class="navbar-toggler border text-dark py-2"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarLeftAlignExample"
-              aria-controls="navbarLeftAlignExample"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-              >
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-        <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link text-dark" aria-current="page" href="category_search.html">All</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Clothing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Electronics</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Furniture</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="category_search.html">Accessories</a>
-          </li>
-          <!-- Navbar dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark mb-0"
-              href="category_search.html"
-              id="navbarDropdown"
-              role="button"
-              data-mdb-toggle="dropdown"
-              aria-expanded="false">
-              Others
-            </a>
-
-            <!-- Dropdown menu -->
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li>
-                <a class="dropdown-item" href="#">Action</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Another action xddd</a>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <!-- Left links -->
-      </div>
-    </div>
-    <!-- Container wrapper -->
-  </nav>
-  <!-- Navbar -->
-</header>
+{{> header}}
 
 <!-- REGISTER FORM -->
 <div class="container py-5">
@@ -201,12 +89,12 @@
 
             <!-- Register button -->
             <div class="d-grid mb-3">
-              <a href="main.html" class="btn btn-primary btn-lg">Create account</a>
+              <a href="/" class="btn btn-primary btn-lg">Create account</a>
             </div>
 
             <div class="text-center text-muted">
               Already have an account?
-              <a href="login.html">Sign in</a>
+              <a href="login">Sign in</a>
             </div>
 
             <hr class="my-4">
@@ -227,9 +115,7 @@
   </div>
 </div>
 
-<footer class="bg-white border-top text-center py-3">
-  <small class="text-muted">© 2026 SecondHand Marketplace</small>
-</footer>
+{{> footer}}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
