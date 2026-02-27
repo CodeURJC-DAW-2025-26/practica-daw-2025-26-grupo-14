@@ -22,6 +22,7 @@ public class Product {
     @ManyToOne
     private User seller;
 
+	@Column(unique = true)
     private String name;
 
     private float price;
@@ -50,6 +51,7 @@ public class Product {
 		this.seller = seller;
 		this.price = price;
 		this.fullDescription = description;
+		this.shortDescription = description.length() > 100 ? description.substring(0, 100) + "..." : description;
 	}
 
 	public String getName() {

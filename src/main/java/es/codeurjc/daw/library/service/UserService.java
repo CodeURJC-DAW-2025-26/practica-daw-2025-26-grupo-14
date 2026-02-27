@@ -1,0 +1,39 @@
+package es.codeurjc.daw.library.service;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import es.codeurjc.daw.library.model.User;
+import es.codeurjc.daw.library.repository.UserRepository;
+
+@Service
+public class UserService {
+
+
+    @Autowired
+    private UserRepository userRepository;
+    
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+    
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public void save(User user) {
+		userRepository.save(user);
+	}
+
+	public void delete(long id) {
+		userRepository.deleteById(id);
+	}
+
+    	public boolean exist(long id) {
+		return userRepository.existsById(id);
+	}
+}
+
+
