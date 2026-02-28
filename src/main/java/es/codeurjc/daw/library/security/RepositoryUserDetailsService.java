@@ -37,16 +37,3 @@ public class RepositoryUserDetailsService implements UserDetailsService {
 	}
 }
 
-/*@GetMapping("/logout")
-	public String logout() {
-		return "main";
-	}
-
-	    	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-		User seller1 = new User("Mario Martin", "Mario", "mario@martin.com", "Madrid", passwordEncoder.encode("pass"), "USER");
-        User seller2 =  new User("Lucia Garcia", "LuGar", "lucia@garcia.com", "Barcelona", passwordEncoder.encode("pass"), "USER");
-        User seller3 =  new User("Carlos Lopez", "Carlos", "carlos@lopez.com", "Valencia", passwordEncoder.encode("pass"), "USER");
-
-	*/

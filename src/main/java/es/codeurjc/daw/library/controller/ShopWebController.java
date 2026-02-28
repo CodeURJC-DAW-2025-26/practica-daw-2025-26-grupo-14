@@ -53,7 +53,7 @@ public class ShopWebController {
 			model.addAttribute("products", productService.getAllProducts());
 		return "product";}
 		else {
-			return "main";
+			return "pageerror";
 		}
 	}
 

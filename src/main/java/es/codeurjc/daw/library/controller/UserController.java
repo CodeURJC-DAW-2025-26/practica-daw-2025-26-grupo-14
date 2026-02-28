@@ -28,6 +28,11 @@ public class UserController {
 		return "login";
     }
 
+    @GetMapping("/loginerror")
+	public String loginError() {
+		return "login_error";
+	}
+
     @GetMapping("/logout")
 	public String logout() {
 		return "main";
@@ -48,7 +53,7 @@ public class UserController {
             model.addAttribute("products", products);
 		    return "user_account";}
         else{
-                return "main";
+                return "pageerror";
             }
     }
 
