@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,14 +23,16 @@ public class User {
 
 	private String fullName;
 
-    private String username;
+    private String name;
 
     private String email;
 
     private String city;
 
-	
 	private String password;
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
 
 	/*@OneToOne
 	private Image profilePicture;
@@ -43,16 +47,17 @@ public class User {
 	public User() {
 	}
 
-	public User(String fullName, String username, String email, String city, String password) {
+	public User(String fullName, String username, String email, String city, String password, String... roles) {
 		super();
 		this.fullName = fullName;
-		this.username = username;
+		this.name = username;
 		this.email = email;
 		this.city = city;
 		this.password = password;
 		this.isBanned = false;
 		this.myProducts = new ArrayList<>();
 		this.myRatings = new ArrayList<>();
+		this.roles = List.of(roles);
 	}
 
 	public boolean getIsBanned() {
@@ -71,12 +76,12 @@ public class User {
 		this.fullName = fullName;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -135,10 +140,17 @@ public class User {
 		this.myRatings.add(rating);
 	}
 
+	public List<String> getRoles() {
+    return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", fullName=" + fullName + ", username=" + username + ", email=" + email + ", city=" + city + "]";
+		return "User [id=" + id + ", fullName=" + fullName + ", username=" + name + ", email=" + email + ", city=" + city + "]";
 	}
 
     public void setBanned(boolean b) {

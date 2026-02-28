@@ -1,4 +1,5 @@
 package es.codeurjc.daw.library.controller;
+ 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,26 @@ public class ShopWebController {
 	@Autowired
 	private ProductService productService;
 
+	/*@ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+
+		Principal principal = request.getUserPrincipal();
+
+		if (principal != null) {
+
+			model.addAttribute("logged", true);
+			model.addAttribute("userName", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}*/
+
+
 	@GetMapping("/")
 	public String main(Model model) {
+		
 		model.addAttribute("products", productService.getAllProducts());
 		return "main";
 	}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.daw.library.model.Product;
@@ -20,14 +21,18 @@ public class DataBaseInitializer {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 	@PostConstruct
 	public void init() throws IOException, URISyntaxException {
 
-		// Sample Users
-		User seller1 = new User("Mario Martin", "Mario", "mario@martin.com", "Madrid", "psswd");
-        User seller2 =  new User("Lucia Garcia", "LuGar", "lucia@garcia.com", "Barcelona", "psswd");
-        User seller3 =  new User("Carlos Lopez", "Carlos", "carlos@lopez.com", "Valencia", "psswd");
+        // Sample Users
+		User seller1 = new User("Mario Martin", "Mario", "mario@martin.com", "Madrid", passwordEncoder.encode("pass"), "USER");
+        User seller2 =  new User("Lucia Garcia", "LuGar", "lucia@garcia.com", "Barcelona", passwordEncoder.encode("pass"), "USER");
+        User seller3 =  new User("Carlos Lopez", "Carlos", "carlos@lopez.com", "Valencia", passwordEncoder.encode("pass"), "USER");
+
 
         userRepository.save(seller1);
 		userRepository.save(seller2);
