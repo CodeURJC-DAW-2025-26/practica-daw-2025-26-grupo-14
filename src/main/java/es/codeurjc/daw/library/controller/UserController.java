@@ -3,10 +3,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
@@ -30,7 +32,7 @@ public class UserController {
 
     @GetMapping("/loginerror")
 	public String loginError() {
-		return "login_error";
+		return "loginerror";
 	}
 
     @GetMapping("/logout")
@@ -42,6 +44,7 @@ public class UserController {
 	public String register() {
 		return "register";
 	}
+
 
     @GetMapping("/user_account/{id}")
 	public String profile(@PathVariable Long id, Model model) {
@@ -57,13 +60,18 @@ public class UserController {
             }
     }
 
+
+
+    
+
     @GetMapping("/publish")
     public String publishForm() {
         return "publish";
     }
 
     @GetMapping("/my_listings")
-    public String my_listings() {
+    public String my_listings(Model model) {
+        model.addAttribute("products", productService.getAllProducts());
         return "my-listings";
     }
 

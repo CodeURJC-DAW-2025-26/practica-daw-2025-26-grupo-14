@@ -45,52 +45,22 @@
   <div class="row g-4">
 
     <!-- ITEM 1 -->
+     {{#products}}
     <div class="col-md-4">
       <div class="card h-100 shadow-sm">
-        <a href="product"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/11.webp" class="card-img-top"></a>
+        <a href="product/{{id}}"><img src="{{imageUrl}}" class="card-img-top"></a>
         <div class="card-body">
-          <h5 class="card-title">Winter Jacket for Men and Women, All sizes</h5>
-          <p class="text-success fw-bold">$120.00</p>
-          <small class="text-muted">Published 2 days ago</small>
+          <h5 class="card-title">{{name}}</h5>
+          <p class="text-success fw-bold">{{price}} €</p>
+          <small class="text-muted">Published on {{createdAt}}</small>
         </div>
         <div class="card-footer bg-white border-0 d-flex justify-content-between">
-          <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
-          <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+          <a href="editproduct/{{id}}" class="btn btn-outline-secondary btn-sm">Edit</a>
+          <a href="deleteproduct/{{id}}" class="btn btn-outline-danger btn-sm">Delete</a>
         </div>
       </div>
     </div>
-
-    <!-- ITEM 2 -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm">
-        <a href="product"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/12.webp" class="card-img-top"></a>
-        <div class="card-body">
-          <h5 class="card-title">T-shirts with multiple colors, for men and lady</h5>
-          <p class="text-success fw-bold">$120.00</p>
-          <small class="text-muted">Published 5 days ago</small>
-        </div>
-        <div class="card-footer bg-white border-0 d-flex justify-content-between">
-          <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
-          <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ITEM 3 -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm">
-        <a href="product"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/13.webp" class="card-img-top"></a>
-        <div class="card-body">
-          <h5 class="card-title">Blazer Suit Dress Jacket for Men, Blue color</h5>
-          <p class="text-success fw-bold">$120.00</p>
-          <small class="text-muted">Published 1 week ago</small>
-        </div>
-        <div class="card-footer bg-white border-0 d-flex justify-content-between">
-          <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
-          <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-        </div>
-      </div>
-    </div>
+    {{/products}}
 
   </div>
 </div>
