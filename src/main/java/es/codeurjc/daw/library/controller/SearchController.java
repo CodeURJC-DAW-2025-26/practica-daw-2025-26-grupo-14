@@ -18,23 +18,38 @@ public class SearchController {
     private ProductService productService;
 
     @GetMapping("/search")
-    public String search( @RequestParam(required = false) String keyword, Model model) {
+    public String search(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String category,
+            Model model) {
 
-        List<Product> results;
+        List<Product> results = List.of();
 
-        if (keyword == null || keyword.trim().isEmpty()) {
-            model.addAttribute("message", "Please enter a search term.");
-            results = productService.getAllProducts(); // o lista vacía
-        } else {
+        if (category != null && !category.trim().isEmpty()) {
+
+            // Cuando haces click en la categoría
+            results = productService.searchProductsByCategory(category);
+
+            if (results.isEmpty()) {
+                model.addAttribute("message",
+                        "No products found in category: " + category);
+            }
+
+        } else if (keyword != null && !keyword.trim().isEmpty()) {
+
+            // Cuando usas la barra de búsqueda
             results = productService.searchProductsByName(keyword);
 
             if (results.isEmpty()) {
-                model.addAttribute("message", "No products found for: " + keyword);
+                model.addAttribute("message",
+                        "No products found for: " + keyword);
             }
+
+        } else {
+            model.addAttribute("message", "Please enter a search term.");
         }
 
         model.addAttribute("results", results);
-
         return "search";
     }
     

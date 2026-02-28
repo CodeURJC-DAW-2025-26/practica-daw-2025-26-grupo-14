@@ -33,6 +33,8 @@ public class Product {
 
     private float price;
 
+	private String category;
+
 	@Column(columnDefinition = "TEXT")
 	private String shortDescription;
 
@@ -51,16 +53,16 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(String name, User seller, float price, String city, String description, String imageUrl) {
+	public Product(String name, User seller, float price, String city, String description, String imageUrl, String category) {
 		super();
 		this.name = name;
 		this.imageUrl = imageUrl;
 		this.seller = seller;
 		this.price = price;
+		this.category = category;
 		this.fullDescription = description;
 		this.shortDescription = description.length() > 100 ? description.substring(0, 100) + "..." : description;
 	}
-
 
 	//getters & setters
 	public String getName() {
@@ -96,6 +98,14 @@ public class Product {
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getFullDescription() {

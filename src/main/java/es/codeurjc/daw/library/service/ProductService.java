@@ -45,5 +45,9 @@ public class ProductService {
     public List<Product> searchProductsByName(String keyword) {
         return productRepository.findByNameContainingIgnoreCase(keyword);
     }
+
+    public List<Product> searchProductsByCategory(String category) {
+        return productRepository.findByCategoryIgnoreCase(category);
+    }
 }
 
