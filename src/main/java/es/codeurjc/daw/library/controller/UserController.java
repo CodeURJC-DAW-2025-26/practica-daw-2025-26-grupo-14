@@ -45,7 +45,7 @@ public class UserController {
         else{
                 return "main";
             }
-	}
+    }
 
     @GetMapping("/publish")
     public String publishForm() {

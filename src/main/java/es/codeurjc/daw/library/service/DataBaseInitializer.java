@@ -2,20 +2,14 @@ package es.codeurjc.daw.library.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-
-import jakarta.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.core.io.ClassPathResource;
-//import org.springframework.core.io.Resource;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 //import es.codeurjc.daw.library.repository.UserRepository;
 
 @Service
@@ -42,18 +36,18 @@ public class DataBaseInitializer {
         // Sample Products
 		Product prod1 = new Product(
             "Camisa de manga larga", seller1, 15, "Ropa",
-            "Camisa de manga larga en buen estado, talla M."
+            "Camisa de manga larga en buen estado, talla M.", null
         );
         productService.save(prod1);
 
         Product prod2 = new Product(
             "Bicicleta de montanna", seller2, 120, "Deportes",
-            "Bicicleta de montanna en buen estado, con cambios y frenos funcionales."
+            "Bicicleta de montanna en buen estado, con cambios y frenos funcionales.", null
         );
         productService.save(prod2);
         Product prod3 = new Product(
             "Sofa de dos plazas", seller3, 250, "Hogar",
-            "Sofa de dos plazas en buen estado, color gris."
+            "Sofa de dos plazas en buen estado, color gris.", null
         );
         productService.save(prod3);
 

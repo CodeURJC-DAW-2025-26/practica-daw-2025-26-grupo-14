@@ -22,6 +22,12 @@ public class Product {
     @ManyToOne
     private User seller;
 
+	//private String city;
+
+	//private String category;
+
+	private String imageUrl;
+
 	@Column(unique = true)
     private String name;
 
@@ -45,15 +51,18 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(String name, User seller, float price, String city, String description) {
+	public Product(String name, User seller, float price, String city, String description, String imageUrl) {
 		super();
 		this.name = name;
+		this.imageUrl = imageUrl;
 		this.seller = seller;
 		this.price = price;
 		this.fullDescription = description;
 		this.shortDescription = description.length() > 100 ? description.substring(0, 100) + "..." : description;
 	}
 
+
+	//getters & setters
 	public String getName() {
 		return name;
 	}
@@ -68,6 +77,17 @@ public class Product {
 
 	public void setSeller(User seller) {
 		this.seller = seller;
+	}
+
+	public String getImageUrl() {
+		if (imageUrl == null || imageUrl.isBlank()) {
+			return "/images/noImage.png"; // Ruta a una imagen por defecto
+		}
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public float getPrice() {

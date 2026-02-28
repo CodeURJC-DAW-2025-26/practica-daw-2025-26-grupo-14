@@ -29,16 +29,23 @@
         <!-- Center elements -->
 
         <!-- Right elements -->
-        <div class="col-lg-5 col-md-12 col-12">
-          <div class="input-group float-center" style="max-width: 500px;">
-            <div class="form-outline flex-grow-1">
-              <input type="search" id="form1" class="form-control" />
-              <label class="form-label" for="form1">Search</label>
+       <div class="col-lg-5 col-md-12 col-12">
+          <form action="/search" method="get">
+            <div class="input-group float-center" style="max-width: 500px;">
+              
+              <input 
+                type="search" 
+                name="keyword" 
+                class="form-control" 
+                placeholder="Search" 
+              />
+              
+              <button type="submit" class="btn btn-primary shadow-0">
+                <i class="fas fa-search"></i>
+              </button>
+
             </div>
-            <a type="button" class="btn btn-primary shadow-0" href="normal_search">
-              <i class="fas fa-search"></i>
-            </a>
-          </div>
+          </form>
         </div>
         <!-- Right elements -->
       </div>

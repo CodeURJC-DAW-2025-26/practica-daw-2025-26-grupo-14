@@ -9,5 +9,6 @@ import es.codeurjc.daw.library.model.User;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findBySeller(User seller);
-
+    List<Product> findByNameContainingIgnoreCase(String name);
+    
 }
