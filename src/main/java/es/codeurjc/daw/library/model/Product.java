@@ -1,5 +1,7 @@
 package es.codeurjc.daw.library.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -44,6 +46,13 @@ public class Product {
     @ManyToMany
 	private List<Rating> ratings;
 
+	private String createdAt;
+
+	@Column(name="product_condition")
+	private String condition;
+
+	private String contactPreference;
+
 	/*@OneToMany
 	private Image image;
     //
@@ -53,15 +62,18 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(String name, User seller, float price, String city, String description, String imageUrl, String category) {
+	public Product(String name, User seller, float price, String category, String condition, String description, String imageUrl, String contactPreference) {
 		super();
 		this.name = name;
 		this.imageUrl = imageUrl;
 		this.seller = seller;
 		this.price = price;
+		this.condition = condition;
+		this.contactPreference = contactPreference;
 		this.category = category;
 		this.fullDescription = description;
 		this.shortDescription = description.length() > 100 ? description.substring(0, 100) + "..." : description;
+		this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 	}
 
 	//getters & setters
@@ -104,8 +116,21 @@ public class Product {
 		return category;
 	}
 
+
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public String getCondition() {
+		return condition;
+	}
+
+	public String getContactPref() {
+		return contactPreference;
 	}
 
 	public String getFullDescription() {

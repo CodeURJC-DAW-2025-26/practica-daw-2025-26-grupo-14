@@ -3,7 +3,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +13,7 @@ import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.service.UserService;
 import es.codeurjc.daw.library.service.ProductService;
+
 
 
 @Controller
@@ -45,6 +45,31 @@ public class UserController {
 		return "register";
 	}
 
+    @PostMapping("/newproduct")
+	public String postNewProduct(Model model, Product product, String sellerName) {
+		Optional<User> seller = userService.findByName(sellerName);
+		if (!seller.isPresent()) {
+			model.addAttribute("error", "You should be logged in to publish a product.");
+			return "publish";
+		}
+		product.setSeller(seller.get());
+
+		productService.save(product);
+		model.addAttribute("products", productService.getAllProducts());
+		return "my-listings";
+	}
+
+    @GetMapping("/editproduct/{id}")
+	public String editProduct(Model model, @PathVariable long id) {
+
+		Optional<Product> product = productService.getProductById(id);
+		if (product.isPresent()) {
+			model.addAttribute("product", product.get());
+			return "publish";
+		} else {
+			return "pageerror";
+		}
+	}
 
     @GetMapping("/user_account/{id}")
 	public String profile(@PathVariable Long id, Model model) {
@@ -60,9 +85,19 @@ public class UserController {
             }
     }
 
-
-
-    
+	@PostMapping("/deleteproduct/{id}")
+	public String deleteProduct(@PathVariable Long id, Model model) {
+		Optional<Product> product = productService.getProductById(id);
+		if (product.isPresent()) {
+			productService.delete(id);
+			model.addAttribute("product", product.get());
+		} else {
+			model.addAttribute("error", "The product with id " + id + " does not exist.");
+		}
+		
+		return "my-listings";
+	}
+	    
 
     @GetMapping("/publish")
     public String publishForm() {

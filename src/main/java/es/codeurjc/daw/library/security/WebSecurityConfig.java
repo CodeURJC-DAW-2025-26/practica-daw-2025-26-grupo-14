@@ -41,7 +41,9 @@ public class WebSecurityConfig {
 						// PUBLIC PAGES
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/images/**").permitAll()
-						.requestMatchers("/products/**").permitAll()
+						.requestMatchers("/products/**").permitAll() 
+						.requestMatchers("/product/**").permitAll()
+						.requestMatchers("/user_account/**").permitAll()
 						.requestMatchers("/assets/**").permitAll() // Allow access to static resources
 						.requestMatchers("/favicon.ico").permitAll()
 						// PRIVATE PAGES

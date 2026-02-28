@@ -41,42 +41,48 @@
             <p class="text-muted mb-0">Join our marketplace to buy and sell items</p>
           </div>
 
-          <form>
+          <form action="/register" method="post">
+            <input type="hidden" name="_csrf" value="{{token}}">
+            {{#error}}
+            <div class="alert alert-danger" role="alert">
+              {{error}}
+            </div>
+            {{/error}}
 
             <!-- Full name -->
             <div class="mb-3">
-              <label class="form-label">Full name</label>
-              <input type="text" class="form-control" placeholder="John Doe" required>
+              <label for="fullName" class="form-label">Full name</label>
+              <input type="text" class="form-control" placeholder="John Doe" name="fullName" required>
             </div>
 
             <!-- Username -->
             <div class="mb-3">
-              <label class="form-label">Username</label>
-              <input type="text" class="form-control" placeholder="john_doe123" required>
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" placeholder="john_doe123" name="username" required>
             </div>
 
             <!-- Email -->
             <div class="mb-3">
-              <label class="form-label">Email address</label>
-              <input type="email" class="form-control" placeholder="name@example.com" required>
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" placeholder="name@example.com" name="email" required>
             </div>
 
             <!-- Location -->
             <div class="mb-3">
-              <label class="form-label">City</label>
-              <input type="text" class="form-control" placeholder="Madrid">
+              <label for="city" class="form-label">City</label>
+              <input type="text" class="form-control" placeholder="Madrid" name="city">
             </div>
 
             <!-- Password -->
             <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input type="password" class="form-control" required>
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" name="password" required>
             </div>
 
             <!-- Confirm password -->
             <div class="mb-3">
-              <label class="form-label">Confirm password</label>
-              <input type="password" class="form-control" required>
+              <label for="confirmPassword" class="form-label">Confirm password</label>
+              <input type="password" class="form-control" name="confirmPassword" required>
             </div>
 
             <!-- Terms -->
@@ -89,7 +95,7 @@
 
             <!-- Register button -->
             <div class="d-grid mb-3">
-              <a href="/" class="btn btn-primary btn-lg">Create account</a>
+              <button type="submit" class="btn btn-primary btn-lg">Create account</a>
             </div>
 
             <div class="text-center text-muted">

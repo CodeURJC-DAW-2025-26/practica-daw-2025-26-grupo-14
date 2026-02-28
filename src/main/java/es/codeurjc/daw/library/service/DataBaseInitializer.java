@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
+import es.codeurjc.daw.library.repository.ProductRepository;
 import es.codeurjc.daw.library.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 //import es.codeurjc.daw.library.repository.UserRepository;
@@ -21,13 +22,18 @@ public class DataBaseInitializer {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
     
     @Autowired
     PasswordEncoder passwordEncoder;
 
 	@PostConstruct
 	public void init() throws IOException, URISyntaxException {
-
+        if (userRepository.count() > 0 || productRepository.count() > 0) {
+            return; // Database already initialized, skip seeding
+        }
         // Sample Users
 		User seller1 = new User("Mario Martin", "Mario", "mario@martin.com", "Madrid", passwordEncoder.encode("pass"), "USER");
         User seller2 =  new User("Lucia Garcia", "LuGar", "lucia@garcia.com", "Barcelona", passwordEncoder.encode("pass"), "USER");
@@ -41,18 +47,18 @@ public class DataBaseInitializer {
         // Sample Products
 		Product prod1 = new Product(
             "Camisa de manga larga", seller1, 15, "Ropa",
-            "Camisa de manga larga en buen estado, talla M.", null, "Clothing"
+            "New", "Camisa de manga larga en buen estado, talla M.", null, "Phone"
         );
         productService.save(prod1);
 
         Product prod2 = new Product(
-            "Bicicleta de montanna", seller2, 120, "Deportes",
-            "Bicicleta de montanna en buen estado, con cambios y frenos funcionales.", null, "Electronics"
+            "Bicicleta de montanna", seller2, 120, "Deportes", "Acceptable",
+            "Bicicleta de montanna en buen estado, con cambios y frenos funcionales.", null, "Chat"
         );
         productService.save(prod2);
         Product prod3 = new Product(
-            "Sofa de dos plazas", seller3, 250, "Hogar",
-            "Sofa de dos plazas en buen estado, color gris.", null, "Furniture"
+            "Sofa de dos plazas", seller3, 250, "Hogar", "Like new",
+            "Sofa de dos plazas en buen estado, color gris.", null, "Both"
         );
         productService.save(prod3);
 

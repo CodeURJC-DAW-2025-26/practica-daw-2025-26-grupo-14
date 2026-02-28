@@ -61,7 +61,7 @@ body{background:#f4f6f9}
             <tbody>
               {{#users}}
               <tr>
-                <td>{{username}}</td>
+                <td>{{name}}</td>
                 <td>{{email}}</td>
                 <td><span class="badge bg-{{#isBanned}}danger{{/isBanned}}{{^isBanned}}success{{/isBanned}}">{{#isBanned}}Banned{{/isBanned}}{{^isBanned}}Active{{/isBanned}}</span></td>
                 <td class="text-end">

@@ -18,12 +18,19 @@
         <!-- Center elements -->
         <div class="order-lg-last col-lg-4 col-sm-6 col-6">
           <div class="d-flex align-items-center gap-1 flex-wrap">
-            <a href="login" class="btn btn-outline-dark btn-sm d-flex align-items-center"><i class="fas fa-user-alt me-2"></i><span>Log in</span></a>
-            <a href="register" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-user-plus me-2"></i><span>Register</span> </a>
-            <a href="publish" class="btn btn-primary btn-sm d-flex align-items-center"><i class="fas fa-tag me-2"></i><span>Sell</span></a>
-            <a href="my_listings" class="btn btn-outline-primary btn-sm d-flex align-items-center"><i class="fas fa-box me-2"></i><span>My items</span> </a>
-            <a href="administrator" class="btn btn-dark btn-sm d-flex align-items-center"><i class="fas fa-user-shield me-2"></i><span>admin</span> </a>
-            <a href="my_deals" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-shopping-cart me-2"></i><span>My deals</span> </a>  
+            {{#logged}}
+              <a href="logout" class="btn btn-outline-dark btn-sm d-flex align-items-center"><i class="fas fa-user-alt me-2"></i><span>Log out</span></a>
+              <a href="publish" class="btn btn-primary btn-sm d-flex align-items-center"><i class="fas fa-tag me-2"></i><span>Sell</span></a>
+              <a href="my_listings" class="btn btn-outline-primary btn-sm d-flex align-items-center"><i class="fas fa-box me-2"></i><span>My items</span> </a>
+              {{#Admin}}
+                <a href="administrator" class="btn btn-dark btn-sm d-flex align-items-center"><i class="fas fa-user-shield me-2"></i><span>admin</span> </a>
+              {{/Admin}}
+              <a href="my_deals" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-shopping-cart me-2"></i><span>My deals</span> </a>  
+            {{/logged}}
+            {{^logged}}
+              <a href="login" class="btn btn-outline-dark btn-sm d-flex align-items-center"><i class="fas fa-user-alt me-2"></i><span>Log in</span></a>
+              <a href="register" class="btn btn-outline-secondary btn-sm d-flex align-items-center"><i class="fas fa-user-plus me-2"></i><span>Register</span> </a>
+            {{/logged}}    
           </div>
         </div>
         <!-- Center elements -->

@@ -12,6 +12,7 @@ import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.model.Product;
 
 
+
 @Controller
 public class ShopWebController {
 	
@@ -56,6 +57,7 @@ public class ShopWebController {
 			return "pageerror";
 		}
 	}
+	
 
 	@GetMapping("/normal_search")
 	public String searchPage() {

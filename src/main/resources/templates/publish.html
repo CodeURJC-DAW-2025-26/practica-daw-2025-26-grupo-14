@@ -42,50 +42,83 @@
   <div class="card shadow-sm">
     <div class="card-body p-4">
 
-      <form>
+      <form action="/newproduct" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_csrf" value="{{token}}">
         <div class="row g-4">
 
-          <!-- title -->
+          {{#product}}
+          <input type="hidden" name="id" value="{{id}}">
+          {{/product}}
+
+          <!-- name -->
           <div class="col-12">
-            <label class="form-label">Item title</label>
-            <input type="text" class="form-control" placeholder="e.g. iPhone 12 128GB Black">
+            <label for="name"class="form-label">Item name</label>
+            {{#product}}<input type="text" class="form-control" value="{{name}}" name="name">{{/product}}
+            {{^product}}<input type="text" class="form-control" placeholder="e.g. iPhone 12 128GB Black" name="name">{{/product}}
           </div>
+
+          <input type="hidden" name="sellerName" value="{{userName}}">
 
           <!-- price -->
           <div class="col-md-4">
-            <label class="form-label">Price (€)</label>
-            <input type="number" class="form-control" placeholder="150">
+            <label for="price" class="form-label">Price (€)</label>
+            {{#product}}<input type="number" class="form-control" value="{{price}}" name="price">{{/product}}
+            {{^product}}<input type="number" class="form-control" placeholder="150" name="price">{{/product}}
           </div>
 
           <!-- category -->
           <div class="col-md-4">
-            <label class="form-label">Category</label>
-            <select class="form-select">
-              <option>Electronics</option>
-              <option>Clothing</option>
-              <option>Home</option>
-              <option>Sports</option>
-              <option>Books</option>
-              <option>Other</option>
-            </select>
+            <label for="category" class="form-label">Category</label>
+            {{#product}}
+              <select class="form-select" name="category">
+                <option {{#isElectronics}}selected{{/isElectronics}}>Electronics</option>
+                <option {{#isClothing}}selected{{/isClothing}}>Clothing</option>
+                <option {{#isHome}}selected{{/isHome}}>Home</option>
+                <option {{#isSports}}selected{{/isSports}}>Sports</option>
+                <option {{#isBooks}}selected{{/isBooks}}>Books</option>
+                <option {{#isOther}}selected{{/isOther}}>Other</option>
+              </select>
+            {{/product}}
+            {{^product}}
+              <select class="form-select" name="category">
+                <option>Electronics</option>
+                <option>Clothing</option>
+                <option>Home</option>
+                <option>Sports</option>
+                <option>Books</option>
+                <option>Other</option>
+              </select> 
+            {{/product}}
           </div>
 
           <!-- condition -->
           <div class="col-md-4">
-            <label class="form-label">Condition</label>
-            <select class="form-select">
-              <option>New</option>
-              <option>Like new</option>
-              <option>Good</option>
-              <option>Acceptable</option>
-              <option>For parts</option>
-            </select>
+            <label for="condition" class="form-label">Condition</label>
+            {{#product}}
+              <select class="form-select" name="condition">
+                <option {{#isNew}}selected{{/isNew}}>New</option>
+                <option {{#isLikeNew}}selected{{/isLikeNew}}>Like new</option>
+                <option {{#isGood}}selected{{/isGood}}>Good</option>
+                <option {{#isAcceptable}}selected{{/isAcceptable}}>Acceptable</option>
+                <option {{#isForParts}}selected{{/isForParts}}>For parts</option>
+              </select> 
+            {{/product}}
+            {{^product}}
+              <select class="form-select" name="condition">
+                <option>New</option>
+                <option>Like new</option>
+                <option>Good</option>
+                <option>Acceptable</option>
+                <option>For parts</option>
+              </select> 
+            {{/product}}
           </div>
 
           <!-- description -->
           <div class="col-12">
-            <label class="form-label">Description</label>
-            <textarea class="form-control" rows="5" placeholder="Describe your item, condition, pickup or shipping..."></textarea>
+            <label for="description" class="form-label">Description</label>
+            {{#product}}<textarea class="form-control" rows="5" name="description">{{description}}</textarea>{{/product}}
+            {{^product}}<textarea class="form-control" rows="5" placeholder="Describe your item, condition, pickup or shipping..." name="description"></textarea>{{/product}}
           </div>
 
           <!-- images -->
@@ -97,22 +130,32 @@
 
           <!-- location -->
           <div class="col-md-6">
-            <label class="form-label">City</label>
-            <input type="text" class="form-control" placeholder="Madrid">
+            <label for="city" class="form-label">City</label>
+            {{#product}}<input type="text" class="form-control" placeholder="Madrid" name="city" value="{{city}}">{{/product}}
+            {{^product}}<input type="text" class="form-control" placeholder="Madrid" name="city">{{/product}}
           </div>
 
           <div class="col-md-6">
-            <label class="form-label">Contact preference</label>
-            <select class="form-select">
-              <option>Chat</option>
-              <option>Phone</option>
-              <option>Both</option>
-            </select>
+            <label for="contactPreference" class="form-label">Contact preference</label>
+            {{#product}}
+              <select class="form-select" name="contactPreference">
+                <option {{#isChat}}selected{{/isChat}}>Chat</option>
+                <option {{#isPhone}}selected{{/isPhone}}>Phone</option>
+                <option {{#isBoth}}selected{{/isBoth}}>Both</option>
+              </select>
+            {{/product}}
+            {{^product}}
+              <select class="form-select" name="contactPreference">
+                <option>Chat</option>
+                <option>Phone</option>
+                <option>Both</option>
+              </select>
+            {{/product}}
           </div>
 
           <!-- submit -->
           <div class="col-12 text-end">
-            <a href="my_listings" class="btn btn-primary btn-lg">Publish item</a>
+            <button type="submit" class="btn btn-primary btn-lg">Publish item</button>
           </div>
 
         </div>
