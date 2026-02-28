@@ -49,7 +49,7 @@
 
       <!-- User info -->
       <div class="col-md-6">
-        <h2 class="mb-1">Carlos_Madrid</h2>
+        <h2 class="mb-1">{{user.username}}</h2>
 
         <!-- rating -->
         <div class="d-flex text-warning mb-2">
@@ -62,13 +62,13 @@
 
         <p class="text-muted mb-1">132 reviews</p>
         <p class="text-muted mb-1">Member since 2021</p>
-        <p class="text-muted mb-0">📍 Madrid, Spain</p>
+        <p class="text-muted mb-0">📍 {{user.city}}</p>
       </div>
 
       <!-- actions -->
       <div class="col-md-3 text-center">
         <a href="#" class="btn btn-primary w-100 mb-2">Follow</a>
-        <a href="#" class="btn btn-outline-primary w-100">Send message</a>
+        <a href="#" class="btn btn-outline-primary w-100">Send message to {{user.email}}</a>
       </div>
 
     </div>
@@ -90,65 +90,22 @@
 
 <div class="row">
 
-  <!-- PRODUCT 1 -->
+  {{#products}}
   <div class="col-lg-3 col-md-6 mb-4">
     <div class="card h-100 shadow-sm">
       <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" class="card-img-top">
 
       <div class="card-body">
-        <h5 class="card-title">Nike Air Force 1</h5>
-        <p class="card-text text-success fw-bold">€65</p>
-        <p class="text-muted small">Used · Good condition</p>
+        <h5 class="card-title">{{name}}</h5>
+        <p class="card-text text-success fw-bold">€{{price}}</p>
+        <p class="text-muted small">{{shortDescription}}</p>
 
-        <a href="product" class="btn btn-outline-dark w-100">View item</a>
+        <a href="/product/{{id}}" class="btn btn-outline-dark w-100">View item</a>
       </div>
     </div>
   </div>
-
-  <!-- PRODUCT 2 -->
-  <div class="col-lg-3 col-md-6 mb-4">
-    <div class="card h-100 shadow-sm">
-      <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" class="card-img-top">
-
-      <div class="card-body">
-        <h5 class="card-title">PlayStation 4 1TB</h5>
-        <p class="card-text text-success fw-bold">€180</p>
-        <p class="text-muted small">Used · Very good</p>
-
-        <a href="product" class="btn btn-outline-dark w-100">View item</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- PRODUCT 3 -->
-  <div class="col-lg-3 col-md-6 mb-4">
-    <div class="card h-100 shadow-sm">
-      <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" class="card-img-top">
-
-      <div class="card-body">
-        <h5 class="card-title">IKEA Desk</h5>
-        <p class="card-text text-success fw-bold">€40</p>
-        <p class="text-muted small">Used · Acceptable</p>
-
-        <a href="product" class="btn btn-outline-dark w-100">View item</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- PRODUCT 4 -->
-  <div class="col-lg-3 col-md-6 mb-4">
-    <div class="card h-100 shadow-sm">
-      <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" class="card-img-top">
-
-      <div class="card-body">
-        <h5 class="card-title">Samsung Galaxy S21</h5>
-        <p class="card-text text-success fw-bold">€290</p>
-        <p class="text-muted small">Used · Like new</p>
-
-        <a href="product" class="btn btn-outline-dark w-100">View item</a>
-      </div>
-    </div>
-  </div>
+  {{/products}}
+ 
 
 </div>
 ```
@@ -164,7 +121,7 @@
 <section class="mt-5" style="background-color: #f5f5f5;">
   <div class="container text-dark pt-3">
     <header class="pt-4 pb-3">
-      <h3>Why choose us</h3>
+      <h3>Ratings</h3>
     </header>
 
     <div class="row mb-4">

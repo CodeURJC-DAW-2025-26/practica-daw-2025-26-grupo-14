@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.daw.library.model.Product;
+import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.ProductRepository;
 
 @Service
@@ -36,5 +37,9 @@ public class ProductService {
     	public boolean exist(long id) {
 		return productRepository.existsById(id);
 	}
+
+    public List<Product> getProductsBySeller(User seller) {
+        return productRepository.findBySeller(seller);
+    }
 }
 

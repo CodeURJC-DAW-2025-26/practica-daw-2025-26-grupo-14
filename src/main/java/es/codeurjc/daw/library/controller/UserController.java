@@ -1,11 +1,28 @@
 package es.codeurjc.daw.library.controller;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import es.codeurjc.daw.library.model.Product;
+import es.codeurjc.daw.library.model.User;
+import es.codeurjc.daw.library.service.UserService;
+import es.codeurjc.daw.library.service.ProductService;
 
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private UserService userService;
 	
+	@Autowired
+	private ProductService productService;
+
 	@GetMapping("/login")
 	public String login() {
 		return "login";
@@ -16,9 +33,18 @@ public class UserController {
 		return "register";
 	}
 
-    @GetMapping("/profile")
-	public String profile() {
-		return "user_account";
+    @GetMapping("/user_account/{id}")
+	public String profile(@PathVariable Long id, Model model) {
+		Optional<User> user = userService.getUserById(id);
+		if (user.isPresent()) {
+
+           List<Product> products = productService.getProductsBySeller(user.get());
+            model.addAttribute("user", user.get());
+            model.addAttribute("products", products);
+		    return "user_account";}
+        else{
+                return "main";
+            }
 	}
 
     @GetMapping("/publish")

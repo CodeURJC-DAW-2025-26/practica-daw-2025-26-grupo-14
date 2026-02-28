@@ -34,6 +34,14 @@ public class UserService {
     	public boolean exist(long id) {
 		return userRepository.existsById(id);
 	}
+
+        public void banUser(Long id) {
+        userRepository.findById(id).ifPresent(user -> {
+            user.setBanned(!user.getIsBanned()); // alterna ban/unban
+            userRepository.save(user);       // guarda el cambio
+        });
+    }
+        
 }
 
 

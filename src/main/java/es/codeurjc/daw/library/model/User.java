@@ -1,12 +1,14 @@
 package es.codeurjc.daw.library.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,10 +33,12 @@ public class User {
 	/*@OneToOne
 	private Image profilePicture;
     //@Column(columnDefinition = "TEXT")*/
-	@ManyToMany
+	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
 	private List<Product> myProducts;
-    @ManyToMany
+    @OneToMany
 	private List<Rating> myRatings;
+
+	private boolean isBanned;
 
 	public User() {
 	}
@@ -46,6 +50,17 @@ public class User {
 		this.email = email;
 		this.city = city;
 		this.password = password;
+		this.isBanned = false;
+		this.myProducts = new ArrayList<>();
+		this.myRatings = new ArrayList<>();
+	}
+
+	public boolean getIsBanned() {
+		return isBanned;
+	}
+
+	public void setIsBanned(boolean isBanned) {
+		this.isBanned = isBanned;
 	}
 
 	public String getFullName() {
@@ -108,16 +123,16 @@ public class User {
 		return myProducts;
 	}
 
-	public void setMyProducts(List<Product> myProducts) {
-		this.myProducts = myProducts;
+	public void addProduct(Product product) {
+		this.myProducts.add(product);
 	}
 
 	public List<Rating> getMyRatings() {
 		return myRatings;
 	}
 
-	public void setMyRatings(List<Rating> myRatings) {
-		this.myRatings = myRatings;
+	public void addRating(Rating rating) {
+		this.myRatings.add(rating);
 	}
 
 
@@ -125,4 +140,8 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", fullName=" + fullName + ", username=" + username + ", email=" + email + ", city=" + city + "]";
 	}
+
+    public void setBanned(boolean b) {
+        this.isBanned = b;
+    }
 }

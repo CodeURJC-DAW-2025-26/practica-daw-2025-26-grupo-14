@@ -59,33 +59,22 @@ body{background:#f4f6f9}
               </tr>
             </thead>
             <tbody>
+              {{#users}}
               <tr>
-                <td>Carlos_Madrid</td>
-                <td>carlos@mail.com</td>
-                <td><span class="badge bg-success">Active</span></td>
+                <td>{{username}}</td>
+                <td>{{email}}</td>
+                <td><span class="badge bg-{{#isBanned}}danger{{/isBanned}}{{^isBanned}}success{{/isBanned}}">{{#isBanned}}Banned{{/isBanned}}{{^isBanned}}Active{{/isBanned}}</span></td>
                 <td class="text-end">
-                  <a href="#" class="btn btn-outline-danger btn-sm">Ban</a>
-                  <a href="user_account" class="btn btn-outline-secondary btn-sm">View</a>
+                  <a href="ban_user/{{id}}" class="btn btn-outline-danger btn-sm">{{#isBanned}}Unban{{/isBanned}}{{^isBanned}}Ban{{/isBanned}}</a>
+                  <a href="user_account/{{id}}" class="btn btn-outline-secondary btn-sm">View</a>
                 </td>
               </tr>
+              {{/users}}
+              {{^users}}
               <tr>
-                <td>MartaShop</td>
-                <td>marta@mail.com</td>
-                <td><span class="badge bg-danger">Banned</span></td>
-                <td class="text-end">
-                  <a href="#" class="btn btn-outline-success btn-sm">Unban</a>
-                  <a href="user_account" class="btn btn-outline-secondary btn-sm">View</a>
-                </td>
+                <td colspan="4" class="text-center">No users available</td>
               </tr>
-              <tr>
-                <td>TechSeller22</td>
-                <td>tech@mail.com</td>
-                <td><span class="badge bg-success">Active</span></td>
-                <td class="text-end">
-                  <a href="#" class="btn btn-outline-danger btn-sm">Ban</a>
-                  <a href="user_account" class="btn btn-outline-secondary btn-sm">View</a>
-                </td>
-              </tr>
+              {{/users}}
             </tbody>
           </table>
         </div>

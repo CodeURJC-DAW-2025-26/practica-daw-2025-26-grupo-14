@@ -35,27 +35,27 @@ public class DataBaseInitializer {
         User seller2 =  new User("Lucia Garcia", "LuGar", "lucia@garcia.com", "Barcelona", "psswd");
         User seller3 =  new User("Carlos Lopez", "Carlos", "carlos@lopez.com", "Valencia", "psswd");
 
-		userRepository.save(seller1);
+        userRepository.save(seller1);
 		userRepository.save(seller2);
 		userRepository.save(seller3);
-        
+
         // Sample Products
 		Product prod1 = new Product(
             "Camisa de manga larga", seller1, 15, "Ropa",
             "Camisa de manga larga en buen estado, talla M."
         );
+        productService.save(prod1);
+
         Product prod2 = new Product(
             "Bicicleta de montanna", seller2, 120, "Deportes",
             "Bicicleta de montanna en buen estado, con cambios y frenos funcionales."
         );
+        productService.save(prod2);
         Product prod3 = new Product(
             "Sofa de dos plazas", seller3, 250, "Hogar",
             "Sofa de dos plazas en buen estado, color gris."
         );
-
-		productService.save(prod1);//, "En buen estado, talla M."
-		productService.save(prod2);//, "En buen estado, con cambios y frenos funcionales.");
-		productService.save(prod3);//, "En buen estado, color gris.");
+        productService.save(prod3);
 
 
 		// Sample users
