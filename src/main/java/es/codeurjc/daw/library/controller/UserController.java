@@ -50,28 +50,27 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public String register(Model model, User user, String myPassword, String confirmPassword) {
-		if (!user.getPassword().equals(confirmPassword)) {
+	public String register(Model model, User user, String confirmPassword, Boolean user_new) {
+		if (user_new && !user.getPassword().equals(confirmPassword)) {
 			model.addAttribute("error", "Passwords do not match");
 			return "register";
+		} else if (user_new || confirmPassword != null){
+			user.setPassword(passwordEncoder.encode(confirmPassword));
 		}
-		user.setPassword(passwordEncoder.encode(confirmPassword));
 		user.setRoles("USER");
 		userService.save(user);
-		return "redirect:/login";
+		if (user_new) {
+			model.addAttribute("message", "Account created successfully. Please log in.");
+			return "login";
+		} else {
+			model.addAttribute("message", "Account updated successfully.");
+			model.addAttribute("user", user);
+			model.addAttribute("isOwner", true);
+			return "user_account";
+		}
+		
 	}
 
-	@PostMapping("/edituser/{id}")
-	public String editUser(Model model, @PathVariable Long id, User user, String confirmPassword) {
-		if (!user.getPassword().equals(confirmPassword)) {
-			model.addAttribute("error", "Passwords do not match");
-			return "register";
-		}
-		user.setPassword(passwordEncoder.encode(confirmPassword));
-		user.setRoles("USER");
-		userService.save(user);
-		return "redirect:/user_account/" + id;
-	}
 	
 
     @PostMapping("/newproduct")

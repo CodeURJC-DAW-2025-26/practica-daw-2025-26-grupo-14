@@ -41,12 +41,9 @@
             <p class="text-muted mb-0">Join our marketplace to buy and sell items</p>
           </div>
 
-         {{#user}} 
-          <form action="/edituser/{{id}}" method="post">
-        {{/user}}
-        {{^user}}
+
           <form action="/register" method="post">
-        {{/user}}
+
             <input type="hidden" name="_csrf" value="{{token}}">
             {{#error}}
             <div class="alert alert-danger" role="alert">
@@ -103,21 +100,27 @@
               {{/user}}
             </div>
 
+          {{#user}}
+           <input type="hidden" name="password" value="{{password}}">
+          {{/user}}
+          {{^user}}
             <!-- Password -->
             <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              {{#user}}
-                <input type="password" class="form-control" name="password">
-              {{/user}}
-              {{^user}}
-              <input type="password" class="form-control" name="password" required>
-              {{/user}}
+              <label for="password" class="form-label">Password</label>        
+              <input type="password" class="form-control" name="password" required>              
             </div>
+            {{/user}}
 
             <!-- Confirm password -->
             <div class="mb-3">
+              {{#user}}
+              <label for="confirmPassword" class="form-label">Change password (optional)</label>             
+                <input type="password" class="form-control" name="confirmPassword">
+              {{/user}}
+              {{^user}}
               <label for="confirmPassword" class="form-label">Confirm password</label>
               <input type="password" class="form-control" name="confirmPassword" required>
+              {{/user}}
             </div>
 
             <!-- Terms -->
@@ -127,18 +130,30 @@
                 I agree to the Terms & Conditions
               </label>
             </div>
+            
+            {{^user}}
+            <input type="hidden" name="user_new" value="true">
 
             <!-- Register button -->
             <div class="d-grid mb-3">
-              <button type="submit" class="btn btn-primary btn-lg">Create account</a>
+              <button type="submit" class="btn btn-primary btn-lg">Create account</button>
             </div>
 
             <div class="text-center text-muted">
               Already have an account?
               <a href="login">Sign in</a>
             </div>
+            {{/user}}
+
+            {{#user}}
+            <input type="hidden" name="user_new" value="false">
+
+            <!-- Update button -->
+            <div class="d-grid mb-3">
+              <button type="submit" class="btn btn-primary btn-lg">Update account</button>
 
             <hr class="my-4">
+            {{/user}}
 
             <!-- Social login (visual only) -->
             <div class="text-center">

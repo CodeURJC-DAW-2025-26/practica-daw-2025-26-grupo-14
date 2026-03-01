@@ -10,6 +10,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public String handleGeneralException(Exception ex, Model model) {
 
+        ex.printStackTrace();
         model.addAttribute("errorMessage", ex.getMessage());
 
         return "error";  

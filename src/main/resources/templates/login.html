@@ -45,6 +45,12 @@
       <form action="/login" method="post">
         <input type="hidden" name="_csrf" value="{{token}}">
 
+        {{#message}}
+        <div class="alert alert-success" role="alert">
+          {{message}}
+        </div>
+        {{/message}}
+
         <!-- Email or username -->
         <div class="mb-3">
           <label class="form-label">Email or username</label>
@@ -103,3 +109,4 @@
 
 </body>
 </html>
+
