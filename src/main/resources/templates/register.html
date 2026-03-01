@@ -93,10 +93,20 @@
             <div class="mb-3">
               <label for="city" class="form-label">City</label>
               {{#user}}
-                <input type="text" class="form-control" name="city" value="{{city}}">
+                <select class="form-select" name="city">
+                  {{#cityOptions}}
+                    <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
+                  {{/cityOptions}}
+                </select>
               {{/user}}
               {{^user}}
-              <input type="text" class="form-control" placeholder="Madrid" name="city">
+                <select class="form-select" name="city">
+                  <option>Madrid</option>
+                  <option>Barcelona</option>
+                  <option>Valencia</option>
+                  <option>Sevilla</option>
+                  <option>Zaragoza</option>
+                </select>
               {{/user}}
             </div>
 
