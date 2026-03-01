@@ -71,12 +71,9 @@
             <label for="category" class="form-label">Category</label>
             {{#product}}
               <select class="form-select" name="category">
-                <option {{#isElectronics}}selected{{/isElectronics}}>Electronics</option>
-                <option {{#isClothing}}selected{{/isClothing}}>Clothing</option>
-                <option {{#isHome}}selected{{/isHome}}>Home</option>
-                <option {{#isSports}}selected{{/isSports}}>Sports</option>
-                <option {{#isBooks}}selected{{/isBooks}}>Books</option>
-                <option {{#isOther}}selected{{/isOther}}>Other</option>
+                {{#categoryOptions}}
+                   <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
+                {{/categoryOptions}}
               </select>
             {{/product}}
             {{^product}}
@@ -96,11 +93,9 @@
             <label for="condition" class="form-label">Condition</label>
             {{#product}}
               <select class="form-select" name="condition">
-                <option {{#isNew}}selected{{/isNew}}>New</option>
-                <option {{#isLikeNew}}selected{{/isLikeNew}}>Like new</option>
-                <option {{#isGood}}selected{{/isGood}}>Good</option>
-                <option {{#isAcceptable}}selected{{/isAcceptable}}>Acceptable</option>
-                <option {{#isForParts}}selected{{/isForParts}}>For parts</option>
+                {{#conditionOptions}}
+                   <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
+                {{/conditionOptions}}
               </select> 
             {{/product}}
             {{^product}}
@@ -116,9 +111,16 @@
 
           <!-- description -->
           <div class="col-12">
-            <label for="description" class="form-label">Description</label>
-            {{#product}}<textarea class="form-control" rows="5" name="description">{{description}}</textarea>{{/product}}
-            {{^product}}<textarea class="form-control" rows="5" placeholder="Describe your item, condition, pickup or shipping..." name="description"></textarea>{{/product}}
+            <label for="shortDescription" class="form-label">Aproximación</label>
+            {{#product}}<textarea class="form-control" rows="5" name="shortDescription">{{shortDescription}}</textarea>{{/product}}
+            {{^product}}<textarea class="form-control" rows="5" placeholder="Describe your item, condition, pickup or shipping..." name="shortDescription"></textarea>{{/product}}
+          </div>
+
+          <!-- description -->
+          <div class="col-12">
+            <label for="fullDescription" class="form-label">Description</label>
+            {{#product}}<textarea class="form-control" rows="5" name="fullDescription">{{fullDescription}}</textarea>{{/product}}
+            {{^product}}<textarea class="form-control" rows="5" placeholder="Describe your item, condition, pickup or shipping..." name="fullDescription"></textarea>{{/product}}
           </div>
 
           <!-- images -->
@@ -128,21 +130,16 @@
             <small class="text-muted">(Only visual, files are not actually uploaded)</small>
           </div>
 
-          <!-- location -->
-          <div class="col-md-6">
-            <label for="city" class="form-label">City</label>
-            {{#product}}<input type="text" class="form-control" placeholder="Madrid" name="city" value="{{city}}">{{/product}}
-            {{^product}}<input type="text" class="form-control" placeholder="Madrid" name="city">{{/product}}
-          </div>
 
           <div class="col-md-6">
             <label for="contactPreference" class="form-label">Contact preference</label>
             {{#product}}
               <select class="form-select" name="contactPreference">
-                <option {{#isChat}}selected{{/isChat}}>Chat</option>
-                <option {{#isPhone}}selected{{/isPhone}}>Phone</option>
-                <option {{#isBoth}}selected{{/isBoth}}>Both</option>
+                {{#contactOptions}}
+                   <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
+                {{/contactOptions}}
               </select>
+
             {{/product}}
             {{^product}}
               <select class="form-select" name="contactPreference">

@@ -39,7 +39,7 @@ public class User {
     //@Column(columnDefinition = "TEXT")*/
 	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
 	private List<Product> myProducts;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
 	private List<Rating> myRatings;
 
 	private boolean isBanned;

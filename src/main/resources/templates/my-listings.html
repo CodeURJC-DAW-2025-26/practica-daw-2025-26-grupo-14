@@ -56,7 +56,11 @@
         </div>
         <div class="card-footer bg-white border-0 d-flex justify-content-between">
           <a href="editproduct/{{id}}" class="btn btn-outline-secondary btn-sm">Edit</a>
-          <a href="deleteproduct/{{id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          <form action="/deleteproduct/{{id}}" method="post" style="display:inline;">
+            <input type="hidden" name="_csrf" value="{{token}}">
+            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+          </form>
+
         </div>
       </div>
     </div>

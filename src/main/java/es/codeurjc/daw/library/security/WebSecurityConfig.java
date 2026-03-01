@@ -51,6 +51,8 @@ public class WebSecurityConfig {
 						.requestMatchers("/editproduct").hasAnyRole("USER")
 						.requestMatchers("/editproduct/*").hasAnyRole("USER")
 						.requestMatchers("/removeproduct/*").hasAnyRole("ADMIN")
+						.requestMatchers("/deleteproduct/*").hasAnyRole("USER")
+
 						// Allow access to other pages (like login, logout, etc.)
 						.requestMatchers("/*").permitAll())
 				.formLogin(formLogin -> formLogin

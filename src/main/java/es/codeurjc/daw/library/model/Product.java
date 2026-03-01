@@ -129,10 +129,6 @@ public class Product {
 		return condition;
 	}
 
-	public String getContactPref() {
-		return contactPreference;
-	}
-
 	public String getFullDescription() {
 		return fullDescription;
 	}
@@ -175,8 +171,25 @@ public class Product {
 		this.ratings = ratings;
 	}
 
+	public void setCondition(String condition) { 
+		this.condition = condition; 
+	}
+
+	public void setContactPreference(String contactPreference) { 
+		this.contactPreference = contactPreference; 
+	}
+
+	public String getContactPreference() { 
+		return contactPreference;
+	} 
+
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", seller=" + seller + ", price=" + price + ", shortDescription=" + shortDescription + "]";
 	}
+
+    public void setDate() {
+		this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+    }
 }

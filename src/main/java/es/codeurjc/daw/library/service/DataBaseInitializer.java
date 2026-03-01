@@ -38,11 +38,13 @@ public class DataBaseInitializer {
 		User seller1 = new User("Mario Martin", "Mario", "mario@martin.com", "Madrid", passwordEncoder.encode("pass"), "USER");
         User seller2 =  new User("Lucia Garcia", "LuGar", "lucia@garcia.com", "Barcelona", passwordEncoder.encode("pass"), "USER");
         User seller3 =  new User("Carlos Lopez", "Carlos", "carlos@lopez.com", "Valencia", passwordEncoder.encode("pass"), "USER");
+        User admin =  new User("Admin User", "Admin", "admin@user.com", "Sevilla", passwordEncoder.encode("adminpass"), "USER", "ADMIN");
 
 
         userRepository.save(seller1);
 		userRepository.save(seller2);
 		userRepository.save(seller3);
+        userRepository.save(admin);
 
         // Sample Products
 		Product prod1 = new Product(

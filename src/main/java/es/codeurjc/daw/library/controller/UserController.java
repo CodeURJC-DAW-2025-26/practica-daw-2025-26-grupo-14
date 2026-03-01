@@ -1,5 +1,6 @@
 package es.codeurjc.daw.library.controller;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,7 @@ public class UserController {
 			return "publish";
 		}
 		product.setSeller(seller.get());
+		product.setDate();
 
 		productService.save(product);
 		model.addAttribute("products", productService.getAllProducts());
@@ -60,7 +62,30 @@ public class UserController {
 
 		Optional<Product> product = productService.getProductById(id);
 		if (product.isPresent()) {
-			model.addAttribute("product", product.get());
+			Product p = product.get();
+			model.addAttribute("product", p);
+			model.addAttribute("contactOptions", List.of(
+				Map.of("value", "Chat", "selected", "Chat".equals(p.getContactPreference())),
+				Map.of("value", "Phone", "selected", "Phone".equals(p.getContactPreference())),
+				Map.of("value", "Both", "selected", "Both".equals(p.getContactPreference()))
+			));
+
+			model.addAttribute("categoryOptions", List.of(
+				Map.of("value", "Electronics", "selected", "Electronics".equals(p.getCategory())),
+				Map.of("value", "Clothing", "selected", "Clothing".equals(p.getCategory())),
+				Map.of("value", "Home", "selected", "Home".equals(p.getCategory())),
+				Map.of("value", "Sports", "selected", "Sports".equals(p.getCategory())),
+				Map.of("value", "Books", "selected", "Books".equals(p.getCategory())),
+				Map.of("value", "Other", "selected", "Other".equals(p.getCategory()))
+			));
+
+			model.addAttribute("conditionOptions", List.of(
+				Map.of("value", "New", "selected", "New".equals(p.getCondition())),
+				Map.of("value", "Like new", "selected", "Like new".equals(p.getCondition())),
+				Map.of("value", "Used", "selected", "Used".equals(p.getCondition())),
+				Map.of("value", "For parts", "selected", "For parts".equals(p.getCondition()))
+			));
+
 			return "publish";
 		} else {
 			return "pageerror";
@@ -82,17 +107,20 @@ public class UserController {
     }
 
 	@PostMapping("/deleteproduct/{id}")
-	public String deleteProduct(@PathVariable Long id, Model model) {
-		Optional<Product> product = productService.getProductById(id);
-		if (product.isPresent()) {
-			productService.delete(id);
-			model.addAttribute("product", product.get());
-		} else {
-			model.addAttribute("error", "The product with id " + id + " does not exist.");
-		}
-		
-		return "my-listings";
-	}
+public String deleteProduct(@PathVariable Long id, Model model) {
+    try {
+        productService.delete(id);
+        return "redirect:/my_listings";
+    } catch (org.springframework.dao.EmptyResultDataAccessException e) {
+        model.addAttribute("errorMessage", "Product not found: " + id);
+        return "error";
+    } catch (org.springframework.dao.DataIntegrityViolationException e) {
+        model.addAttribute("errorMessage", "Cannot delete product because it is referenced by other records (orders/ratings).");
+        return "error";
+    }
+}
+
+
 	    
 
     @GetMapping("/publish")
