@@ -48,7 +48,13 @@
 
       <!-- Profile image -->
       <div class="col-md-3 text-center">
-        <img src="https://dummyimage.com/200x200/dee2e6/6c757d.jpg"
+        {{#user.profilePicture}}
+         <img src="/images/{{id}}" class="rounded-circle img-fluid mb-3" style="width:150px; height:150px; object-fit:cover;">
+        {{/user.profilePicture}}
+        {{^user.profilePicture}}
+         <img src="/images/noImage.png" class="rounded-circle img-fluid mb-3" style="width:150px; height:150px; object-fit:cover;">
+        {{/user.profilePicture}}
+        <img src="/images/{{id}}"
              class="rounded-circle img-fluid mb-3"
              style="width:150px; height:150px; object-fit:cover;">
       </div>
@@ -106,7 +112,12 @@
   {{#products}}
   <div class="col-lg-3 col-md-6 mb-4">
     <div class="card h-100 shadow-sm">
-      <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" class="card-img-top">
+      {{#image}}
+        <img class="card-img-top" src="/images/{{id}}" alt="..." />
+      {{/image}}
+      {{^image}}
+        <img class="card-img-top" src="/images/noImage.png" alt="..." />
+      {{/image}}
 
       <div class="card-body">
         <h5 class="card-title">{{name}}</h5>

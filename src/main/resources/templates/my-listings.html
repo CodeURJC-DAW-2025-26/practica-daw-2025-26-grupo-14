@@ -48,7 +48,13 @@
      {{#products}}
     <div class="col-md-4">
       <div class="card h-100 shadow-sm">
-        <a href="product/{{id}}"><img src="" class="card-img-top"></a>
+        {{#image}}
+         <a href="/product/{{id}}"><img src="/images/{{id}}" class="card-img-top"></a>
+        {{/image}}
+        {{^image}}
+         <a href="/product/{{id}}"><img src="/images/noImage.png" class="card-img-top"></a>
+        {{/image}}
+
         <div class="card-body">
           <h5 class="card-title">{{name}}</h5>
           <p class="text-success fw-bold">{{price}} €</p>
