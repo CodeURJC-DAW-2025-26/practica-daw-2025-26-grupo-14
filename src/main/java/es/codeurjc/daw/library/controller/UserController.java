@@ -163,7 +163,7 @@ public class UserController {
 		}
 		if (model.getAttribute("userName") == null) {
 			model.addAttribute("message", "You should be logged in to buy a product.");
-			return "redirect:/login";
+			return "redirect:/product/" + id;
 		}
 		Optional<User> buyer = userService.findByName((String) model.getAttribute("userName"));
 		if (!buyer.isPresent()) {
