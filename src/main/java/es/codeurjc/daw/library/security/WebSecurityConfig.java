@@ -57,6 +57,7 @@ public class WebSecurityConfig {
 						.requestMatchers("/editproduct").hasAnyRole("USER")
 						.requestMatchers("/editproduct/*").hasAnyRole("USER")
 						.requestMatchers("/edituser/**").hasAnyRole("USER")//allow users to edit their account, but not others
+						.requestMatchers("/create_deal/*").hasAnyRole("USER")
 						.requestMatchers("/removeproduct/*").hasAnyRole("ADMIN")
 						.requestMatchers("/deleteproduct/*").hasAnyRole("USER")
 

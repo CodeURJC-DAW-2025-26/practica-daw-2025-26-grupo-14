@@ -80,12 +80,16 @@
                             <input type="checkbox" id="offerToggle" hidden>
 
                             <div class="d-flex gap-3 mb-3">
-
+                            
                                 <!-- comprar -->
-                                <button class="btn btn-dark flex-shrink-0" type="button">
-                                    <i class="bi-lightning-fill me-1"></i>
-                                    Buy now
-                                </button>
+                                <form action="/create_deal/{{product.id}}" method="post" style="display:inline;">
+                                    <input type="hidden" name="_csrf" value="{{token}}">
+                                    <button class="btn btn-dark flex-shrink-0" type="submit">
+                                        <i class="bi-lightning-fill me-1"></i>
+                                        Buy now
+                                    </button>
+                                </form>
+
 
                                 <!-- hacer oferta -->
                                 <label for="offerToggle" class="btn btn-outline-dark flex-shrink-0">

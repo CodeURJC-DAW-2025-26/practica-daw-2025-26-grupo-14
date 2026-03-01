@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +24,12 @@ public class Order {
 
     private String state;
 
+	@OneToOne
+	private Rating rating;
+
+	@ManyToOne
+    private User buyer;
+
 
 	/*@OneToMany
 	private Image image;
@@ -33,10 +40,12 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(String state, Product product) {
+	public Order(String state, Product product, User buyer) {
 		super();
 		this.state = state;
 		this.product = product;
+		this.buyer = buyer;
+		this.rating = null;
 	}
 
 	public String getState() {
@@ -55,6 +64,42 @@ public class Order {
 		this.product = product;
 	}
 
+	public User getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(User buyer) {
+		this.buyer = buyer;
+	}
+
+	public User getSellUser() {
+		return product.getSeller();
+	}
+
+
+	public Rating getRating() {
+		return rating;
+	}
+
+	public void setRating(Rating rating) {
+		this.rating = rating;
+	}
+
+	public Boolean isReserved() {
+		return this.state.equals("Reserved");
+	}
+
+	public Boolean isAccepted() {
+		return this.state.equals("Accepted");
+	}
+
+	public Boolean isOfferSent() {
+		return this.state.equals("Offer sent");
+	}
+
+	public Boolean isCancelled() {
+		return this.state.equals("Cancelled");
+	}
 
 
 	/*public Image getImage() {

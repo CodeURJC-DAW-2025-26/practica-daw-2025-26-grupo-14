@@ -10,14 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import es.codeurjc.daw.library.model.Order;
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.service.UserService;
+import es.codeurjc.daw.library.service.OrderService;
 import es.codeurjc.daw.library.service.ProductService;
-
-
-
 
 
 @Controller
@@ -28,6 +28,9 @@ public class UserController {
 	
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private OrderService orderService;
 
 	
 	@Autowired
@@ -151,7 +154,55 @@ public class UserController {
 		}
 	}
 
+	@PostMapping("/create_deal/{id}")
+	public String postCreateDeal(@PathVariable Long id, Model model) {
+		Optional<Product> product = productService.getProductById(id);
+		if (!product.isPresent()) {
+			model.addAttribute("errorMessage", "Product not found.");
+			return "error";
+		}
+		if (model.getAttribute("userName") == null) {
+			model.addAttribute("message", "You should be logged in to buy a product.");
+			return "redirect:/login";
+		}
+		Optional<User> buyer = userService.findByName((String) model.getAttribute("userName"));
+		if (!buyer.isPresent()) {
+			model.addAttribute("errorMessage", "Your user is not found.");
+			return "error";
+		}
+		Order order = new Order("Offer sent", product.get(), buyer.get());
+		orderService.save(order);
+		return "redirect:/";
+	}
 
+	@PostMapping("/updateOrder/{id}")
+	public String updateOrder(@PathVariable long id, @RequestParam String action, Model model) {
+		Optional<Order> order = orderService.getOrderById(id);
+		if (!order.isPresent()) {
+			model.addAttribute("errorMessage", "Order not found.");
+			return "error";
+		}
+		Order o = order.get();
+		switch (action) {
+			case "accepted":
+				o.setState("Accepted");
+				break;
+			case "rejected":
+				o.setState("Rejected");
+				break;
+			case "cancelled":
+				o.setState("Cancelled");
+				break;
+			case "offer_sent":
+				o.setState("Offer sent");
+				break;
+			default:
+				model.addAttribute("errorMessage", "Invalid action.");
+				return "error";
+		}
+		orderService.save(o);
+		return "redirect:/my_deals";
+	}
 
 	@PostMapping("/deleteproduct/{id}")
 	public String deleteProduct(@PathVariable Long id, Model model) {
@@ -170,7 +221,14 @@ public class UserController {
 		return "redirect:/admin_users";
 	}
 
-	    
+	@PostMapping("/delete_deal/{id}")
+	public String deleteDeal(@PathVariable Long id) {
+		orderService.delete(id);
+		return "redirect:/my_deals";
+	}
+
+
+	  
 
     @GetMapping("/publish")
     public String publishForm() {
@@ -184,7 +242,21 @@ public class UserController {
     }
 
     @GetMapping("/my_deals")
-    public String my_deals() {
+    public String my_deals(Model model) {
+		if (model.getAttribute("userName") == null) {
+			model.addAttribute("errorMessage", "You should be logged in to view your deals.");
+			return "error";
+		}
+		Optional<User> user = userService.findByName((String) model.getAttribute("userName"));
+		if (!user.isPresent()) {
+			model.addAttribute("errorMessage", "Your user is not found.");
+			return "error";
+		}
+		List<Order> deals = user.get().getMyOrders();
+        model.addAttribute("deals_buyer", deals);
+		List<Order> deals_seller = orderService.getAllOrders().stream().filter(order -> order.getSellUser().equals(user.get())).toList();
+		model.addAttribute("deals_seller", deals_seller);
+		model.addAttribute("deals", !deals.isEmpty() || !deals_seller.isEmpty());
         return "my_deals";
     }
     

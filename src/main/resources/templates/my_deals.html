@@ -44,50 +44,7 @@
 <section class="py-5">
   <div class="container">
 
-    <!-- DEAL 1 -->
-    <div class="deal-card">
-      <div class="row gy-3 align-items-center">
-        <div class="col-lg-7">
-          <div class="d-flex">
-            <img src="https://m.media-amazon.com/images/I/61XqEVC8Z4L._AC_SY300_SX300_QL70_ML2_.jpg" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
-            <div>
-              <a href="product" class="nav-link fw-bold">iPhone 11 64GB</a>
-              <p class="text-muted mb-1">Seller: Carlos_Madrid</p>
-              <span class="badge bg-warning text-dark">Offer sent</span>
-              <p class="mt-2 mb-0"><strong>Price:</strong> 240€</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-5 text-lg-end">
-          <a href="product" class="btn btn-outline-primary me-2">View product</a>
-          <a href="#" class="btn btn-success me-2">Open chat</a>
-          <a href="#" class="btn btn-outline-danger">Cancel deal</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- DEAL 2 -->
-    <div class="deal-card">
-      <div class="row gy-3 align-items-center">
-        <div class="col-lg-7">
-          <div class="d-flex">
-            <img src="https://m.media-amazon.com/images/I/71puyxtAGXL._AC_SX679_.jpg" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
-            <div>
-              <a href="product" class="nav-link fw-bold">Mountain Bike</a>
-              <p class="text-muted mb-1">Seller: BikeStore23</p>
-              <span class="badge bg-success">Accepted</span>
-              <p class="mt-2 mb-0"><strong>Price:</strong> 150€</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-5 text-lg-end">
-          <a href="product" class="btn btn-outline-primary me-2">View product</a>
-          <a href="#" class="btn btn-success me-2">Open chat</a>
-          <a href="#" class="btn btn-outline-secondary">Mark as received</a>
-        </div>
-      </div>
-    </div>
-
+    {{#deals_buyer}}
     <!-- DEAL 3 -->
     <div class="deal-card">
       <div class="row gy-3 align-items-center">
@@ -95,20 +52,75 @@
           <div class="d-flex">
             <img src="https://m.media-amazon.com/images/I/61OAQ+JLmiL._AC_SY879_.jpg" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
             <div>
-              <a href="product" class="nav-link fw-bold">Nike Sneakers</a>
-              <p class="text-muted mb-1">Seller: MartaShop</p>
-              <span class="badge bg-secondary">Reserved</span>
-              <p class="mt-2 mb-0"><strong>Price:</strong> 60€</p>
+              <a href="product" class="nav-link fw-bold">{{product.name}}</a>
+
+              <p class="text-muted mb-1">Seller: {{product.seller.name}}</p>
+              <span {{#isReserved}}class="badge bg-secondary"{{/isReserved}} {{#isAccepted}}class="badge bg-success"{{/isAccepted}} {{#isOfferSent}}class="badge bg-warning text-dark"{{/isOfferSent}} {{#isCancelled}}class="badge bg-danger"{{/isCancelled}}>{{state}}</span>
+              
+              <p class="mt-2 mb-0"><strong>Price:</strong> {{product.price}}€</p>
             </div>
           </div>
         </div>
         <div class="col-lg-5 text-lg-end">
           <a href="product" class="btn btn-outline-primary me-2">View product</a>
-          <a href="#" class="btn btn-success me-2">Open chat</a>
+          <a href="#" class="btn btn-success me-2">Open chat</a> <!--Cambiar estado-->
           <a href="#" class="btn btn-outline-danger">Cancel reservation</a>
         </div>
       </div>
     </div>
+    {{/deals_buyer}}
+    {{#deals_seller}}
+    <!-- DEAL 4 -->
+    <div class="deal-card">
+      <div class="row gy-3 align-items-center">
+        <div class="col-lg-7">
+          <div class="d-flex">
+            <img src="https://m.media-amazon.com/images/I/61OAQ+JLmiL._AC_SY879_.jpg" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
+            <div>
+              <a href="product" class="nav-link fw-bold">{{product.name}}</a>
+
+              <p class="text-muted mb-1">Buyer: {{buyer.name}}</p>
+              <form action="/updateOrder/{{id}}" method="post" class="d-inline">
+                <input type="hidden" name="_csrf" value="{{token}}">
+                <input type="hidden" name="orderId" value="{{id}}">
+                <select class="form-select" name="action">
+                  <option value="accepted" {{#isAccepted}}selected{{/isAccepted}}>Accept</option>
+                  <option value="rejected" {{#isRejected}}selected{{/isRejected}}>Reject</option>
+                  <option value="cancelled" {{#isCancelled}}selected{{/isCancelled}}>Cancel</option>
+                  <option value="offer_sent" {{#isOfferSent}}selected{{/isOfferSent}}>Send Offer</option>
+                </select>
+                <button type="submit" class="btn btn-sm btn-primary me-2">Update</button>
+              </form>
+         
+              <p class="mt-2 mb-0"><strong>Price:</strong> {{product.price}}€</p>
+              {{#Rating}}
+              <p class="mb-0"><strong>Rating:</strong> {{Rating.rating}}/5 - "{{Rating.summery}}"</p>
+              {{/Rating}}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 text-lg-end">
+          <a href="/product/{{product.id}}" class="btn btn-outline-primary me-2">View product</a>
+          <a href="/user_account/{{buyer.id}}" class="btn btn-success me-2">See Buyer</a> 
+          {{#Rating}}
+          <a href="#" class="btn btn-outline-primary me-2">Edit Rating</a>
+          {{/Rating}}
+          {{^Rating}}
+          <a href="#" class="btn btn-outline-primary me-2">Create Rating</a>
+          {{/Rating}}
+        </div>
+        <form action="/delete_deal/{{id}}" method="post" class="col-lg-12 text-lg-end">
+          <input type="hidden" name="_csrf" value="{{token}}">
+          <button type="submit" class="btn btn-outline-danger">Cancel deal</button>
+      </div>
+    </div>    
+    {{/deals_seller}}
+
+    {{^deals}}
+    <div class="text-center">
+      <p class="text-muted">You don't have any deals yet.</p>
+    </div>
+    {{/deals}}
 
   </div>
 </section>

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -14,8 +15,14 @@ public class Rating {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id = null;
 
+	@OneToOne(mappedBy = "rating", cascade = jakarta.persistence.CascadeType.ALL)
+	private Order order;
+
 	@OneToOne
 	private User rater;
+
+	@ManyToOne
+	private User rated;
 
 	private String summery;
 
@@ -27,9 +34,12 @@ public class Rating {
 	public Rating() {
 	}
 
-	public Rating(String summery, int rating, String description) {
+	public Rating(String summery, Order order, int rating, String description) {
 		super();
 		this.summery = summery;
+		this.rater = order.getBuyer();
+		this.rated = order.getSellUser();
+		this.order = order;
 		this.rating = rating;
 		this.description = description;
 	}

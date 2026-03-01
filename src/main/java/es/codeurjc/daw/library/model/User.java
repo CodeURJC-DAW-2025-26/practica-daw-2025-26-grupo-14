@@ -40,8 +40,10 @@ public class User {
     //@Column(columnDefinition = "TEXT")*/
 	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
 	private List<Product> myProducts;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rated", cascade = CascadeType.ALL)
 	private List<Rating> myRatings;
+	@OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
+	private List<Order> myOrders;
 
 	private boolean isBanned;
 
@@ -58,6 +60,7 @@ public class User {
 		this.isBanned = false;
 		this.myProducts = new ArrayList<>();
 		this.myRatings = new ArrayList<>();
+		this.myOrders = new ArrayList<>();
 		this.roles = List.of(roles);
 	}
 
@@ -139,6 +142,14 @@ public class User {
 
 	public void addRating(Rating rating) {
 		this.myRatings.add(rating);
+	}
+
+	public List<Order> getMyOrders() {
+		return myOrders;
+	}
+
+	public void addOrder(Order order) {
+		this.myOrders.add(order);
 	}
 
 	public List<String> getRoles() {
