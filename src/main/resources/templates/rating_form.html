@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Item - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/css/styles.css" rel="stylesheet" />
+
+        <!-- MDB CSS -->
+        <link
+                href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+                rel="stylesheet"
+                />
+        <!-- Font Awesome -->
+        <link
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+                rel="stylesheet"
+                />
+    </head>
+<body>
+
+<!-- NAVBAR -->
+<!--Main Navigation-->
+{{> header}}
+<!-- PAGE HEADER -->
+<div class="bg-primary text-white py-4 mb-4">
+  <div class="container">
+    <h2 class="mb-0">Rate your order</h2>
+    <small>Share your experience</small>
+  </div>
+</div>
+
+<div>
+    <h5 class="mb-0">Your Order</h5>
+    {{#order}}
+        <p class="text-muted mb-1">{{product.name}}</a>
+        <p class="text-muted mb-1">Seller: {{product.seller.name}}</p>
+        <span {{#isReserved}}class="badge bg-secondary"{{/isReserved}} {{#isAccepted}}class="badge bg-success"{{/isAccepted}} {{#isOfferSent}}class="badge bg-warning text-dark"{{/isOfferSent}} {{#isCancelled}}class="badge bg-danger"{{/isCancelled}}>{{state}}</span>
+        <p class="mt-2 mb-0"><strong>Price:</strong> {{product.price}}€</p>
+    {{/order}}
+</div>
+
+<!-- FORM -->
+<div class="container mb-5">
+  <div class="card shadow-sm">
+    <div class="card-body p-4">
+
+      <form action="/new_rating" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_csrf" value="{{token}}">
+        <div class="row g-4">
+
+          {{#rating}}
+          <input type="hidden" name="id" value="{{id}}">
+          {{/rating}}
+
+          <!-- order -->
+          <input type="hidden" name="order_id" value="{{order.id}}">
+
+          <!-- rating -->
+          <div class="col-md-4">
+            <label for="rating" class="form-label">Rating (1-5)</label>
+            {{#rating}}<input type="number" class="form-control"  value="{{rating}}" name="rating" min="1" max="5" step="1">{{/rating}}
+            {{^rating}}<input type="number" class="form-control"  placeholder="1-5" name="rating" min="1" max="5" step="1">{{/rating}}
+          </div>
+
+         
+
+          <!-- summery -->
+          <div class="col-12">
+            <label for="summery" class="form-label">Razón</label>
+            {{#rating}}<textarea class="form-control" rows="5" name="summery">{{summery}}</textarea>{{/rating}}
+            {{^rating}}<textarea class="form-control" rows="5" placeholder="Describe the reason for the rating..." name="summery"></textarea>{{/rating}}
+          </div>
+
+
+          <!-- description -->
+          <div class="col-12">
+            <label for="description" class="form-label">Descripción</label>
+            {{#rating}}<textarea class="form-control" rows="5" name="description">{{description}}</textarea>{{/rating}}
+            {{^rating}}<textarea class="form-control" rows="5" placeholder="Describe the rating in more detail..." name="description"></textarea>{{/rating}}
+          </div>
+
+          <!-- submit -->
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary btn-lg">Publish rating</button>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{{> footer}}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.daw.library.model.Order;
 import es.codeurjc.daw.library.model.Product;
+import es.codeurjc.daw.library.model.Rating;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.service.UserService;
 import es.codeurjc.daw.library.service.OrderService;
 import es.codeurjc.daw.library.service.ProductService;
+import es.codeurjc.daw.library.service.RatingService;
+
 
 
 @Controller
@@ -32,6 +35,8 @@ public class UserController {
 	@Autowired
 	private OrderService orderService;
 
+	@Autowired
+	private RatingService ratingService;
 	
 	@Autowired
     PasswordEncoder passwordEncoder;
@@ -223,11 +228,53 @@ public class UserController {
 
 	@PostMapping("/delete_deal/{id}")
 	public String deleteDeal(@PathVariable Long id) {
+		Optional<Order> order = orderService.getOrderById(id);
+		if (order.isPresent() && order.get().getRating() != null) {
+			Rating rating = order.get().getRating();
+			order.get().setRating(null);
+			orderService.save(order.get());
+			ratingService.delete(rating.getId());
+		}
 		orderService.delete(id);
 		return "redirect:/my_deals";
 	}
 
+	@PostMapping("/new_rating")
+	public String postNewRating(Model model, Rating rating, Long order_id) {
+		Order order = orderService.getOrderById(order_id).orElse(null);
+		if(order == null) {
+			model.addAttribute("errorMessage", "Order not found");
+			return "error";
+		}
+		String raterName = (String) model.getAttribute("userName");
+		Optional<User> raterUser = userService.findByName(raterName);
+		if (!raterUser.isPresent()) {
+			model.addAttribute("errorMessage", "Your user is not found");
+			return "error";
+		}
+		rating.setRater(raterUser.get());
+		rating.setRated(order.getSellUser());
+		 ratingService.save(rating);
+		 order.setRating(rating);
+		 orderService.save(order);
+		return "redirect:/my_deals";
+	}
 
+	@PostMapping("/delete_rating/{id}")
+	public String deleteRating(@PathVariable Long id, Model model) {
+		Optional<Rating> rating = ratingService.getRatingById(id);
+		if (!rating.isPresent()) {
+			model.addAttribute("errorMessage", "Rating not found.");
+			return "error";
+		}
+		Order order = rating.get().getOrder();
+		order.setRating(null);
+		orderService.save(order);
+		ratingService.delete(id);
+		return "redirect:/my_deals";
+	}
+
+	
 	  
 
     @GetMapping("/publish")
@@ -259,8 +306,29 @@ public class UserController {
 		model.addAttribute("deals", !deals.isEmpty() || !deals_seller.isEmpty());
         return "my_deals";
     }
-    
-    
+
+	@GetMapping("/create_rating/{id}")
+	public String createRating(@PathVariable Long id, Model model) {
+		Optional<Order> order = orderService.getOrderById(id);
+		if (!order.isPresent()) {
+			model.addAttribute("errorMessage", "Order not found.");
+			return "error";
+		}
+		model.addAttribute("order", order.get());
+		return "rating_form";
+	}
+
+	@GetMapping("/edit_rating/{id}")
+	public String editRating(@PathVariable Long id, Model model) {
+		Optional<Rating> rating = ratingService.getRatingById(id);
+		if (!rating.isPresent()) {
+			model.addAttribute("errorMessage", "Rating not found.");
+			return "error";
+		}
+		model.addAttribute("order", rating.get().getOrder());
+		model.addAttribute("rating", rating.get());
+		return "rating_form";
+	}
 
 }
 

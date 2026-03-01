@@ -15,7 +15,7 @@ public class Rating {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id = null;
 
-	@OneToOne(mappedBy = "rating", cascade = jakarta.persistence.CascadeType.ALL)
+	@OneToOne(mappedBy = "rating")
 	private Order order;
 
 	@OneToOne
@@ -74,6 +74,18 @@ public class Rating {
 
 	public void setRater(User rater) {
 		this.rater = rater;
+	}
+
+	public User getRated() {
+		return rated;
+	}
+
+	public void setRated(User rated) {
+		this.rated = rated;
+	}
+
+	public Order getOrder() {
+		return order;
 	}
 
 	public Long getId() {
