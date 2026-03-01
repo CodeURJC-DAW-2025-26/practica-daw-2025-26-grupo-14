@@ -35,10 +35,6 @@ public class UserController {
 		return "loginerror";
 	}
 
-    @GetMapping("/logout")
-	public String logout() {
-		return "main";
-	}
 
     @GetMapping("/register")
 	public String register() {

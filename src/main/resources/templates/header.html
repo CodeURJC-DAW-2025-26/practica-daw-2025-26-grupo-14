@@ -19,7 +19,10 @@
         <div class="order-lg-last col-lg-4 col-sm-6 col-6">
           <div class="d-flex align-items-center gap-1 flex-wrap">
             {{#logged}}
-              <a href="logout" class="btn btn-outline-dark btn-sm d-flex align-items-center"><i class="fas fa-user-alt me-2"></i><span>Log out</span></a>
+               <form action="/logout" method="post" class="d-inline">
+                  <button class="btn btn-primary btn-nowrap" type="submit">Log Out</button>
+                  <input type="hidden" name="_csrf" value="{{token}}" />
+                </form>
               <a href="publish" class="btn btn-primary btn-sm d-flex align-items-center"><i class="fas fa-tag me-2"></i><span>Sell</span></a>
               <a href="my_listings" class="btn btn-outline-primary btn-sm d-flex align-items-center"><i class="fas fa-box me-2"></i><span>My items</span> </a>
               {{#Admin}}
