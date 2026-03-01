@@ -42,22 +42,42 @@
 
                         <!-- main image -->
                         <div class="main-image">
-                            <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp" class="image image1">
-                            <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp" class="image image2">
-                            <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp" class="image image3">
-                            <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp" class="image image4">
-                            <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp" class="image image5">
-                            <img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp" class="image image6">
+                            {{#product.image}}
+                            <img src="/images/{{id}}" class="image image1">
+                            <img src="/images/{{id}}" class="image image2">
+                            <img src="/images/{{id}}" class="image image3">
+                            <img src="/images/{{id}}" class="image image4">
+                            <img src="/images/{{id}}" class="image image5">
+                            <img src="/images/{{id}}" class="image image6">
+                            {{/product.image}}
+                            {{^product.image}}
+                                <img src="/images/noImage.png" class="image image1">
+                                <img src="/images/noImage.png" class="image image2">
+                                <img src="/images/noImage.png" class="image image3">
+                                <img src="/images/noImage.png" class="image image4">
+                                <img src="/images/noImage.png" class="image image5">
+                                <img src="/images/noImage.png" class="image image6">
+                            {{/product.image}}
                         </div>
 
                         <!-- small images -->
                         <div class="thumbnails">
-                            <label for="img1"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
-                            <label for="img2"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
-                            <label for="img3"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
-                            <label for="img4"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
-                            <label for="img5"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
-                            <label for="img6"><img src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/10.webp"></label>
+                            {{#product.image}}
+                            <label for="img1"><img src="/images/{{id}}"></label>
+                            <label for="img2"><img src="/images/{{id}}"></label>
+                            <label for="img3"><img src="/images/{{id}}"></label>
+                            <label for="img4"><img src="/images/{{id}}"></label>
+                            <label for="img5"><img src="/images/{{id}}"></label>
+                            <label for="img6"><img src="/images/{{id}}"></label>
+                            {{/product.image}}
+                            {{^product.image}}
+                                <label for="img1"><img src="/images/noImage.png"></label>
+                                <label for="img2"><img src="/images/noImage.png"></label>
+                                <label for="img3"><img src="/images/noImage.png"></label>
+                                <label for="img4"><img src="/images/noImage.png"></label>
+                                <label for="img5"><img src="/images/noImage.png"></label>
+                                <label for="img6"><img src="/images/noImage.png"></label>
+                            {{/product.image}}
                         </div>
 
                     </div>
@@ -110,9 +130,12 @@
                                     <div class="d-flex align-items-center">
 
                                         <!-- profile picture -->
-                                        <img class="rounded-circle me-3"
-                                            src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg"
-                                            width="70" height="70">
+                                         {{#product.seller.profilePicture}}
+                                            <img class="rounded-circle me-3" src="/images/{{id}}" width="70" height="70">
+                                        {{/product.seller.profilePicture}}
+                                        {{^product.seller.profilePicture}}
+                                            <img class="rounded-circle me-3" src="/images/noImage.png" width="70" height="70">
+                                        {{/product.seller.profilePicture}}
 
                                         <div>
                                             <h5 class="mb-1">{{product.seller.name}}</h5>
@@ -152,7 +175,12 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/11.webp" alt="..." />
+                             {{#image}}
+                                <img class="card-img-top" src="/images/{{id}}" alt="..." />
+                            {{/image}}
+                            {{^image}}
+                                <img class="card-img-top" src="/images/noImage.png" alt="..." />
+                            {{/image}}
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -192,7 +220,12 @@
                             <!-- Sale badge-->
                             <!--div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Price drop</div-->
                             <!-- Product image-->
-                            <img class="card-img-top" src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/12.webp" alt="..." />
+                            {{#image}}
+                                <img class="card-img-top" src="/images/{{id}}" alt="..." />
+                            {{/image}}
+                            {{^image}}
+                                <img class="card-img-top" src="/images/noImage.png" alt="..." />
+                            {{/image}}
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">

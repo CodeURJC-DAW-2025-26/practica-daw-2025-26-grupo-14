@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,9 +36,9 @@ public class User {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
-	/*@OneToOne
+	@OneToOne
 	private Image profilePicture;
-    //@Column(columnDefinition = "TEXT")*/
+    
 	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
 	private List<Product> myProducts;
     @OneToMany(mappedBy = "rated", cascade = CascadeType.ALL)
@@ -112,13 +113,13 @@ public class User {
 		this.password = password;
 	}
 
-	/*public Image getImage() {
-		return image;
+	public Image getImage() {
+		return profilePicture;
 	}
 
 	public void setImage(Image image) {
-		this.image = image;
-	}*/
+		this.profilePicture = image;
+	}
 
 	public Long getId() {
 		return id;

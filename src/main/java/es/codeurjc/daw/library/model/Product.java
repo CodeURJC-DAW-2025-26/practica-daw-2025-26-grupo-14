@@ -28,8 +28,6 @@ public class Product {
 
 	//private String category;
 
-	private String imageUrl;
-
 	@Column(unique = true)
     private String name;
 
@@ -53,19 +51,16 @@ public class Product {
 
 	private String contactPreference;
 
-	/*@OneToMany
+	@ManyToOne
 	private Image image;
-    //
-	@ManyToMany
-	private List<Shop> shops;*/
+    
 
 	public Product() {
 	}
 
-	public Product(String name, User seller, float price, String category, String condition, String description, String imageUrl, String contactPreference) {
+	public Product(String name, User seller, float price, String category, String condition, String description, String contactPreference) {
 		super();
 		this.name = name;
-		this.imageUrl = imageUrl;
 		this.seller = seller;
 		this.price = price;
 		this.condition = condition;
@@ -93,16 +88,6 @@ public class Product {
 		this.seller = seller;
 	}
 
-	public String getImageUrl() {
-		if (imageUrl == null || imageUrl.isBlank()) {
-			return "/images/noImage.png"; // Ruta a una imagen por defecto
-		}
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
 
 	public float getPrice() {
 		return price;
@@ -147,13 +132,13 @@ public class Product {
 	}
 
 
-	/*public Image getImage() {
+	public Image getImage() {
 		return image;
 	}
 
 	public void setImage(Image image) {
 		this.image = image;
-	}*/
+	}
 
 	public Long getId() {
 		return id;

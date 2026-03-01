@@ -50,7 +50,12 @@
       <div class="row gy-3 align-items-center">
         <div class="col-lg-7">
           <div class="d-flex">
-            <img src="https://m.media-amazon.com/images/I/61OAQ+JLmiL._AC_SY879_.jpg" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
+            {{#product.image}}
+              <img src="/images/{{id}}" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
+            {{/product.image}}
+            {{^product.image}}
+              <img src="/images/noImage.png" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
+            {{/product.image}}
             <div>
               <a href="/product/{{product.id}}" class="nav-link fw-bold">{{product.name}}</a>
 
@@ -100,7 +105,12 @@
       <div class="row gy-3 align-items-center">
         <div class="col-lg-7">
           <div class="d-flex">
-            <img src="https://m.media-amazon.com/images/I/61OAQ+JLmiL._AC_SY879_.jpg" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
+            {{#product.image}}
+              <img src="/images/{{id}}" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
+            {{/product.image}}
+            {{^product.image}}
+              <img src="/images/noImage.png" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
+            {{/product.image}}
             <div>
               <a href="/product/{{product.id}}" class="nav-link fw-bold">{{product.name}}</a>
 
