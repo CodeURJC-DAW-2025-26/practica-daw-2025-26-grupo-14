@@ -38,23 +38,31 @@ public class WebSecurityConfig {
 
 		http
 				.authorizeHttpRequests(authorize -> authorize
+						//STATIC RESOURCES
+						.requestMatchers("/css/**").permitAll()
+						.requestMatchers("/js/**").permitAll()
+						.requestMatchers("/webjars/**").permitAll()
+						.requestMatchers("/assets/**").permitAll() 
+						.requestMatchers("/favicon.ico").permitAll()
 						// PUBLIC PAGES
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/images/**").permitAll()
 						.requestMatchers("/products/**").permitAll() 
 						.requestMatchers("/product/**").permitAll()
 						.requestMatchers("/user_account/**").permitAll()
-						.requestMatchers("/assets/**").permitAll() // Allow access to static resources
-						.requestMatchers("/favicon.ico").permitAll()
+						.requestMatchers("/loginerror").permitAll()
+						.requestMatchers("/search").permitAll()//allow search for everyone
 						// PRIVATE PAGES
 						.requestMatchers("/newproduct").hasAnyRole("USER")
 						.requestMatchers("/editproduct").hasAnyRole("USER")
 						.requestMatchers("/editproduct/*").hasAnyRole("USER")
+						.requestMatchers("/edituser/**").hasAnyRole("USER")//allow users to edit their account, but not others
 						.requestMatchers("/removeproduct/*").hasAnyRole("ADMIN")
 						.requestMatchers("/deleteproduct/*").hasAnyRole("USER")
 
 						// Allow access to other pages (like login, logout, etc.)
-						.requestMatchers("/*").permitAll())
+						.anyRequest().authenticated())
+
 				.formLogin(formLogin -> formLogin
 						.loginPage("/login")
 						.failureUrl("/loginerror")

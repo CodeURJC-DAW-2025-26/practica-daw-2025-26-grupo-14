@@ -1,15 +1,14 @@
 package es.codeurjc.daw.library.controller;
 
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import es.codeurjc.daw.library.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
-import java.security.Principal;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authorization.method.AuthorizeReturnObject;
-import org.springframework.ui.Model;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
@@ -24,10 +23,15 @@ public class GlobalControllerAdvice {
 		if (principal != null) {
 			String username = principal.getName();
 
-			model.addAttribute("logged", true);
-			model.addAttribute("userName", username);
-			model.addAttribute("myid", userRepository.findByName(username).get().getId());
-			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+			// Only mark as logged if we can find the user in the database
+			userRepository.findByName(username).ifPresentOrElse(user -> {
+				model.addAttribute("logged", true);
+				model.addAttribute("userName", username);
+				model.addAttribute("myid", user.getId());
+				model.addAttribute("admin", request.isUserInRole("ADMIN"));
+			}, () -> {
+				model.addAttribute("logged", false);
+			});
 
 		} else {
 			model.addAttribute("logged", false);

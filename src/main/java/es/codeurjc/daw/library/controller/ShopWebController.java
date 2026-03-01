@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.model.Product;
+import es.codeurjc.daw.library.service.ProductService;
 
 
 
@@ -46,27 +46,23 @@ public class ShopWebController {
 	@GetMapping("/product/{id}")
 	public String product(@PathVariable Long id, Model model) {
 		Optional<Product> product = productService.getProductById(id);
-		if (product.isPresent()) {
+		if (product.isPresent() && product.get().getSeller() != null) {
 			Product prod = product.get();
-			model.addAttribute("product", prod);             
+			model.addAttribute("product", prod);
+			// list other products from the same seller; seller is guaranteed non‑null above
 			model.addAttribute("seller_products", productService.getProductsBySeller(prod.getSeller()));
-		
 			model.addAttribute("products", productService.getAllProducts());
-		return "product";}
-		else {
+			return "product";
+		} else {
+			// either the product doesn’t exist or it has no associated seller
+			// return an error page (template: pageerror.html)
 			return "pageerror";
 		}
-	}
-	
 
-	@GetMapping("/normal_search")
+	}
+    
+	@GetMapping("/shop/search")
 	public String searchPage() {
-		return "normal_search";
+		return "search";
 	}
-	
-	@GetMapping("/category_search")
-	public String categoryhPage() {
-		return "category_search";
-	}
-
 }
