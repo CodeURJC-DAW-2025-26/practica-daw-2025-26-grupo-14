@@ -28,7 +28,7 @@ public class Product {
 
 	//private String category;
 
-	@Column(unique = true)
+	
     private String name;
 
     private float price;

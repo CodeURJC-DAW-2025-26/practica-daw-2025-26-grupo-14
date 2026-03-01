@@ -121,6 +121,9 @@
 
                         </div>
                         <!--new seller profile-->
+                        <button class="btn btn-outline-primary w-100 mt-2" onclick="form_pic.hidden = !form_pic.hidden;">
+                        Change profile picture
+                        </button>
                         {{#product.seller}}
                         <a href="/user_account/{{product.seller.id}}" class="seller-link">
                             <div class="seller-box">
@@ -158,6 +161,14 @@
                             </div>
                         </a>
                         {{/product.seller}}
+                        <form id="form_pic" action="/uploadImage/{{id}}" method="post" enctype="multipart/form-data" hidden>
+                            <div class="mb-3">
+                                <label for="profilePicture" class="form-label">Change profile picture:</label>
+                                <input type="file" name="imageField" id="profilePicture" class="form-control" accept=".jpg, .jpeg, .webp" />
+                                <input type="hidden" name="_csrf" value="{{token}}" />
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
 
                     </div>
                     <p class="lead">{{product.fullDescription}}</p>

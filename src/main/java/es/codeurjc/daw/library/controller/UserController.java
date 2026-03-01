@@ -1,4 +1,5 @@
 package es.codeurjc.daw.library.controller;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,15 +12,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import es.codeurjc.daw.library.model.Image;
 import es.codeurjc.daw.library.model.Order;
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.Rating;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.service.UserService;
+import es.codeurjc.daw.library.service.ImageService;
 import es.codeurjc.daw.library.service.OrderService;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.RatingService;
+
 
 
 
@@ -37,6 +42,9 @@ public class UserController {
 
 	@Autowired
 	private RatingService ratingService;
+
+	@Autowired
+	private ImageService imageService;
 	
 	@Autowired
     PasswordEncoder passwordEncoder;
@@ -82,7 +90,7 @@ public class UserController {
 	
 
     @PostMapping("/newproduct")
-	public String postNewProduct(Model model, Product product, String sellerName) {
+	public String postNewProduct(Model model, Product product, String sellerName,  MultipartFile imageField) throws IOException {
 		Optional<User> seller = userService.findByName(sellerName);
 		if (!seller.isPresent()) {
 			model.addAttribute("error", "You should be logged in to publish a product.");
@@ -90,6 +98,22 @@ public class UserController {
 		}
 		product.setSeller(seller.get());
 		product.setDate();
+
+		if (imageField == null || imageField.isEmpty()) {
+			if (product.getId() == null) {
+				product.setImage(null);
+			} else {
+			Optional<Product> p = productService.getProductById(product.getId());
+			if (!p.isPresent()) {
+				model.addAttribute("error", "Product with the same name already exists.");
+				return "publish";
+			}
+			product.setImage(p.get().getImage());
+			}
+		}else {
+			Image image = imageService.createImage(imageField.getInputStream());
+			product.setImage(image);
+		}
 
 		productService.save(product);
 		model.addAttribute("products", productService.getAllProducts());
@@ -274,8 +298,47 @@ public class UserController {
 		return "redirect:/my_deals";
 	}
 
+	@PostMapping("/uploadProfilePicture/{id}")
+	public String postChangeProfile(@PathVariable Long id, @RequestParam("imageField") MultipartFile imageField, Model model) throws IOException {
+		
+		Optional<User> user = userService.getUserById(id);
+		if (!user.isPresent()) {
+			model.addAttribute("errorMessage", "User not found.");
+			return "error";
+		}
+		User u = user.get();
+		
+		if (!imageField.isEmpty()) {
+			Image image = imageService.createImage(imageField.getInputStream());
+			u.setImage(image);
+		}
+
+		userService.save(u);
+
+		
+		return "redirect:/user_account/" + id;
+	}
 	
-	  
+	@PostMapping("/uploadImage/{id}")
+	public String postChangeImage(@PathVariable Long id, @RequestParam("imageField") MultipartFile imageField, Model model) throws IOException {
+		
+		Optional<Product> product = productService.getProductById(id);
+		if (!product.isPresent()) {
+			model.addAttribute("errorMessage", "Product not found.");
+			return "error";
+		}
+		Product p = product.get();
+		
+		if (!imageField.isEmpty()) {
+			Image image = imageService.createImage(imageField.getInputStream());
+			p.setImage(image);
+		}
+
+		productService.save(p);
+
+		
+		return "redirect:/product/" + id;
+	}
 
     @GetMapping("/publish")
     public String publishForm() {

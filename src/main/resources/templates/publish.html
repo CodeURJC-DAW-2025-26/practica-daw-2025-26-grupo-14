@@ -124,11 +124,16 @@
           </div>
 
           <!-- images -->
-          <div class="col-12">
-            <label class="form-label">Upload images</label>
-            <input type="file" class="form-control" multiple>
-            <small class="text-muted">(Only visual, files are not actually uploaded)</small>
+           {{#product}}
+           <p class="form-label">Change image in product info.</p>
+           {{/product}}
+           {{^product}}
+           <div class="col-12">
+            <label for="image" class="form-label">image:</label>
+            <input type="file" name="imageField" id="image" class="form-control" accept=".jpg, .jpeg, .webp" />
           </div>
+          {{/product}}
+
 
 
           <div class="col-md-6">
