@@ -1,5 +1,7 @@
 package es.codeurjc.daw.library.controller;
  
+import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import es.codeurjc.daw.library.model.Product;
+import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.service.ProductService;
+import es.codeurjc.daw.library.service.UserService;
 
 
 
@@ -18,6 +22,9 @@ public class ShopWebController {
 	
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private UserService userService;
 
 	/*@ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
@@ -37,9 +44,21 @@ public class ShopWebController {
 
 
 	@GetMapping("/")
-	public String main(Model model) {
+	public String main(Model model, Principal principal) {
 		
 		model.addAttribute("products", productService.getAllProducts());
+
+		if (principal != null) {
+			User user = userService.findByName(principal.getName()).orElse(null);
+			
+			String city = user != null ? user.getCity() : null;
+
+			List <Product> localProducts = city != null ? productService.searchProductsBySellerCity(city) : null;
+			model.addAttribute("localProducts", localProducts);
+			boolean hasLocalProducts = localProducts != null && !localProducts.isEmpty();
+			model.addAttribute("hasLocalProducts", hasLocalProducts);
+
+		}
 		return "main";
 	}
 
