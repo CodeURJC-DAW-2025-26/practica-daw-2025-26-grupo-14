@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,8 @@ import es.codeurjc.daw.library.service.ProductService;
 
 
 
+
+
 @Controller
 public class UserController {
 
@@ -25,6 +28,10 @@ public class UserController {
 	
 	@Autowired
 	private ProductService productService;
+
+	
+	@Autowired
+    PasswordEncoder passwordEncoder;
 
 	@GetMapping("/login")
 	public String login() {
@@ -41,6 +48,31 @@ public class UserController {
 	public String register() {
 		return "register";
 	}
+
+	@PostMapping("/register")
+	public String register(Model model, User user, String myPassword, String confirmPassword) {
+		if (!user.getPassword().equals(confirmPassword)) {
+			model.addAttribute("error", "Passwords do not match");
+			return "register";
+		}
+		user.setPassword(passwordEncoder.encode(confirmPassword));
+		user.setRoles("USER");
+		userService.save(user);
+		return "redirect:/login";
+	}
+
+	@PostMapping("/edituser/{id}")
+	public String editUser(Model model, @PathVariable Long id, User user, String confirmPassword) {
+		if (!user.getPassword().equals(confirmPassword)) {
+			model.addAttribute("error", "Passwords do not match");
+			return "register";
+		}
+		user.setPassword(passwordEncoder.encode(confirmPassword));
+		user.setRoles("USER");
+		userService.save(user);
+		return "redirect:/user_account/" + id;
+	}
+	
 
     @PostMapping("/newproduct")
 	public String postNewProduct(Model model, Product product, String sellerName) {
@@ -99,6 +131,9 @@ public class UserController {
 
            List<Product> products = productService.getProductsBySeller(user.get());
             model.addAttribute("user", user.get());
+			if (model.getAttribute("userName") != null && model.getAttribute("userName").equals(user.get().getName())) {
+				model.addAttribute("isOwner", true);
+			}
             model.addAttribute("products", products);
 		    return "user_account";}
         else{
@@ -106,20 +141,35 @@ public class UserController {
             }
     }
 
-	@PostMapping("/deleteproduct/{id}")
-public String deleteProduct(@PathVariable Long id, Model model) {
-    try {
-        productService.delete(id);
-        return "redirect:/my_listings";
-    } catch (org.springframework.dao.EmptyResultDataAccessException e) {
-        model.addAttribute("errorMessage", "Product not found: " + id);
-        return "error";
-    } catch (org.springframework.dao.DataIntegrityViolationException e) {
-        model.addAttribute("errorMessage", "Cannot delete product because it is referenced by other records (orders/ratings).");
-        return "error";
-    }
-}
+	@GetMapping("/edituser/{id}")
+	public String editUser(@PathVariable Long id, Model model) {
+		Optional<User> user = userService.getUserById(id);
+		if (user.isPresent()) {
+			model.addAttribute("user", user.get());
+			return "register";
+		} else {
+			return "pageerror";
+		}
+	}
 
+
+
+	@PostMapping("/deleteproduct/{id}")
+	public String deleteProduct(@PathVariable Long id, Model model) {
+			productService.delete(id);
+			return "redirect:/my_listings";
+
+	}
+
+	@PostMapping("/deleteuser/{id}")
+	public String deleteUser(@PathVariable Long id, Model model) {	
+		for (Product p : productService.getProductsBySeller(userService.getUserById(id).get())) {
+			productService.delete(p.getId());
+		}
+		userService.delete(id);
+
+		return "redirect:/login";
+	}
 
 	    
 

@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 @Table(name="users")
 public class User {
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id = null;
@@ -142,6 +143,10 @@ public class User {
 
 	public List<String> getRoles() {
     return roles;
+	}
+
+	public void setRoles(String... roles) {
+		this.roles = List.of(roles);
 	}
 
 	public void setRoles(List<String> roles) {

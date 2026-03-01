@@ -41,7 +41,12 @@
             <p class="text-muted mb-0">Join our marketplace to buy and sell items</p>
           </div>
 
+         {{#user}} 
+          <form action="/edituser/{{id}}" method="post">
+        {{/user}}
+        {{^user}}
           <form action="/register" method="post">
+        {{/user}}
             <input type="hidden" name="_csrf" value="{{token}}">
             {{#error}}
             <div class="alert alert-danger" role="alert">
@@ -49,34 +54,64 @@
             </div>
             {{/error}}
 
+            {{#user}}
+                <input type="hidden"  name="id" value="{{id}}" required>
+             {{/user}}
+
             <!-- Full name -->
+             
             <div class="mb-3">
               <label for="fullName" class="form-label">Full name</label>
-              <input type="text" class="form-control" placeholder="John Doe" name="fullName" required>
+              {{#user}}
+                <input type="text" class="form-control" name="fullName" value="{{fullName}}" required>
+             {{/user}}
+             {{^user}}
+                <input type="text" class="form-control" placeholder="John Doe" name="fullName" required>
+              {{/user}}
             </div>
 
             <!-- Username -->
             <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" placeholder="john_doe123" name="username" required>
+              <label for="name" class="form-label">Username</label>
+              {{#user}}
+                <input type="text" class="form-control" name="name" value="{{name}}" required>
+              {{/user}}
+              {{^user}}
+                <input type="text" class="form-control" placeholder="john_doe123" name="name" required>
+              {{/user}}
             </div>
 
             <!-- Email -->
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
+              {{#user}}
+                <input type="email" class="form-control" name="email" value="{{email}}" required>
+              {{/user}}
+              {{^user}}
               <input type="email" class="form-control" placeholder="name@example.com" name="email" required>
+              {{/user}}
             </div>
 
             <!-- Location -->
             <div class="mb-3">
               <label for="city" class="form-label">City</label>
+              {{#user}}
+                <input type="text" class="form-control" name="city" value="{{city}}">
+              {{/user}}
+              {{^user}}
               <input type="text" class="form-control" placeholder="Madrid" name="city">
+              {{/user}}
             </div>
 
             <!-- Password -->
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
+              {{#user}}
+                <input type="password" class="form-control" name="password">
+              {{/user}}
+              {{^user}}
               <input type="password" class="form-control" name="password" required>
+              {{/user}}
             </div>
 
             <!-- Confirm password -->
