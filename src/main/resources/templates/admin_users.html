@@ -67,6 +67,10 @@ body{background:#f4f6f9}
                 <td class="text-end">
                   <a href="ban_user/{{id}}" class="btn btn-outline-danger btn-sm">{{#isBanned}}Unban{{/isBanned}}{{^isBanned}}Ban{{/isBanned}}</a>
                   <a href="user_account/{{id}}" class="btn btn-outline-secondary btn-sm">View</a>
+                  <form action="/deleteuser/{{id}}" method="post" style="display:inline;">
+                    <input type="hidden" name="_csrf" value="{{token}}">
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                  </form>
                 </td>
               </tr>
               {{/users}}

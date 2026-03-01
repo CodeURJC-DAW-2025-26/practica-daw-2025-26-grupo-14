@@ -167,7 +167,7 @@ public class UserController {
 		}
 		userService.delete(id);
 
-		return "redirect:/login";
+		return "redirect:/admin_users";
 	}
 
 	    
