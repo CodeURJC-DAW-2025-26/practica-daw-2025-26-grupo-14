@@ -54,10 +54,16 @@
         {{^user.profilePicture}}
          <img src="/images/noImage.png" class="rounded-circle img-fluid mb-3" style="width:150px; height:150px; object-fit:cover;">
         {{/user.profilePicture}}
-        <img src="/images/{{id}}"
-             class="rounded-circle img-fluid mb-3"
-             style="width:150px; height:150px; object-fit:cover;">
+        <form id="form_profile_pic" action="/uploadProfilePicture/{{user.id}}" method="post" enctype="multipart/form-data" hidden>
+          <div class="mb-3">
+            <label for="profilePicture" class="form-label">Change profile picture:</label>
+            <input type="file" name="imageField" id="profilePicture" class="form-control" accept=".jpg, .jpeg, .webp" />
+             <input type="hidden" name="_csrf" value="{{token}}" />
+             <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
       </div>
+      
 
       <!-- User info -->
       <div class="col-md-6">
@@ -82,7 +88,9 @@
         {{#isOwner}}
         <a href="/edituser/{{user.id}}" class="btn btn-primary w-100 mb-2">edit</a>
         <p class="text-muted mb-0">📧 {{user.email}}</p>
-
+        <button class="btn btn-outline-primary w-100 mt-2" onclick="form_profile_pic.hidden = !form_profile_pic.hidden;">
+          Change profile picture
+        </button>
         {{/isOwner}}
         {{^isOwner}}
         <a href="#" class="btn btn-primary w-100 mb-2">Follow</a>
