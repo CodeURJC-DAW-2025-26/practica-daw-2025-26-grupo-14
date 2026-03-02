@@ -268,7 +268,7 @@ Diagrama mostrando las entidades, sus campos y relaciones:
 
 Diagrama de clases de la aplicación con diferenciación por colores o secciones:
 
-![Diagrama de Clases](readme_assets/classes-diagram.png)
+![Diagrama de Clases](readme_assets/UML-diagram.png)
 
 > [Descripción opcional del diagrama y relaciones principales]
 
@@ -293,45 +293,30 @@ Readme.
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - Alejandro Triguero Ruiz**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+Generalmente acciones de front y validaciones de back.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Volver el campo ciudad una lista al crear usuario](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/681872e45cba02001c237189d84d8669ba3b612e)  | [Archivo1](URL_archivo_1)   |
+|2| [Validacion de User](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/0d4d87f9ccdb7ad3df5089a4782e203f9d2e80cd)  | [Archivo2](URL_archivo_2)   |
+|3| [Arreglos variados](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/c63a82ec2711062200055c52b8d656235b50e8a1)  | [Archivo3](URL_archivo_3)   |
+|4| [Footer y header separados](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/98014486bb11b9a05f2526162f9dd23bd43e56f3)  | [Archivo4](URL_archivo_4)   |
+|5| [Busqueda por nombre operativa](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/7bc710613f232183c3824f0cebccaa0cda6553e4)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - Sergio Villagarcía Sánchez**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
-
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
-
----
-
-#### **Alumno 4 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+Que se pueda acceder de forma segura y cambios menores de front.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Merge cargando commits](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/7fbb1142a2071e8bc336649198d0aae8d94c85f9)  | [Archivo1](URL_archivo_1)   |
+|2| [Poder acceder con https](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/71105440a9ccd7236ddba0e8bd3d4ad5f5466999)  | [Archivo2](URL_archivo_2)   |
+|3| [Cambiar titulos de páginas](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/3bcb7d202177940b48fb08bb22bfec642e0d3958)  | [Archivo3](URL_archivo_3)   |
+|4| [Cambiar titulo de página main](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/29703a55dd65c14fc8347b57c69deb78525ca820)  | [Archivo3](URL_archivo_3)   |
 
 ---
 
