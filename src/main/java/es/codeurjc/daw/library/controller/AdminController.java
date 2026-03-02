@@ -57,25 +57,6 @@ public class AdminController {
 		return "admin_stats";
 	}
 
-	//Para AJAX
-	@GetMapping("/users/page")
-	@ResponseBody
-	public Map<String, Object> usersPage(
-			@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size) {
 
-		Page<User> result = userService.getUsersPage(page, size);
-
-		List<Map<String, Object>> products = result.getContent().stream().map(u -> {
-			Map<String, Object> dto = new HashMap<>();
-			dto.put("id", u.getId());
-			dto.put("name", u.getName());
-			dto.put("email", u.getEmail());
-			dto.put("isBanned", u.getIsBanned());
-			return dto;
-		}).toList();
-
-		return Map.of("products", products, "hasNext", result.hasNext());
-	}
 
 }

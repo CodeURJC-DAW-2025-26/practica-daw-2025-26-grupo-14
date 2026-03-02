@@ -50,16 +50,7 @@ public class UserService {
         });
     }
 
-    //Para Ajax
-    public Page<User> getUsersPage(int page, int size) {
-    Pageable pageable = PageRequest.of(page, size);
-    return userRepository.findAll(pageable).getContent();
-    }
-
-    public boolean hasNextPage(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return userRepository.findAll(pageable).hasNext();
-    }
+    
         
 }
 
