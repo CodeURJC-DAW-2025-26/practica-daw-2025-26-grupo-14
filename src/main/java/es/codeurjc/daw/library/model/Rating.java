@@ -1,5 +1,10 @@
 package es.codeurjc.daw.library.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,8 +29,12 @@ public class Rating {
 	@ManyToOne
 	private User rated;
 
+	@NotBlank(message = "summery is required")
+	@Size(min = 2 , max = 120, message = "summery must be between 2 an 120 characters")
 	private String summery;
 
+	@Min(value = 1, message = "rating must be at least 1")
+	@Max(value = 5, message = "rating must be at most 5")
 	private int rating;
 
 	@Column(columnDefinition = "TEXT")
