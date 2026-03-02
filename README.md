@@ -184,11 +184,28 @@ A su vez, en la parte izquierda de la pagina, se puede ver un panel de administr
 
 #### **Diagrama de Navegación**
 
-Solo si ha cambiado.
+Porque se han añadido pantallas
 
 #### **Capturas de Pantalla Actualizadas**
 
-Solo si han cambiado.
+Han cambiado principalmente en como se ven porque ahora tienen datos, aunque se han añadido unas pocas.
+
+##### **15. Formulario de Valoraciones / Rating Form**
+![Página Principal](readme_assets/main.png)
+
+>Esta página muestra el formulario de las valoraciones, para valorar pedidos. En ella aparece, primero, datos del pedido, y luego, un formulario para evaluar el pedido del 1 al 5 y explicar el porqué.
+
+##### **16. Pagina de Error del Login / Login Error Page**
+
+>Esta página muestra el error de login por credenciales invalidas, ya sea por el nombre de usuario, la contraseña o ambos. Además te permite volver al login para insertar tus datos adecuadamente.
+
+##### **17. Pagina de Error al Buscar Página /  Page Error Page**
+
+>Esta página muestra el error al buscar otra que no está, ya sea por que aún no se ha implementado o porque se ha escrito erroneamente la URI. Además te permite volver a la página principal.
+
+##### **18. Pagina de Error General / Error Page**
+
+>Esta página muestra el error con su mensaje, de tenerlo. Si no tiene mensage, te dice que el error es desconocido. Además te permite volver a la página principal.
 
 ### **Instrucciones de Ejecución**
 
@@ -206,7 +223,30 @@ Solo si han cambiado.
    cd [nombre-repositorio]
    ```
 
-2. **AQUÍ INDICAR LO SIGUIENTES PASOS**
+2. **Crear una base de datos donde guardar los datos**
+   2.1 **Conectarse al servidor SQL**
+   ```bash
+   mysql -u root -p
+   ```
+   2.2 **Crear bade de datos ladob**
+   ```sql
+   CREATE DATABASE empresa
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+   ```
+   2.3 **Configurar perfil**
+   ```sql
+   ALTER USER 'root'@'localhost' IDENTIFIED BY 'Th1$1$MyP@$$W0Rd';
+   FLUSH PRIVILEGES;
+   ```
+4. **Instalar las dependencias**
+   ```bash
+   mvn install
+   ```
+5. **Correr la aplicación**
+   ``` bash
+   mvn spring-boot:run
+   ```
 
 #### **Credenciales de prueba**
 - **Usuario Admin**: usuario: `admin`, contraseña: `admin`
@@ -216,7 +256,7 @@ Solo si han cambiado.
 
 Diagrama mostrando las entidades, sus campos y relaciones:
 
-![Diagrama Entidad-Relación](images/database-diagram.png)
+![Diagrama Entidad-Relación](readme_assets/database-diagram.png)
 
 > [Descripción opcional: Ej: "El diagrama muestra las 4 entidades principales: Usuario, Producto, Pedido y Categoría, con sus respectivos atributos y relaciones 1:N y N:M."]
 
@@ -224,7 +264,7 @@ Diagrama mostrando las entidades, sus campos y relaciones:
 
 Diagrama de clases de la aplicación con diferenciación por colores o secciones:
 
-![Diagrama de Clases](images/classes-diagram.png)
+![Diagrama de Clases](readme_assets/classes-diagram.png)
 
 > [Descripción opcional del diagrama y relaciones principales]
 
@@ -306,7 +346,7 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 Diagrama actualizado incluyendo los @RestController y su relación con los @Service compartidos:
 
-![Diagrama de Clases Actualizado](images/complete-classes-diagram.png)
+![Diagrama de Clases Actualizado](readme_assets/complete-classes-diagram.png)
 
 ### **Instrucciones de Ejecución con Docker**
 
@@ -471,7 +511,7 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 Diagrama mostrando los componentes React, hooks personalizados, servicios y sus relaciones:
 
-![Diagrama de Componentes React](images/spa-classes-diagram.png)
+![Diagrama de Componentes React](readme_assets/spa-classes-diagram.png)
 
 ### **Participación de Miembros en la Práctica 3**
 
