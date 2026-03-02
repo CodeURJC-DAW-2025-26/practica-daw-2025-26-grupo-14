@@ -155,85 +155,33 @@
     <header class="pt-4 pb-3">
       <h3>Ratings</h3>
     </header>
-
+    {{#user.myRatings}}
     <div class="row mb-4">
       <div class="col-lg-4 col-md-6">
+        {{#rater.profilePicture}}
+         <img src="/images/{{id}}" class="rounded-circle img-fluid mb-3" style="width:20px; height:20px; object-fit:cover;">
+        {{/rater.profilePicture}}
+        {{^rater.profilePicture}}
+         <img src="/images/noImage.png" class="rounded-circle img-fluid mb-3" style="width:20px; height:20px; object-fit:cover;">
+        {{/rater.profilePicture}}
+        <span class="ms-2">{{rater.name}}</span>
         <figure class="d-flex align-items-center mb-4">
           <span class="rounded-circle bg-white p-3 d-flex me-2 mb-2">
-            <i class="fas fa-camera-retro fa-2x fa-fw text-primary floating"></i>
+            <h3 class="mb-0">{{rating}}/5</h3>
           </span>
           <figcaption class="info">
-            <h6 class="title">Reasonable prices where is it </h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmor</p>
+            <h6 class="title">{{summery}} </h6>
+            <p>{{description}}</p>
           </figcaption>
         </figure>
         <!-- itemside // -->
       </div>
-      <!-- col // -->
-      <div class="col-lg-4 col-md-6">
-        <figure class="d-flex align-items-center mb-4">
-          <span class="rounded-circle bg-white p-3 d-flex me-2 mb-2">
-            <i class="fas fa-star fa-2x fa-fw text-primary floating"></i>
-          </span>
-          <figcaption class="info">
-            <h6 class="title">Best quality</h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmor</p>
-          </figcaption>
-        </figure>
-        <!-- itemside // -->
+      {{/user.myRatings}}
+      {{^user.myRatings}}
+      <div class="col-12">
+        <p class="text-muted">This user has no ratings yet.</p>    
       </div>
-      <!-- col // -->
-      <div class="col-lg-4 col-md-6">
-        <figure class="d-flex align-items-center mb-4">
-          <span class="rounded-circle bg-white p-3 d-flex me-2 mb-2">
-            <i class="fas fa-plane fa-2x fa-fw text-primary floating"></i>
-          </span>
-          <figcaption class="info">
-            <h6 class="title">Worldwide shipping</h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmor</p>
-          </figcaption>
-        </figure>
-        <!-- itemside // -->
-      </div>
-      <!-- col // -->
-      <div class="col-lg-4 col-md-6">
-        <figure class="d-flex align-items-center mb-4">
-          <span class="rounded-circle bg-white p-3 d-flex me-2 mb-2">
-            <i class="fas fa-users fa-2x fa-fw text-primary floating"></i>
-          </span>
-          <figcaption class="info">
-            <h6 class="title">Customer satisfaction</h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmor</p>
-          </figcaption>
-        </figure>
-        <!-- itemside // -->
-      </div>
-      <!-- col // -->
-      <div class="col-lg-4 col-md-6">
-        <figure class="d-flex align-items-center mb-4">
-          <span class="rounded-circle bg-white p-3 d-flex me-2 mb-2">
-            <i class="fas fa-thumbs-up fa-2x fa-fw text-primary floating"></i>
-          </span>
-          <figcaption class="info">
-            <h6 class="title">Happy customers</h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmor</p>
-          </figcaption>
-        </figure>
-        <!-- itemside // -->
-      </div>
-      <!-- col // -->
-      <div class="col-lg-4 col-md-6">
-        <figure class="d-flex align-items-center mb-4">
-          <span class="rounded-circle bg-white p-3 d-flex me-2 mb-2">
-            <i class="fas fa-box fa-2x fa-fw text-primary floating"></i>
-          </span>
-          <figcaption class="info">
-            <h6 class="title">Thousand items</h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmor</p>
-          </figcaption>
-        </figure>
-        <!-- itemside // -->
-      </div>
+      {{/user.myRatings}}
       <!-- col // -->
     </div>
   </div>
