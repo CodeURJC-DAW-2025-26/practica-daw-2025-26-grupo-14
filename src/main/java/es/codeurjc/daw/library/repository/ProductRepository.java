@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findBySeller(User seller);
     List<Product> findByNameContainingIgnoreCase(String name);
@@ -14,5 +17,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByCategoryIgnoreCase(String category);
 
     List<Product> findBySellerCityIgnoreCase(String city);
+
+    Page<Product> findByCategoryIgnoreCase(String category, Pageable pageable);
+    Page<Product> findByNameContainingIgnoreCase(String keyword, Pageable pageable);
 
 }

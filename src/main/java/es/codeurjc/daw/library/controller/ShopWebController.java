@@ -15,6 +15,14 @@ import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.UserService;
 
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+
 
 
 @Controller
@@ -87,4 +95,29 @@ public class ShopWebController {
 	public String searchPage() {
 		return "search";
 	}
+
+	//Para AJAX
+	@GetMapping("/products/page")
+	@ResponseBody
+	public Map<String, Object> productsPage(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size,
+			@RequestParam(required = false) String keyword,
+			@RequestParam(required = false) String category) {
+
+		Page<Product> result = productService.getProductsPage(page, size, keyword, category);
+
+		List<Map<String, Object>> products = result.getContent().stream().map(p -> {
+			Map<String, Object> dto = new HashMap<>();
+			dto.put("id", p.getId());
+			dto.put("name", p.getName());
+			dto.put("price", p.getPrice());
+			dto.put("shortDescription", p.getShortDescription());
+			dto.put("imageId", p.getImage() != null ? p.getImage().getId() : null);
+			return dto;
+		}).toList();
+
+		return Map.of("products", products, "hasNext", result.hasNext());
+	}
+
 }

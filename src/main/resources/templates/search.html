@@ -57,49 +57,53 @@
           
         </header>
 
-        <div class="row">
+        <div id="products_div" class="row">
           
-          {{#results}}
-          <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
-            <div class="card w-100 my-2 shadow-2-strong">
-              {{#image}}
-              <img src="/images/{{id}}" class="card-img-top"  />+
-              {{/image}}
-              {{^image}}
-              <img src="/images/noImage.png" class="card-img-top" />
-              {{/image}}
-              <div class="card-body">
-                <h5>{{name}}</h5>
-                <p>{{shortDescription}}</p>
-                <h6>{{price}} €</h6>
-              </div>
-            </div>
-          </div>
-          {{/results}}
+          <button id="load-more-btn" class="btn btn-outline-dark">Cargar más</button>
+
+          <script>
+          let page = 0;
+          const size = 10;
+          const row = document.getElementById('products_div');
+          const btn = document.getElementById('load-more-btn');
+          const currentParams = new URLSearchParams(window.location.search); // category, keyword...
+
+          function renderProduct(p) {
+            return `
+              <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
+                <div class="card w-100 my-2 shadow-2-strong">
+                  <a href="/product/${p.id}">
+                    <img src="${p.imageId ? '/images/' + p.imageId : '/images/noImage.png'}" class="card-img-top"/>
+                  </a>
+                  <div class="card-body">
+                    <h5>${p.name}</h5>
+                    <p>${p.shortDescription ?? ''}</p>
+                    <h6>${p.price} €</h6>
+                  </div>
+                </div>
+              </div>`;
+          }
+
+          async function loadMore() {
+            const params = new URLSearchParams(currentParams);
+            params.set('page', page);
+            params.set('size', size);
+
+            const res = await fetch(`/products/page?${params.toString()}`);
+            const data = await res.json();
+
+            row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
+            page++;
+            if (!data.hasNext) btn.style.display = 'none';
+          }
+
+          btn.addEventListener('click', loadMore);
+          loadMore();
+          </script>
 
         </div>
 
-        <!-- Pagination -->
-        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <!-- Pagination -->
+        
       </div>
     </div>
   </div>            

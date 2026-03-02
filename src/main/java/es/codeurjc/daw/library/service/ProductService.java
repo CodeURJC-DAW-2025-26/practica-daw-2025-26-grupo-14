@@ -10,6 +10,10 @@ import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.ProductRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 @Service
 public class ProductService {
 
@@ -52,6 +56,29 @@ public class ProductService {
 
     public List<Product> searchProductsBySellerCity(String city) {
         return productRepository.findBySellerCityIgnoreCase(city);
+    }
+
+    //Para Ajax
+    public List<Product> getProductsPage(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    return productRepository.findAll(pageable).getContent();
+    }
+
+    public boolean hasNextPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findAll(pageable).hasNext();
+    }
+
+    public Page<Product> getProductsPage(int page, int size, String keyword, String category) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (category != null && !category.isBlank()) {
+            return productRepository.findByCategoryIgnoreCase(category, pageable);
+        }
+        if (keyword != null && !keyword.isBlank()) {
+            return productRepository.findByNameContainingIgnoreCase(keyword, pageable);
+        }
+        return productRepository.findAll(pageable);
     }
 }
 
