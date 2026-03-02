@@ -205,6 +205,7 @@ public class UserController {
 			model.addAttribute("errorMessage", "Product not found.");
 			return "error";
 		}
+
 		if (model.getAttribute("userName") == null) {
 			model.addAttribute("message", "You should be logged in to buy a product.");
 			return "redirect:/product/" + id;
@@ -214,7 +215,15 @@ public class UserController {
 			model.addAttribute("errorMessage", "Your user is not found.");
 			return "error";
 		}
+		
+		if(buyer.get().getMyOrders().stream().anyMatch(o -> 
+			o.getProduct() != null && o.getProduct().getId().equals(product.get().getId()))){
+				model.addAttribute("message", "You has already bought this product.");
+				return "redirect:/product/" + id;
+			}
+
 		Order order = new Order("Offer sent", product.get(), buyer.get());
+		
 		orderService.save(order);
 		return "redirect:/";
 	}
