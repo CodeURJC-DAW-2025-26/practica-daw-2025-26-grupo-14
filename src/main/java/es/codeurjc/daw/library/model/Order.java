@@ -2,6 +2,8 @@ package es.codeurjc.daw.library.model;
 
 //import java.util.List;
 
+import jakarta.validation.constraints.NotBlank;
+
 //import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +24,7 @@ public class Order {
     @ManyToOne
     private Product product;
 
+	@NotBlank(message = "state is required")
     private String state;
 
 	@OneToOne

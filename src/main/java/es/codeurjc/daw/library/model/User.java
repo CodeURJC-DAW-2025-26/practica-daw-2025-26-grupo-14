@@ -40,6 +40,7 @@ public class User {
 	@Email(message = "email should be valid")
 	private String email;
 
+	@NotBlank(message = "city is required")
     private String city;
 
 	@NotBlank(message = "password is required")

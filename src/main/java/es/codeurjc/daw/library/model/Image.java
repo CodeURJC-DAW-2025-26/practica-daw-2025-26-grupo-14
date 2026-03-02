@@ -2,6 +2,8 @@ package es.codeurjc.daw.library.model;
 
 import java.sql.Blob;
 
+import jakarta.validation.constraints.NotNull;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +17,7 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull(message = "image file is required")
     @Lob
     private Blob imageFile;
 

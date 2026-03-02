@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,27 +31,35 @@ public class Product {
 
 	//private String category;
 
-	
+	@NotBlank(message = "name is required")
+	@Size(min = 2 , max = 35, message = "name must be between 2 an 35 characters")
     private String name;
 
+	
     private float price;
 
+	@NotBlank(message = "category is required")
 	private String category;
 
+	@NotBlank(message = "short description is required")
+	@Size(min = 2 , max = 120, message = "short description must be between 2 an 120 characters")
 	@Column(columnDefinition = "TEXT")
 	private String shortDescription;
 
+	@NotBlank(message = "description is required")
     @Column(columnDefinition = "TEXT")
 	private String fullDescription;
 
     @ManyToMany
 	private List<Rating> ratings;
 
+	@NotBlank(message = "created at is required")
 	private String createdAt;
 
 	@Column(name="product_condition")
 	private String condition;
 
+	@NotBlank(message = "contact preference is required")
 	private String contactPreference;
 
 	@ManyToOne
