@@ -78,6 +78,17 @@
               {{/user}}
             </div>
 
+             <!-- DNI -->
+            <div class="mb-3">
+              <label for="dni" class="form-label">DNI</label>
+              {{#user}}
+                <input type="text" class="form-control" name="dni" value="{{dni}}">
+              {{/user}}
+              {{^user}}
+                <input type="text" class="form-control" placeholder="11111111A" name="dni">
+              {{/user}}
+            </div>
+
             <!-- Email -->
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>

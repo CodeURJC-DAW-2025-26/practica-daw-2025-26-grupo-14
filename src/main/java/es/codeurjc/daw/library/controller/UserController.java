@@ -19,6 +19,7 @@ import es.codeurjc.daw.library.model.Order;
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.Rating;
 import es.codeurjc.daw.library.model.User;
+import es.codeurjc.daw.library.repository.UserRepository;
 import es.codeurjc.daw.library.service.UserService;
 import es.codeurjc.daw.library.service.ImageService;
 import es.codeurjc.daw.library.service.OrderService;
@@ -26,10 +27,10 @@ import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.RatingService;
 
 
-
-
 @Controller
 public class UserController {
+
+    private final UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -48,6 +49,10 @@ public class UserController {
 	
 	@Autowired
     PasswordEncoder passwordEncoder;
+
+    UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
 	@GetMapping("/login")
 	public String login() {
@@ -69,12 +74,22 @@ public class UserController {
 	public String register(Model model, User user, String confirmPassword, Boolean user_new) {
 		if (user_new && !user.getPassword().equals(confirmPassword)) {
 			model.addAttribute("error", "Passwords do not match");
-			return "register";
+			return "registererror";
 		} else if (user_new || confirmPassword != null){
 			user.setPassword(passwordEncoder.encode(confirmPassword));
 		}
 		user.setRoles("USER");
 		
+		if(!user.getDni().matches("\\d{8}[A-Za-z]")){
+			model.addAttribute("error", "DNI must have 8 numbers and 1 letter.");
+			return "registererror";
+		}
+		
+		if(userRepository.findBydni(user.getDni()).isPresent()){
+			model.addAttribute("error", "DNI must unique.");
+			return "registererror";
+		}
+
 		if (user_new) {
 			userService.save(user);
 			model.addAttribute("message", "Account created successfully. Please log in.");

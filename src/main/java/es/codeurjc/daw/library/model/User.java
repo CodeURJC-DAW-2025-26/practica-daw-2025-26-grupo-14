@@ -3,6 +3,8 @@ package es.codeurjc.daw.library.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -47,6 +49,9 @@ public class User {
 	@Size(min = 6, message = "password must be at least 6 characters long")
 	private String password;
 
+	
+	private String dni;
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
@@ -65,7 +70,7 @@ public class User {
 	public User() {
 	}
 
-	public User(String fullName, String username, String email, String city, String password, String... roles) {
+	public User(String fullName, String username, String email, String city, String password, String dni, String... roles) {
 		super();
 		this.fullName = fullName;
 		this.name = username;
@@ -76,6 +81,7 @@ public class User {
 		this.myProducts = new ArrayList<>();
 		this.myRatings = new ArrayList<>();
 		this.myOrders = new ArrayList<>();
+		this.dni = dni;
 		this.roles = List.of(roles);
 	}
 
@@ -141,6 +147,14 @@ public class User {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni){
+		this.dni = dni;
 	}
 
 	public List<Product> getMyProducts() {
