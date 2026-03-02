@@ -84,14 +84,14 @@ Indicar cuál será el algoritmo o consulta avanzada que se implementará:
 ### **Diagrama de Navegación**
 Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicación:
 
-![Diagrama de Navegación](src/main/resources/images/navegation-diagram.jpg)
+![Diagrama de Navegación](readme_assets/navegation-diagram.jpg)
 
 > [Descripción opcional del flujo de navegación: Ej: "El usuario puede acceder desde la página principal a todas las secciones mediante el menú de navegación. Los usuarios anónimos solo tienen acceso a las páginas públicas, mientras que los registrados pueden acceder a su perfil y panel de usuario."]
 
 ### **Capturas de Pantalla y Descripción de Páginas**
 
 #### **1. Página Principal / Main**
-![Página Principal](src/main/resources/images/main.png)
+![Página Principal](readme_assets/main.png)
 
 > Se trata de la página principal de la web de compra y venta de segunda mano. posee un encabezado  con diferentes opciones, como una barra de búsqueda, icono de la web para ir a esta misma página, asi como diferentes opciones que solo aparecerán dependiendo del tipo de usuario que sea, como por ejemplo en el botón de administrador, que solo será visible cuando un usuario registrado sea administrador.
 Este encabezado estará presente en todas las ventanas de la web, manteniendo la cohesión de la misma y dejando la función de buscar productos siempre activa.
@@ -103,17 +103,17 @@ Abajo de esta, aparecerá la sección de recomendados para el usuario que si bas
 >La página se rellenara hacia abajo con productos recomendados basado en lo mas vendido, siendo si esta registrado productos que le puedan interesar y si no lo esta con productos populares.
 
 #### **2. Inicio de Sesión / Login**
-![Página Principal](src/main/resources/images/login.png)
+![Página Principal](readme_assets/login.png)
 
 > Esta es la página HTML encargada del inicio de sesión de los usuarios registrados. Es una página básica, la cual comprueba el nombre de usuario o email y la contraseña para saber si la cuenta esta registrada y es correcta, dando también la opción de recuperar contraseña en caso de que sea necesario. También da la opción de crear una cuenta en caso de no tenerla. La página mantiene el estilo del resto de páginas, manteniendo el encabezado como en el resto de páginas. Una vez el usuario inicie sesión, esta ventana no aparecerá hasta que cierre sesión.
 
 #### **3. Busqueda por categoría/ Category_Search**
-![Página Principal](src/main/resources/images/Category.png)
+![Página Principal](readme_assets/Category.png)
 
 > La pagina es la encargada de mostrar los ítems cuando se busca por cagerías. La página será al final la misma que la página que muestra por búsqueda en la barra, pero se vera ligeramente diferenciada, ya que aquí se mostrará los productos específicos de la categoría que el usuario haya mostrado, asi como una lista de opciones a la izquierda de la página que el usuario podrá ajustar a sus necesidades. Se mantiene el encabezado de la página, manteniendo la cohesión con el resto de página.
 
 #### **4. Página de administrador/ Administrator**
-![Página Principal](src/main/resources/images/admin.png)
+![Página Principal](readme_assets/admin.png)
 
 >La pagina de administrador es la pagina de control de la web. Esta página es solo accesible para usuarios que son administradores de la tienda, dejándoles monitorizar el estado de la tienda en todo momento.
 Nada más entrar en la zona de administrador, la página muestra un dashboard con diferentes datos de la web, como los usuarios, pedidos, ítems vendidos o reportes. Debajo de esto hay una lista de acciones rápidas para el administrador
@@ -123,52 +123,52 @@ A su vez, en la parte izquierda de la pagina, se puede ver un panel de administr
 >- Statistics: muestra las principales estadísticas de la página.
 
 #### **5. Gestion de Usuarios/ Admin_users**
-![Página Principal](src/main/resources/images/admin_users.png)
+![Página Principal](readme_assets/admin_users.png)
 
 >Esta pagina muestra una lista de los usuarios registrados de la pagina web, asi como su estado dentro de la misma, el nombre y el correo. En caso de que sea necesario, se pueden tomar acciones como un baneo del usuario, asi como accedera al perfil del mismo.
 
 #### **6.Moderación/ Admin_listings**
-![Página Principal](src/main/resources/images/admin_mod.png)
+![Página Principal](readme_assets/admin_mod.png)
 
 >Esta página de administrador trata sobre reportes de usuario para su moderación. En este caso es un listado con los diferentes reportes de usuarios sobre posibles productos fráudenlos de diferentes vendedores, y actuar en consecuencia, baneando en caso de que sea necesario, y quitando el producto fraudulento de la tienda.
 
 #### **7.Estadisticas de la página/ Admin_stats**
-![Página Principal](src/main/resources/images/admin_stats.png)
+![Página Principal](readme_assets/admin_stats.png)
 
 >Esta página muestra las diferentes estadísticas de ventas de la páginas, asi como otras estadísticas varias. Esto sirve a los administradores para saber que esta funcionando mejor en las ventas, asi como estadictas sobre nuevos usuarios o listas de pepidos creadas en los últimos días.
 
 #### **8.Productos en interés/ my_deals**
-![Página Principal](src/main/resources/images/mydeals.png)
+![Página Principal](readme_assets/mydeals.png)
 
 >Esta página muestra todos los artículos en los que tienes interés de cualquier tipo, ya sea interés en comprar, interés en reservarlo para lanzar una futura oferta o bien artículos en los que ya tienes una oferta realizada activa. Como podemos ver tenemos las opciones de abrir chat con el vendedor para cualquier duda y también se muestra de forma simple toda la información de relevancia de cada artículo (Estado del pedido, vendedor, fotos, precio, etc).
 
 #### **9.Artículos en venta/ my_listings**
-![Página Principal](src/main/resources/images/mylistings.png)
+![Página Principal](readme_assets/mylistings.png)
 
 >Esta página muestra los artículos que un usuario tiene en venta, y tendrá la opción de poner otro artículo a la venta. También se muestra una pequeña previsualización de cada artículo con su precio y la fecha en la que se publicó.
 
 #### **10.Búsqueda de artículos/ normal_search**
-![Página Principal](src/main/resources/images/normalsearch.png)
+![Página Principal](readme_assets/normalsearch.png)
 
 >Esta página muestra un buscador completo para los artículos que se encuentren en venta dentro de la web. En ella podemos diferenciar las diferentes previsualizaciones de los artículos, un menú lateral con tags que a futuro tendrá cada item, y también por supuesto la opción de añadir al carrito y de añadir a favoritos.
 
 #### **11.Producto/ product**
-![Página Principal](src/main/resources/images/product.png)
+![Página Principal](readme_assets/product.png)
 
 >En esta página nos encontramos la página dedicada a cada producto, en la cual podemos diferenciar que se pueden visualizar diferentes imágenes para las diferentes perspectivas posibles, una descripción breve del producto, el precio y el vendedor. Por supuesto también se podrá realizar una oferta o directamente comprar el producto.
 
 #### **12.Publicar un nuevo producto/ publish**
-![Página Principal](src/main/resources/images/publish.png)
+![Página Principal](readme_assets/publish.png)
 
 >Esta página muestra el cuestionario a rellenar para publicar un nuevo producto. En él podemos ver que se nos pide el nombre del artículo, el precio, la categoría (tag) y la condición, por si tiene algún defecto. También se nos pide una breve descripción y por último las imágenes a mostrar, la ciudad desde la que se vende y la preferencia de contacto.
 
 #### **13.Registro/ register**
-![Página Principal](src/main/resources/images/register.png)
+![Página Principal](readme_assets/register.png)
 
 >Esta página muestra el formulario para crear una cuenta en el portal. Se pide el nombre completo, un nickname, el correo, la ciudad, una contraseña y también un apartado para confirmar la contraseña. Por último también hay un check para aceptar los términos y condiciones de la web.
 
 #### **14.Cuenta de usuario/ user_account**
-![Página Principal](src/main/resources/images/useraccount.png)
+![Página Principal](readme_assets/useraccount.png)
 
 >Esta página muestra la página de perfil. En ella se puede ver los artículos que cada usuario tiene en venta y también un apartado para seguir a ese vendedor. También se ve la ciudad, desde cuando se unió a la página web, las estrellas en forma de valoración que posee el vendedor y el número de reseñas que tiene. Por último también se tiene la posibilidad de mandar un mensaje por chat al vendedor mediante el botón send message.
 
