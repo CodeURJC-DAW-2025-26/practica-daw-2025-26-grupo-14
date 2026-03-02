@@ -184,6 +184,7 @@ A su vez, en la parte izquierda de la pagina, se puede ver un panel de administr
 
 #### **Diagrama de Navegación**
 
+![Diagrama de Navegación](readme_assets/new_navegation_diagram.jpg)
 Porque se han añadido pantallas
 
 #### **Capturas de Pantalla Actualizadas**
@@ -191,21 +192,24 @@ Porque se han añadido pantallas
 Han cambiado principalmente en como se ven porque ahora tienen datos, aunque se han añadido unas pocas.
 
 ##### **15. Formulario de Valoraciones / Rating Form**
-![Página Principal](readme_assets/main.png)
+![Página Principal](readme_assets/rating_form.png)
 
 >Esta página muestra el formulario de las valoraciones, para valorar pedidos. En ella aparece, primero, datos del pedido, y luego, un formulario para evaluar el pedido del 1 al 5 y explicar el porqué.
 
 ##### **16. Pagina de Error del Login / Login Error Page**
+![Página Principal](readme_assets/login_error.png)
 
 >Esta página muestra el error de login por credenciales invalidas, ya sea por el nombre de usuario, la contraseña o ambos. Además te permite volver al login para insertar tus datos adecuadamente.
 
 ##### **17. Pagina de Error al Buscar Página /  Page Error Page**
+![Página Principal](readme_assets/page_error.png)
 
 >Esta página muestra el error al buscar otra que no está, ya sea por que aún no se ha implementado o porque se ha escrito erroneamente la URI. Además te permite volver a la página principal.
 
 ##### **18. Pagina de Error General / Error Page**
+![Página Principal](readme_assets/error.png)
 
->Esta página muestra el error con su mensaje, de tenerlo. Si no tiene mensage, te dice que el error es desconocido. Además te permite volver a la página principal.
+>Esta página muestra el error con su mensaje, de tenerlo. Si no tiene mensage, te dice que el error es desconocido. Además te permite volver a la página principal. En este caso el mensaje es que no se puede conectar por el jpa.
 
 ### **Instrucciones de Ejecución**
 
@@ -277,6 +281,7 @@ Que las entidades se creen, borren y cambien.
 Que las imagenes esten en la base de datos.
 Que se paginen entidades con AJAX.
 Login, signin y registro.
+Readme.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
