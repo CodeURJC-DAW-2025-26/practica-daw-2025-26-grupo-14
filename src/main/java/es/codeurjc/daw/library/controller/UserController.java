@@ -74,11 +74,19 @@ public class UserController {
 			user.setPassword(passwordEncoder.encode(confirmPassword));
 		}
 		user.setRoles("USER");
-		userService.save(user);
+		
 		if (user_new) {
+			userService.save(user);
 			model.addAttribute("message", "Account created successfully. Please log in.");
 			return "login";
 		} else {
+			Optional<User> u = userService.getUserById(user.getId());
+			if (!u.isPresent()) {
+				model.addAttribute("error", "Couldn't find user.");
+				return "error";
+			}
+			user.setImage(u.get().getImage());
+			userService.save(user);
 			model.addAttribute("message", "Account updated successfully.");
 			model.addAttribute("user", user);
 			model.addAttribute("isOwner", true);
@@ -177,6 +185,13 @@ public class UserController {
 		Optional<User> user = userService.getUserById(id);
 		if (user.isPresent()) {
 			model.addAttribute("user", user.get());
+			model.addAttribute("cityOptions", List.of(
+				Map.of("value", "Madrid", "selected", "Madrid".equals(user.get().getCity())),
+				Map.of("value", "Barcelona", "selected", "Barcelona".equals(user.get().getCity())),
+				Map.of("value", "Valencia", "selected", "Valencia".equals(user.get().getCity())),
+				Map.of("value", "Sevilla", "selected", "Sevilla".equals(user.get().getCity())),
+				Map.of("value", "Zaragoza", "selected", "Zaragoza".equals(user.get().getCity()))
+			));
 			return "register";
 		} else {
 			return "pageerror";
