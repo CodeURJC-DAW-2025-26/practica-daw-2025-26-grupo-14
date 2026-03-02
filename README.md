@@ -270,17 +270,21 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ### **Participación de Miembros en la Práctica 1**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - Sara Tuset Villoria**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+Que la base de datos se conecte y se llene con datos preestablecidos.
+Que las entidades se creen, borren y cambien.
+Que las imagenes esten en la base de datos.
+Que se paginen entidades con AJAX.
+Login, signin y registro.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Creación y borrado imagenes](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/3e67f119ca50ebe06036515f8b5b97620aac6081)  | [Archivo1](URL_archivo_1)   |
+|2| [Entidad valoraciones: editar, borrar y crear](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/f5da37df6fc99c3266cade92a33f81584b0ef4d3)  | [Archivo2](URL_archivo_2)   |
+|3| [Paginación de productos con AJAX](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/bc80485bb6b9eab581306561ed78c798b0b52305)  | [Archivo3](URL_archivo_3)   |
+|4| [Que puedas entrar al perfil](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/6622117e3e0e91461e2d1ab4c01e47de07699444)  | [Archivo4](URL_archivo_4)   |
+|5| [Carga automatica en bases de datos](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/a04a3d25e4c65a09e4fcd7655323dc9c913dc6ba)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
