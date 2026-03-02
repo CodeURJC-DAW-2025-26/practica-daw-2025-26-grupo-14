@@ -58,49 +58,23 @@ body{background:#f4f6f9}
                 <th class="text-end">Action</th>
               </tr>
             </thead>
-            <tbody id="tree_users">
-              <div class="text-center mt-3">
-                <button id="load-more-btn" class="btn btn-outline-dark">Cargar más</button>
-              </div>
-
-  <script>
-  let page = 0;
-  const size = 10;
-  const row = document.getElementById('tree_users');
-  const btn = document.getElementById('load-more-btn');
-
-  function renderProduct(p) {
-    return `
-      <tr>
-        <td>${p.name}</td>
-        <td>${p.email}</td>
-          <span class="badge bg-${user.isBanned ? 'danger' : 'success'}">
-            ${user.isBanned ? 'Banned' : 'Active'}
-          </span>
-        </td>  
-          <button class="btn btn-outline-danger btn-sm" onclick="toggleBan(${user.id})">
-            ${user.isBanned ? 'Unban' : 'Ban'}
-          </button>
-          <a href="user_account/{{id}}" class="btn btn-outline-secondary btn-sm">View</a>
-          <form action="/deleteuser/{{id}}" method="post" style="display:inline;">
-            <input type="hidden" name="_csrf" value="{{token}}">
-            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-          </form>
-        </td>
-      </tr>`;
-  }
-
-  async function loadMore() {
-    const res = await fetch(`/users/page?page=${page}&size=${size}`);
-    const data = await res.json();
-    row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
-    page++;
-    if (!data.hasNext) btn.style.display = 'none';
-  }
-
-  btn.addEventListener('click', loadMore);
-  loadMore();
-  </script>
+            <tbody>
+              <tbody>
+              {{#users}}
+              <tr>
+                <td>{{name}}</td>
+                <td>{{email}}</td>
+                <td><span class="badge bg-{{#isBanned}}danger{{/isBanned}}{{^isBanned}}success{{/isBanned}}">{{#isBanned}}Banned{{/isBanned}}{{^isBanned}}Active{{/isBanned}}</span></td>
+                <td class="text-end">
+                  <a href="ban_user/{{id}}" class="btn btn-outline-danger btn-sm">{{#isBanned}}Unban{{/isBanned}}{{^isBanned}}Ban{{/isBanned}}</a>
+                  <a href="user_account/{{id}}" class="btn btn-outline-secondary btn-sm">View</a>
+                  <form action="/deleteuser/{{id}}" method="post" style="display:inline;">
+                    <input type="hidden" name="_csrf" value="{{token}}">
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              {{/users}}
               
               {{^users}}
               <tr>
