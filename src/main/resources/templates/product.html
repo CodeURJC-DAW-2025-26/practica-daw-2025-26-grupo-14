@@ -102,6 +102,7 @@
                             <div class="d-flex gap-3 mb-3">
                             
                                 <!-- comprar -->
+                                 {{^isOwner}}
                                 <form action="/create_deal/{{product.id}}" method="post" style="display:inline;">
                                     <input type="hidden" name="_csrf" value="{{token}}">
                                     <button class="btn btn-dark flex-shrink-0" type="submit">
@@ -109,6 +110,7 @@
                                         Buy now
                                     </button>
                                 </form>
+                                {{/isOwner}}
 
 
                                 <!-- hacer oferta -->
@@ -121,9 +123,11 @@
 
                         </div>
                         <!--new seller profile-->
+                        {{#isOwner}}
                         <button class="btn btn-outline-primary w-100 mt-2" onclick="form_pic.hidden = !form_pic.hidden;">
                         Change profile picture
                         </button>
+                        {{/isOwner}}
                         {{#product.seller}}
                         <a href="/user_account/{{product.seller.id}}" class="seller-link">
                             <div class="seller-box">

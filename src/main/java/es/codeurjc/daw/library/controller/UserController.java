@@ -362,7 +362,16 @@ public class UserController {
 
     @GetMapping("/my_listings")
     public String my_listings(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
+		if (model.getAttribute("userName") == null) {
+			model.addAttribute("errorMessage", "You should be logged in to view your deals.");
+			return "error";
+		}
+		Optional<User> user = userService.findByName((String) model.getAttribute("userName"));
+		if (!user.isPresent()) {
+			model.addAttribute("errorMessage", "Your user is not found.");
+			return "error";
+		}
+        model.addAttribute("products", user.get().getMyProducts());
         return "my-listings";
     }
 

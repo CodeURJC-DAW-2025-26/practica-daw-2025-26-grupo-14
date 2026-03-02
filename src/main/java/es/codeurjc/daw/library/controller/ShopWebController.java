@@ -71,6 +71,9 @@ public class ShopWebController {
 			// list other products from the same seller; seller is guaranteed non‑null above
 			model.addAttribute("seller_products", productService.getProductsBySeller(prod.getSeller()));
 			model.addAttribute("products", productService.getAllProducts());
+			if (model.getAttribute("userName") != null && model.getAttribute("userName").equals(prod.getSeller().getName())) {
+				model.addAttribute("isOwner", true);
+			}
 			return "product";
 		} else {
 			// either the product doesn’t exist or it has no associated seller
