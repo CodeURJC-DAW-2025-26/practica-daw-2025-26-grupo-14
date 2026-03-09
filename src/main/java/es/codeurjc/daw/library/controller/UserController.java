@@ -91,6 +91,7 @@ public class UserController {
 		}
 
 		if (user_new) {
+			user.setDate();
 			userService.save(user);
 			model.addAttribute("message", "Account created successfully. Please log in.");
 			return "login";

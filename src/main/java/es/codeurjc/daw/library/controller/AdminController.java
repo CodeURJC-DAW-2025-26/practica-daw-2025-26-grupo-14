@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.ProductRepository;
+import es.codeurjc.daw.library.repository.UserRepository;
 import es.codeurjc.daw.library.service.UserService;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,10 @@ public class AdminController {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
 	
 	@GetMapping("/administrator")
 	public String administrator() {
@@ -61,10 +66,12 @@ public class AdminController {
 
     @GetMapping("/admin_stats")
 public String adminStats(Model model) {
-    List<Object[]> rows = productRepository.countProductsByCategory(); // category, count
+    long total_u = userRepository.count();
     long total_p = productRepository.count();
+    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     if (total_p > 0){
+        List<Object[]> rows = productRepository.countProductsByCategory(); // category, count
         List<Map<String,Object>> categoryStats = rows.stream().map(r -> {
             String category = (String) r[0];
             long count = (Long) r[1];
@@ -77,7 +84,6 @@ public String adminStats(Model model) {
             );
         }).toList();
         
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yy");
         TreeMap<LocalDate, Long> byDate = new TreeMap<>();
 
         for (Object[] r : productRepository.countProductsByCreatedAt()) {
@@ -101,7 +107,32 @@ public String adminStats(Model model) {
     } else {
         model.addAttribute("Products", false);
     }
+
+    if (total_u > 0){
+        TreeMap<LocalDate, Long> usersByDate = new TreeMap<>();
+
+        for (Object[] r : userRepository.countUsersByCreatedAt()) {
+            String createdAt = (String) r[0];
+            Long count = (Long) r[1];
+            usersByDate.put(LocalDate.parse(createdAt, fmt), count);
+        }
+
+        String userLabelsJs = usersByDate.keySet().stream()
+            .map(d -> "\"" + d.format(fmt) + "\"")
+            .collect(Collectors.joining(","));
+
+        String userDataJs = usersByDate.values().stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+        model.addAttribute("userChartLabels", userLabelsJs);
+        model.addAttribute("userChartData", userDataJs);
+        model.addAttribute("Users", true);
+    }else{
+        model.addAttribute("Users", false);
+    }
+
     model.addAttribute("total_p", total_p);
+    model.addAttribute("total_u", total_u);
     return "admin_stats";
 }
 

@@ -44,10 +44,10 @@ body{background:#f4f6f9}
       <a href="admin_stats" class="active"><i class="fas fa-chart-pie me-2"></i>Statistics</a>
       <a href="/"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
     </div>
-    <div class="col-md-10 p-4">
-      {{#Products}}
-      <h2 class="mb-4">Sales Statistics</h2>
+    <div class="col-md-10 p-4">  
+      {{#Products}}  
       <div class="row mt-4 g-4">
+        <h2 class="mb-4">Sales Statistics</h2>
         <div class="col-12 col-lg-6">
           <div class="card shadow-sm p-4 h-100">
             <h5>Most popular categories</h5>
@@ -73,11 +73,29 @@ body{background:#f4f6f9}
         </div>
       </div>
       {{/Products}}
-    </div>
+
+      {{#Users}}  
       <div class="row mt-4 g-4">
-        <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Total Revenue</h6><h4>€12,430</h4></div></div>
-        <div class="col-md-4"><div class="card shadow-sm p-3"><h6>New Users (30 days)</h6><h4>+84</h4></div></div>
-        <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Listings Created</h6><h4>{{total_p}}</h4></div></div>
+        <h2 class="mb-4">Users Statistics</h2>
+        <div class="col-12 col-lg-6">
+          <div class="card shadow-sm p-4 h-100">
+            <h5>User historical</h5>
+            <canvas
+              id="usersByDateChart"
+              height="90"
+              data-labels='[{{{userChartLabels}}}]'
+              data-values='[{{{userChartData}}}]'>
+            </canvas>
+          </div>
+        </div>
+      </div>
+      {{/Users}}
+    
+        <div class="row mt-4 g-4">
+          <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Total Revenue</h6><h4>€12,430</h4></div></div>
+          <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Total Users</h6><h4>{{total_u}}</h4></div></div>
+          <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Listings Created</h6><h4>{{total_p}}</h4></div></div>
+        </div>
       </div>
     </div>
   </div>

@@ -205,5 +205,5 @@ public class Product {
 
     public void setDate() {
 		this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-    }
+    } 
 }

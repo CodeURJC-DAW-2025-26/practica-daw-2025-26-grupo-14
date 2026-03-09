@@ -1,5 +1,7 @@
 package es.codeurjc.daw.library.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +59,9 @@ public class User {
 
 	@OneToOne
 	private Image profilePicture;
+
+	@NotBlank(message = "created at is required")
+	private String createdAt;
     
 	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
 	private List<Product> myProducts;
@@ -83,6 +88,7 @@ public class User {
 		this.myOrders = new ArrayList<>();
 		this.dni = dni;
 		this.roles = List.of(roles);
+		this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 	}
 
 	public boolean getIsBanned() {
@@ -201,4 +207,12 @@ public class User {
     public void setBanned(boolean b) {
         this.isBanned = b;
     }
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setDate() {
+		this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+    } 
 }
