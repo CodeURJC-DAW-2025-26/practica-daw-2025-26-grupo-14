@@ -45,31 +45,52 @@ body{background:#f4f6f9}
       <a href="/"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
     </div>
     <div class="col-md-10 p-4">
+      {{#Products}}
       <h2 class="mb-4">Sales Statistics</h2>
-      <div class="card shadow-sm p-4">
-        <h5>Most popular categories</h5>
-        {{#categoryStats}}
-      <p class="mb-1">{{category}} ({{percent}}%)</p>
-      <div class="progress mb-3">
-        <div class="progress-bar bg-primary stat-bar" data-width="{{percent}}"></div>
+      <div class="row mt-4 g-4">
+        <div class="col-12 col-lg-6">
+          <div class="card shadow-sm p-4 h-100">
+            <h5>Most popular categories</h5>
+            {{#categoryStats}}
+              <p class="mb-1">{{category}} ({{percent}}%)</p>
+              <div class="progress mb-3">
+                <div class="progress-bar bg-primary stat-bar" data-width="{{percent}}"></div>
+              </div>
+            {{/categoryStats}}
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <div class="card shadow-sm p-4 h-100">
+            <h5>Product historical</h5>
+            <canvas
+              id="productsByDateChart"
+              height="90"
+              data-labels='[{{{productChartLabels}}}]'
+              data-values='[{{{productChartData}}}]'>
+            </canvas>
+          </div>
+        </div>
       </div>
-    {{/categoryStats}}
-      </div>
+      {{/Products}}
+    </div>
       <div class="row mt-4 g-4">
         <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Total Revenue</h6><h4>€12,430</h4></div></div>
         <div class="col-md-4"><div class="card shadow-sm p-3"><h6>New Users (30 days)</h6><h4>+84</h4></div></div>
-        <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Listings Created</h6><h4>231</h4></div></div>
+        <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Listings Created</h6><h4>{{total_p}}</h4></div></div>
       </div>
     </div>
   </div>
 </div>
 {{> footer}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
   document.querySelectorAll('.stat-bar').forEach(el => {
     el.style.width = (el.dataset.width || 0) + '%';
   });
 </script>
-
+<script src="/js/line_chart.js"></script>
 </body>
 </html>

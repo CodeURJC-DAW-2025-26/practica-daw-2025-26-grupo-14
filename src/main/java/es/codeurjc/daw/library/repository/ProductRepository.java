@@ -25,4 +25,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p.category, COUNT(p) FROM Product p GROUP BY p.category ORDER BY COUNT(p) DESC")
     List<Object[]> countProductsByCategory();
 
+    @Query("SELECT p.createdAt, COUNT(p) FROM Product p GROUP BY p.createdAt")
+    List<Object[]> countProductsByCreatedAt();
+
+
 }
