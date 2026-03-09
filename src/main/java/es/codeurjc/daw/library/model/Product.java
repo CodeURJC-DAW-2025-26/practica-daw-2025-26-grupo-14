@@ -2,6 +2,7 @@ package es.codeurjc.daw.library.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
@@ -14,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -62,8 +64,8 @@ public class Product {
 	@NotBlank(message = "contact preference is required")
 	private String contactPreference;
 
-	@ManyToOne
-	private Image image;
+	@OneToMany
+	private List<Image> images = new ArrayList<>();
     
 
 	public Product() {
@@ -143,12 +145,28 @@ public class Product {
 	}
 
 
-	public Image getImage() {
-		return image;
+	public Image getImage(int id) {
+		return images.get(id);
+	}
+
+	public Image getFirstImage() {
+    return (images != null && !images.isEmpty()) ? images.get(0) : null;
+}
+
+	public List<Image> getImages() {
+		return images;
 	}
 
 	public void setImage(Image image) {
-		this.image = image;
+		if (image != null) this.images.add(image);
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
+
+	public int getNumberImages(){
+		return this.images.size();
 	}
 
 	public Long getId() {

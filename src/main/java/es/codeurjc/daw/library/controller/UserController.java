@@ -113,7 +113,7 @@ public class UserController {
 	
 
     @PostMapping("/newproduct")
-	public String postNewProduct(Model model, Product product, String sellerName,  MultipartFile imageField) throws IOException {
+	public String postNewProduct(Model model, Product product, String sellerName,  List<MultipartFile> imageFields, @RequestParam(required = false) List<Long> deleteImageIds) throws IOException {
 		Optional<User> seller = userService.findByName(sellerName);
 		if (!seller.isPresent()) {
 			model.addAttribute("error", "You should be logged in to publish a product.");
@@ -122,20 +122,30 @@ public class UserController {
 		product.setSeller(seller.get());
 		product.setDate();
 
-		if (imageField == null || imageField.isEmpty()) {
-			if (product.getId() == null) {
-				product.setImage(null);
-			} else {
+		if (product.getId() != null) {
 			Optional<Product> p = productService.getProductById(product.getId());
 			if (!p.isPresent()) {
-				model.addAttribute("error", "Product with the same name already exists.");
+				model.addAttribute("error", "Product couldn´t be found.");
 				return "publish";
 			}
-			product.setImage(p.get().getImage());
+			if (deleteImageIds == null){
+				product.setImages(p.get().getImages());
+			}else{
+				for (Image image : p.get().getImages()) {
+					if (!deleteImageIds.contains(image.getId())){
+						product.setImage(image);
+					}
+				}
 			}
-		}else {
-			Image image = imageService.createImage(imageField.getInputStream());
-			product.setImage(image);
+			
+		}
+		if (imageFields != null && !imageFields.isEmpty()) {
+			
+			for (MultipartFile imageField : imageFields) {
+				Image image = imageService.createImage(imageField.getInputStream());
+				product.setImage(image);
+			}
+			
 		}
 
 		productService.save(product);

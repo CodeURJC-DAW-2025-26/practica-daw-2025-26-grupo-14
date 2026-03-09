@@ -42,42 +42,22 @@
 
                         <!-- main image -->
                         <div class="main-image">
-                            {{#product.image}}
-                            <img src="/images/{{id}}" class="image image1">
-                            <img src="/images/{{id}}" class="image image2">
-                            <img src="/images/{{id}}" class="image image3">
-                            <img src="/images/{{id}}" class="image image4">
-                            <img src="/images/{{id}}" class="image image5">
-                            <img src="/images/{{id}}" class="image image6">
-                            {{/product.image}}
-                            {{^product.image}}
-                                <img src="/images/noImage.png" class="image image1">
-                                <img src="/images/noImage.png" class="image image2">
-                                <img src="/images/noImage.png" class="image image3">
-                                <img src="/images/noImage.png" class="image image4">
-                                <img src="/images/noImage.png" class="image image5">
-                                <img src="/images/noImage.png" class="image image6">
-                            {{/product.image}}
+                            {{#main_image}}
+                                <img id="mainProductImage" src="/images/{{id}}" class="image image1">
+                            {{/main_image}}
+                            {{^main_image}}
+                                <img src="/static/images/noImage.png" class="image image1">
+                            {{/main_image}}
                         </div>
 
                         <!-- small images -->
                         <div class="thumbnails">
-                            {{#product.image}}
-                            <label for="img1"><img src="/images/{{id}}"></label>
-                            <label for="img2"><img src="/images/{{id}}"></label>
-                            <label for="img3"><img src="/images/{{id}}"></label>
-                            <label for="img4"><img src="/images/{{id}}"></label>
-                            <label for="img5"><img src="/images/{{id}}"></label>
-                            <label for="img6"><img src="/images/{{id}}"></label>
-                            {{/product.image}}
-                            {{^product.image}}
-                                <label for="img1"><img src="/images/noImage.png"></label>
-                                <label for="img2"><img src="/images/noImage.png"></label>
-                                <label for="img3"><img src="/images/noImage.png"></label>
-                                <label for="img4"><img src="/images/noImage.png"></label>
-                                <label for="img5"><img src="/images/noImage.png"></label>
-                                <label for="img6"><img src="/images/noImage.png"></label>
-                            {{/product.image}}
+                            {{#product.images}}
+                            <img src="/images/{{id}}" class="thumb" data-full="/images/{{id}}">
+                            {{/product.images}}
+                            {{^product.images}}
+                                <label for="img1"><img src="/static/images/noImage.png"></label>
+                            {{/product.images}}
                         </div>
 
                     </div>
@@ -123,11 +103,6 @@
 
                         </div>
                         <!--new seller profile-->
-                        {{#isOwner}}
-                        <button class="btn btn-outline-primary w-100 mt-2" onclick="form_pic.hidden = !form_pic.hidden;">
-                        Change profile picture
-                        </button>
-                        {{/isOwner}}
                         {{#product.seller}}
                         <a href="/user_account/{{product.seller.id}}" class="seller-link">
                             <div class="seller-box">
@@ -141,7 +116,7 @@
                                             <img class="rounded-circle me-3" src="/images/{{id}}" width="70" height="70">
                                         {{/product.seller.profilePicture}}
                                         {{^product.seller.profilePicture}}
-                                            <img class="rounded-circle me-3" src="/images/noImage.png" width="70" height="70">
+                                            <img class="rounded-circle me-3" src="/static/images/noImage.png" width="70" height="70">
                                         {{/product.seller.profilePicture}}
 
                                         <div>
@@ -165,14 +140,6 @@
                             </div>
                         </a>
                         {{/product.seller}}
-                        <form id="form_pic" action="/uploadImage/{{id}}" method="post" enctype="multipart/form-data" hidden>
-                            <div class="mb-3">
-                                <label for="profilePicture" class="form-label">Change profile picture:</label>
-                                <input type="file" name="imageField" id="profilePicture" class="form-control" accept=".jpg, .jpeg, .webp" />
-                                <input type="hidden" name="_csrf" value="{{token}}" />
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
 
                     </div>
                     <p class="lead">{{product.fullDescription}}</p>
@@ -194,7 +161,7 @@
                                 <img class="card-img-top" src="/images/{{id}}" alt="..." />
                             {{/image}}
                             {{^image}}
-                                <img class="card-img-top" src="/images/noImage.png" alt="..." />
+                                <img class="card-img-top" src="/static/images/noImage.png" alt="..." />
                             {{/image}}
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -239,7 +206,7 @@
                                 <img class="card-img-top" src="/images/{{id}}" alt="..." />
                             {{/image}}
                             {{^image}}
-                                <img class="card-img-top" src="/images/noImage.png" alt="..." />
+                                <img class="card-img-top" src="/static/images/noImage.png" alt="..." />
                             {{/image}}
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -269,4 +236,13 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
     </body>
+
+    <script>
+        document.querySelectorAll('.thumb').forEach(img => {
+            img.addEventListener('click', () => {
+            document.getElementById('mainProductImage').src = img.dataset.full;
+            });
+        });
+    </script>
+
 </html>

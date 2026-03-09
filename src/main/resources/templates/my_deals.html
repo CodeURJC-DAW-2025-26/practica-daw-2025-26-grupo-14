@@ -50,12 +50,12 @@
       <div class="row gy-3 align-items-center">
         <div class="col-lg-7">
           <div class="d-flex">
-            {{#product.image}}
+            {{#product.firstImage}}
               <img src="/images/{{id}}" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
-            {{/product.image}}
-            {{^product.image}}
+            {{/product.firstImage}}
+            {{^product.firstImage}}
               <img src="/images/noImage.png" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
-            {{/product.image}}
+            {{/product.firstImage}}
             <div>
               <a href="/product/{{product.id}}" class="nav-link fw-bold">{{product.name}}</a>
 
@@ -105,12 +105,12 @@
       <div class="row gy-3 align-items-center">
         <div class="col-lg-7">
           <div class="d-flex">
-            {{#product.image}}
+            {{#product.firstImage}}
               <img src="/images/{{id}}" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
-            {{/product.image}}
-            {{^product.image}}
+            {{/product.firstImage}}
+            {{^product.firstImage}}
               <img src="/images/noImage.png" class="border rounded me-3" style="width:120px;height:120px;object-fit:cover;"/>
-            {{/product.image}}
+            {{/product.firstImage}}
             <div>
               <a href="/product/{{product.id}}" class="nav-link fw-bold">{{product.name}}</a>
 
