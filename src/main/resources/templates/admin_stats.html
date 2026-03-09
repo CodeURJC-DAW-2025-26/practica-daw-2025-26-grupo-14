@@ -48,14 +48,12 @@ body{background:#f4f6f9}
       <h2 class="mb-4">Sales Statistics</h2>
       <div class="card shadow-sm p-4">
         <h5>Most popular categories</h5>
-        <p class="mb-1">Electronics (45%)</p>
-        <div class="progress mb-3"><div class="progress-bar bg-primary" style="width:45%"></div></div>
-        <p class="mb-1">Clothing (30%)</p>
-        <div class="progress mb-3"><div class="progress-bar bg-success" style="width:30%"></div></div>
-        <p class="mb-1">Furniture (15%)</p>
-        <div class="progress mb-3"><div class="progress-bar bg-warning" style="width:15%"></div></div>
-        <p class="mb-1">Other (10%)</p>
-        <div class="progress mb-3"><div class="progress-bar bg-danger" style="width:10%"></div></div>
+        {{#categoryStats}}
+      <p class="mb-1">{{category}} ({{percent}}%)</p>
+      <div class="progress mb-3">
+        <div class="progress-bar bg-primary stat-bar" data-width="{{percent}}"></div>
+      </div>
+    {{/categoryStats}}
       </div>
       <div class="row mt-4 g-4">
         <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Total Revenue</h6><h4>€12,430</h4></div></div>
@@ -67,5 +65,11 @@ body{background:#f4f6f9}
 </div>
 {{> footer}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.querySelectorAll('.stat-bar').forEach(el => {
+    el.style.width = (el.dataset.width || 0) + '%';
+  });
+</script>
+
 </body>
 </html>

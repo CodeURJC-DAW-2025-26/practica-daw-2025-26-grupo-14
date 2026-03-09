@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
+import es.codeurjc.daw.library.repository.ProductRepository;
 import es.codeurjc.daw.library.service.UserService;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,9 @@ public class AdminController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private ProductRepository productRepository;
 	
 	@GetMapping("/administrator")
 	public String administrator() {
@@ -53,9 +57,26 @@ public class AdminController {
 
 
     @GetMapping("/admin_stats")
-	public String stats() {
-		return "admin_stats";
-	}
+public String adminStats(Model model) {
+    List<Object[]> rows = productRepository.countProductsByCategory(); // category, count
+    long total = productRepository.count();
+
+    List<Map<String,Object>> categoryStats = rows.stream().map(r -> {
+        String category = (String) r[0];
+        long count = (Long) r[1];
+        long percent = total == 0 ? 0 : Math.round((count * 100.0) / total);
+        return Map.<String, Object>of(
+            "category", category,
+            "count", count,
+            "percent", percent,
+			"widthStyle", "width: " + percent + "%;"
+        );
+    }).toList();
+	
+
+    model.addAttribute("categoryStats", categoryStats);
+    return "admin_stats";
+}
 
 
 
