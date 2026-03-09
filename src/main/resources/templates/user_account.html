@@ -52,7 +52,7 @@
          <img src="/images/{{id}}" class="rounded-circle img-fluid mb-3" style="width:150px; height:150px; object-fit:cover;">
         {{/user.profilePicture}}
         {{^user.profilePicture}}
-         <img src="/images/noImage.png" class="rounded-circle img-fluid mb-3" style="width:150px; height:150px; object-fit:cover;">
+         <img src="/my_images/noImage.png" class="rounded-circle img-fluid mb-3" style="width:150px; height:150px; object-fit:cover;">
         {{/user.profilePicture}}
         <form id="form_profile_pic" action="/uploadProfilePicture/{{user.id}}" method="post" enctype="multipart/form-data" hidden>
           <div class="mb-3">
@@ -126,7 +126,7 @@
         <img class="card-img-top" src="/images/{{id}}" alt="..." />
       {{/image}}
       {{^image}}
-        <img class="card-img-top" src="/images/noImage.png" alt="..." />
+        <img class="card-img-top" src="/my_images/noImage.png" alt="..." />
       {{/image}}
 
       <div class="card-body">
@@ -164,7 +164,7 @@
          <img src="/images/{{id}}" class="rounded-circle img-fluid mb-3" style="width:20px; height:20px; object-fit:cover;">
         {{/rater.profilePicture}}
         {{^rater.profilePicture}}
-         <img src="/images/noImage.png" class="rounded-circle img-fluid mb-3" style="width:20px; height:20px; object-fit:cover;">
+         <img src="/my_images/noImage.png" class="rounded-circle img-fluid mb-3" style="width:20px; height:20px; object-fit:cover;">
         {{/rater.profilePicture}}
         <span class="ms-2">{{rater.name}}</span>
         <figure class="d-flex align-items-center mb-4">

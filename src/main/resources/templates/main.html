@@ -82,7 +82,7 @@
             <img src="/images/{{id}}" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
             {{/firstImage}}
             {{^firstImage}}
-             <img src="/images/noImage.png" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
+             <img src="/my_images/noImage.png" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
             {{/firstImage}}
              
           </a>
@@ -135,7 +135,7 @@
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card my-2 shadow-0">
           <a href="/product/${p.id}">
-            <img src="${p.imageId ? '/images/' + p.imageId : '/images/noImage.png'}" class="card-img-top rounded-2" style="aspect-ratio:1/1"/>
+            <img src="${p.imageId ? '/images/' + p.imageId : '/my_images/noImage.png'}" class="card-img-top rounded-2" style="aspect-ratio:1/1"/>
           </a>
           <div class="card-body p-0 pt-3">
             <h5 class="card-title">${p.price} €</h5>
