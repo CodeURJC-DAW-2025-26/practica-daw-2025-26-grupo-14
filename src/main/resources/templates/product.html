@@ -32,33 +32,44 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <!--New-->
-                    <div class="col-md-6 product-gallery">
+                    <div class="col-md-6">
+                        <div class="product-gallery">
 
-                        <!-- invisible radio -->
-                        <input type="radio" name="gallery" id="img1" checked>
-                        <input type="radio" name="gallery" id="img2">
-                        <input type="radio" name="gallery" id="img3">
-                        <input type="radio" name="gallery" id="img4">
+                            <!-- invisible radio -->
+                            <input type="radio" name="gallery" id="img1" checked>
+                            <input type="radio" name="gallery" id="img2">
+                            <input type="radio" name="gallery" id="img3">
+                            <input type="radio" name="gallery" id="img4">
 
-                        <!-- main image -->
-                        <div class="main-image">
-                            {{#main_image}}
-                                <img id="mainProductImage" src="/images/{{id}}" class="image image1">
-                            {{/main_image}}
-                            {{^main_image}}
-                                <img src="/my_images/noImage.png" class="image image1">
-                            {{/main_image}}
+                            <!-- main image -->
+                            <div class="main-image">
+                                {{#main_image}}
+                                    <img id="mainProductImage" src="/images/{{id}}" class="image image1">
+                                {{/main_image}}
+                                {{^main_image}}
+                                    <img src="/my_images/noImage.png" class="image image1">
+                                {{/main_image}}
+                            </div>
+
+                            <!-- small images -->
+                            <div class="thumbnails">
+                                {{#product.images}}
+                                <img src="/images/{{id}}" class="thumb" data-full="/images/{{id}}">
+                                {{/product.images}}
+                                {{^product.images}}
+                                    <label for="img1"><img src="/my_images/noImage.png"></label>
+                                {{/product.images}}
+                            </div>
                         </div>
+                        <form id="report_form" action="/report_product/{{product.id}}" method="post"style="display:inline;" hidden>
+                            <div  class="mb-3">
+                               <input type="hidden" name="_csrf" value="{{token}}">
+                               <label for="message" class="form-label">Report why:</label>
+                               <input id = "message" type="text" class="form-control" name="message">
+                               <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
 
-                        <!-- small images -->
-                        <div class="thumbnails">
-                            {{#product.images}}
-                            <img src="/images/{{id}}" class="thumb" data-full="/images/{{id}}">
-                            {{/product.images}}
-                            {{^product.images}}
-                                <label for="img1"><img src="/my_images/noImage.png"></label>
-                            {{/product.images}}
-                        </div>
 
                     </div>
                     <!--<div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>-->
@@ -80,7 +91,9 @@
                             <input type="checkbox" id="offerToggle" hidden>
 
                             <div class="d-flex gap-3 mb-3">
-                            
+                            {{#message}}
+                                <p>{{message}}</p>
+                            {{/message}}
                                 <!-- comprar -->
                                  {{^isOwner}}
                                 <form action="/create_deal/{{product.id}}" method="post" style="display:inline;">
@@ -89,15 +102,12 @@
                                         <i class="bi-lightning-fill me-1"></i>
                                         Buy now
                                     </button>
-                                </form>
+                                </form> 
+                                    <button class="btn btn-outline-dark flex-shrink-0" onclick="report_form.hidden = !report_form.hidden;">
+                                        <i class="bi-cash-coin me-1"></i>
+                                        Report
+                                    </button>
                                 {{/isOwner}}
-
-
-                                <!-- hacer oferta -->
-                                <label for="offerToggle" class="btn btn-outline-dark flex-shrink-0">
-                                    <i class="bi-cash-coin me-1"></i>
-                                    Make offer
-                                </label>
 
                             </div>
 

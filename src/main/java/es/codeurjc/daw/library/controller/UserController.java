@@ -224,6 +224,26 @@ public class UserController {
 		}
 	}
 
+	@PostMapping("/report_product/{id}")
+	public String postReportProduct(@PathVariable Long id, Model model, String message) {
+		Optional<Product> product = productService.getProductById(id);
+		if (!product.isPresent()) {
+			model.addAttribute("errorMessage", "Product not found.");
+			return "error";
+		}
+
+		if (model.getAttribute("userName") == null) {
+			model.addAttribute("message", "You should be logged in to report a product.");
+			return "redirect:/product/" + id;
+		}
+		Product p = product.get();
+		p.setReported(true);
+		p.setReportedMessage(message);
+		productService.save(p);
+		model.addAttribute("message", "Product reported succesfully");
+		return "redirect:/product/" + id;
+	}
+
 	@PostMapping("/create_deal/{id}")
 	public String postCreateDeal(@PathVariable Long id, Model model) {
 		Optional<Product> product = productService.getProductById(id);

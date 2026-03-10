@@ -1,6 +1,7 @@
 package es.codeurjc.daw.library.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,13 +17,16 @@ import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.ProductRepository;
 import es.codeurjc.daw.library.repository.UserRepository;
+import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.UserService;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -40,6 +44,8 @@ public class AdminController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ProductService productService;
 	
 	@GetMapping("/administrator")
 	public String administrator() {
@@ -47,7 +53,16 @@ public class AdminController {
 	}
 
     @GetMapping("/admin_listings")
-	public String listings() {
+	public String listings(Model model) {
+        List<Product> reportedProducts = new ArrayList<>();
+        for (Product product : productRepository.findAll()) {
+            if (product.getReported()){
+                reportedProducts.add(product);
+            }
+        }
+        if (!reportedProducts.isEmpty()){
+            model.addAttribute("Products", reportedProducts);
+        }
 		return "admin_listings";
 	}
 
@@ -61,7 +76,21 @@ public class AdminController {
 	public String banUser(@PathVariable Long id, Model model) {
     userService.banUser(id);
     return "redirect:/admin_users";
-}
+    }
+
+    @GetMapping("/ignore_report/{id}")
+	public String ignoreReport(@PathVariable Long id, Model model) {
+    Optional<Product> p = productService.getProductById(id);
+    if (!p.isPresent()){
+        model.addAttribute("error", "Product not found.");
+        return "error";
+    }
+    Product product = p.get();
+    product.setReported(false);
+    product.setReportedMessage("");
+    productService.save(product);
+    return "redirect:/admin_listings";
+    }
 
 
     @GetMapping("/admin_stats")

@@ -66,6 +66,9 @@ public class Product {
 
 	@OneToMany
 	private List<Image> images = new ArrayList<>();
+
+	private Boolean reported = false;
+	private String reportedMessage = "";
     
 
 	public Product() {
@@ -197,6 +200,21 @@ public class Product {
 		return contactPreference;
 	} 
 
+	public void setReported(Boolean reported){
+		this.reported = reported;
+	}
+
+	public void setReportedMessage(String message){
+		this.reportedMessage = message;
+	}
+
+	public Boolean getReported(){
+		return reported;
+	}
+
+	public String getReportedMessage(){
+		return reportedMessage;
+	}
 
 	@Override
 	public String toString() {

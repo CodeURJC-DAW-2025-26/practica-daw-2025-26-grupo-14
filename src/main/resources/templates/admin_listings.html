@@ -59,35 +59,27 @@ body{background:#f4f6f9}
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>iPhone 14 Pro</td>
-                <td>user123</td>
-                <td>Fake product</td>
-                <td class="text-end">
-                  <a href="#" class="btn btn-danger btn-sm">Remove</a>
-                  <a href="#" class="btn btn-outline-secondary btn-sm">Ignore</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Nike Shoes</td>
-                <td>pepe22</td>
-                <td>Inappropriate content</td>
-                <td class="text-end">
-                  <a href="#" class="btn btn-danger btn-sm">Remove</a>
-                  <a href="#" class="btn btn-outline-secondary btn-sm">Ignore</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Gaming Console</td>
-                <td>retro_gamer</td>
-                <td>Spam listing</td>
-                <td class="text-end">
-                  <a href="#" class="btn btn-danger btn-sm">Remove</a>
-                  <a href="#" class="btn btn-outline-secondary btn-sm">Ignore</a>
-                </td>
-              </tr>
+              {{#Products}}
+                <tr>
+                  <td>{{name}}</td>
+                  <td>{{seller.name}}</td>
+                  <td>{{reportedMessage}}</td>
+                  <td class="text-end">
+                    <form action="/deleteproduct/{{id}}" method="post" style="display:inline;">
+                      <input type="hidden" name="_csrf" value="{{token}}">
+                      <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                    </form>
+                    <a href="/ignore_report/{{id}}" class="btn btn-outline-secondary btn-sm">Ignore</a>
+                  </td>
+                </tr>
+              {{/Products}}
+          
             </tbody>
           </table>
+
+          {{^Products}}
+          <p> Not products yet. </p>
+          {{/Products}}
         </div>
       </div>
     </div>
