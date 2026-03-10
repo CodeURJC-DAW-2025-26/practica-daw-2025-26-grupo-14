@@ -268,7 +268,7 @@ Diagrama mostrando las entidades, sus campos y relaciones:
 
 Diagrama de clases de la aplicación con diferenciación por colores o secciones:
 
-![Diagrama de Clases](readme_assets/UML-diagram.png)
+![Diagrama de Clases](readme_assets/UML_diagram.png)
 
 > [Descripción opcional del diagrama y relaciones principales]
 
