@@ -3,14 +3,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.UserRepository;
-
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Page;
 
 @Service
 public class UserService {

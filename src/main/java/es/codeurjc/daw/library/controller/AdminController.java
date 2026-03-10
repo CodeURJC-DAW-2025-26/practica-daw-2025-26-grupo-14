@@ -2,7 +2,6 @@ package es.codeurjc.daw.library.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,26 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.codeurjc.daw.library.model.Product;
-import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.ProductRepository;
 import es.codeurjc.daw.library.repository.UserRepository;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.UserService;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
-import org.springframework.data.domain.Page;
 
 
 @Controller
