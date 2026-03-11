@@ -272,6 +272,16 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 > [Descripción opcional del diagrama y relaciones principales]
 
+### **Gráficos**
+Indicar qué información se muestra usando gráficos y de qué tipo es:
+
+- **Historico de productos**: Gráfico de líneas - Para admin
+- **Cantidad de valoraciones**: Gráfico de tarta/circular - Para admin
+- **Gráficos de categorías**: Gráfico de barras horizontales- Para admin
+- **Historico de usuarios**: Gráfico de líneas - Para admin
+- **Distribución de valoraciones de un vendedor**: Gráfico de barras horizontales -Para usuario, lo ven todos
+- **Distribución de valoraciones en estrellas**: Gráfico de estrellas -Para usuario y producto, lo ven todos
+  
 ### **Participación de Miembros en la Práctica 1**
 
 #### **Alumno 1 - Sara Tuset Villoria**
