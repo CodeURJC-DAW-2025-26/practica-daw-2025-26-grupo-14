@@ -65,7 +65,7 @@ body{background:#f4f6f9}
             <h5>Product historical</h5>
             <canvas
               id="productsByDateChart"
-              height="90"
+              height="180"
               data-labels='[{{{productChartLabels}}}]'
               data-values='[{{{productChartData}}}]'>
             </canvas>
@@ -82,18 +82,35 @@ body{background:#f4f6f9}
             <h5>User historical</h5>
             <canvas
               id="usersByDateChart"
-              height="90"
+              height="180"
               data-labels='[{{{userChartLabels}}}]'
               data-values='[{{{userChartData}}}]'>
             </canvas>
           </div>
         </div>
-      </div>
+      
+        
+        <div class="col-12 col-lg-6">
+          <div class="card shadow-sm p-4 h-100" style="width:220px;height:220px;">
+            <h5>User ratings</h5>
+            {{#Ratings}}
+              <canvas
+                id="usersRatingsChart"
+                data-labels='[{{{label}}}]'
+                data-values='[{{{count}}}]'>
+              </canvas>
+            {{/Ratings}}
+            {{^Ratings}}
+              <p>No ratings yet.</p>
+            {{/Ratings}}
+          </div>
+        </div>
+      </div>     
       {{/Users}}
     
         <div class="row mt-4 g-4">
-          <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Total Revenue</h6><h4>€12,430</h4></div></div>
           <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Total Users</h6><h4>{{total_u}}</h4></div></div>
+          <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Total Ratings</h6><h4>{{total_r}}</h4></div></div>
           <div class="col-md-4"><div class="card shadow-sm p-3"><h6>Listings Created</h6><h4>{{total_p}}</h4></div></div>
         </div>
       </div>
@@ -109,6 +126,6 @@ body{background:#f4f6f9}
     el.style.width = (el.dataset.width || 0) + '%';
   });
 </script>
-<script src="/js/line_chart.js"></script>
+<script src="/js/admin_charts.js"></script>
 </body>
 </html>

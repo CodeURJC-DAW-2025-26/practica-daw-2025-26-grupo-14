@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.repository.ProductRepository;
+import es.codeurjc.daw.library.repository.RatingRepository;
 import es.codeurjc.daw.library.repository.UserRepository;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.UserService;
@@ -36,6 +37,9 @@ public class AdminController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private RatingRepository ratingRepository;
 	
 	@GetMapping("/administrator")
 	public String administrator() {
@@ -87,6 +91,7 @@ public class AdminController {
 public String adminStats(Model model) {
     long total_u = userRepository.count();
     long total_p = productRepository.count();
+    long total_r = ratingRepository.count();
     DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     if (total_p > 0){
@@ -146,12 +151,38 @@ public String adminStats(Model model) {
         model.addAttribute("userChartLabels", userLabelsJs);
         model.addAttribute("userChartData", userDataJs);
         model.addAttribute("Users", true);
+        List<Object[]> rows_r = ratingRepository.countRatingsByValue();
+        if (total_r > 0){
+            TreeMap<Integer, Long> ratings = new TreeMap<>();
+
+
+            for (Object[] r : ratingRepository.countRatingsByValue()) {
+                Number valueNum = (Number) r[0];
+                Long count = (Long) r[1];
+                ratings.put(valueNum.intValue(), count);
+            }
+
+            String ratingLabelsJs = ratings.keySet().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+
+            String ratingDataJs = ratings.values().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+
+            model.addAttribute("label", ratingLabelsJs);
+            model.addAttribute("count", ratingDataJs);
+            model.addAttribute("Ratings", true);
+        }else{
+            model.addAttribute("Ratings", false);
+        }
     }else{
         model.addAttribute("Users", false);
     }
 
     model.addAttribute("total_p", total_p);
     model.addAttribute("total_u", total_u);
+    model.addAttribute("total_r", total_r);
     return "admin_stats";
 }
 

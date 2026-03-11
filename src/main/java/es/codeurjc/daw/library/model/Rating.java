@@ -23,7 +23,7 @@ public class Rating {
 	@OneToOne(mappedBy = "rating")
 	private Order order;
 
-	@OneToOne
+	@ManyToOne
 	private User rater;
 
 	@ManyToOne
