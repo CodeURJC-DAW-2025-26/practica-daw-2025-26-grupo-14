@@ -1,5 +1,6 @@
 package es.codeurjc.daw.library.controller;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -106,6 +107,20 @@ public class UserController {
 			model.addAttribute("message", "Account updated successfully.");
 			model.addAttribute("user", user);
 			model.addAttribute("isOwner", true);
+			if(user.getMyRatings() != null){
+				int[] count_ratings = {0,0,0,0,0};
+				int total = 0;
+				for (Rating rating : user.getMyRatings()) {
+					count_ratings[rating.getRating()] += 1;
+					total +=1;
+				}
+
+				Map<Integer, Integer> ratingMap = new HashMap<>();
+				for (int i = 0; i < count_ratings.length; i++) {
+					ratingMap.put(i, (count_ratings[i]*100)/total);
+				}
+				model.addAttribute("ammount", ratingMap.entrySet());
+			}
 			return "user_account";
 		}
 		
@@ -200,6 +215,21 @@ public class UserController {
 				model.addAttribute("isOwner", true);
 			}
             model.addAttribute("products", products);
+			if(user.get().getMyRatings() != null){
+				int[] count_ratings = {0,0,0,0,0};
+				int total = 0;
+				for (Rating rating : user.get().getMyRatings()) {
+					count_ratings[rating.getRating()] += 1;
+					total += 1;
+				}
+
+				Map<Integer, Integer> ratingMap = new HashMap<>();
+				for (int i = 0; i < count_ratings.length; i++) {
+					ratingMap.put(i, (count_ratings[i]*100)/total);
+				}
+				model.addAttribute("ammount", ratingMap.entrySet());
+
+			}
 		    return "user_account";}
         else{
                 return "pageerror";

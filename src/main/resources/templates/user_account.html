@@ -157,8 +157,16 @@
     <header class="pt-4 pb-3">
       <h3>Ratings</h3>
     </header>
-    {{#user.myRatings}}
     <div class="row mb-4">
+      {{#user.myRatings}}
+      <div class="col-lg-4 col-md-6">
+        {{#ammount}}
+          <p class="mb-1">{{key}} ({{value}}%)</p>
+        <div class="progress mb-3">
+          <div class="progress-bar bg-primary stat-bar" data-width="{{value}}"></div>
+        </div>
+        {{/ammount}}
+      </div>
       <div class="col-lg-4 col-md-6">
         {{#rater.profilePicture}}
          <img src="/images/{{id}}" class="rounded-circle img-fluid mb-3" style="width:20px; height:20px; object-fit:cover;">
@@ -197,6 +205,12 @@
 <!-- Footer -->
 {{> footer}}
 <!-- Footer -->
+
+<script>
+  document.querySelectorAll('.stat-bar').forEach(el => {
+    el.style.width = (el.dataset.width || 0) + '%';
+  });
+</script>
 </body>
 
 </html>
