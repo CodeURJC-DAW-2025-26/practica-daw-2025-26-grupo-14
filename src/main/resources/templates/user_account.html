@@ -70,16 +70,14 @@
         <h2 class="mb-1">{{user.name}}</h2>
 
         <!-- rating -->
-        <div class="d-flex text-warning mb-2">
-          <div class="bi-star-fill"></div>
-          <div class="bi-star-fill"></div>
-          <div class="bi-star-fill"></div>
-          <div class="bi-star-fill"></div>
-          <div class="bi-star-half"></div>
+        <div class="rating-stars">
+          <div class="stars-back">★★★★★</div>
+          <div class="stars-front" data-percent="{{avgRatingPercent}}">★★★★★</div>
+          <span class="ms-2">{{avgRating}}</span>
         </div>
 
-        <p class="text-muted mb-1">132 reviews</p>
-        <p class="text-muted mb-1">Member since 2021</p>
+        <p class="text-muted mb-1">{{totalRating}} reviews</p>
+        <p class="text-muted mb-1">Member since {{user.createdAt}}</p>
         <p class="text-muted mb-1">DNI: {{user.dni}}</p>
         <p class="text-muted mb-0">📍 {{user.city}}</p>
         
@@ -138,6 +136,9 @@
       </div>
     </div>
   </div>
+  {{/products}}
+  {{^products}}
+    <p>This user has no products yet.</p>
   {{/products}}
  
 
@@ -209,6 +210,10 @@
 <script>
   document.querySelectorAll('.stat-bar').forEach(el => {
     el.style.width = (el.dataset.width || 0) + '%';
+  });
+  document.querySelectorAll('.stars-front').forEach(el => {
+    const p = parseInt(el.dataset.percent || "0", 10);
+    el.style.width = p + "%";
   });
 </script>
 </body>

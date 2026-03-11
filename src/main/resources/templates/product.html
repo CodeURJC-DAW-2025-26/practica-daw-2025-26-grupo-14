@@ -81,7 +81,7 @@
                         </div>
                         <p class="lead">{{product.shortDescription}}</p>
                         <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" hidden/>
                             <!--New-->
                             <!--<button class="btn btn-outline-dark flex-shrink-0" type="button">
                                 <i class="bi-cart-fill me-1"></i>
@@ -133,12 +133,10 @@
                                             <h5 class="mb-1">{{product.seller.name}}</h5>
 
                                             <!-- stars -->
-                                            <div class="d-flex small text-warning mb-1">
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-half"></div>
+                                            <div class="rating-stars">
+                                                <div class="stars-back">★★★★★</div>
+                                                <div class="stars-front" data-percent="{{avgRatingPercent}}">★★★★★</div>
+                                                <span class="ms-2">{{avgRating}}</span>
                                             </div>
 
                                             <small class="text-muted">132 reviews · Member since 2021</small>
@@ -252,6 +250,10 @@
             img.addEventListener('click', () => {
             document.getElementById('mainProductImage').src = img.dataset.full;
             });
+        });
+        document.querySelectorAll('.stars-front').forEach(el => {
+            const p = parseInt(el.dataset.percent || "0", 10);
+            el.style.width = p + "%";
         });
     </script>
 

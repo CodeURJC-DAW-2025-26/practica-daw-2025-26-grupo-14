@@ -1,5 +1,5 @@
 package es.codeurjc.daw.library.controller;
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,16 +110,30 @@ public class UserController {
 			if(user.getMyRatings() != null){
 				int[] count_ratings = {0,0,0,0,0};
 				int total = 0;
+				int sum = 0;
 				for (Rating rating : user.getMyRatings()) {
 					count_ratings[rating.getRating()] += 1;
 					total +=1;
+					sum += rating.getRating();
 				}
 
 				Map<Integer, Integer> ratingMap = new HashMap<>();
-				for (int i = 0; i < count_ratings.length; i++) {
-					ratingMap.put(i, (count_ratings[i]*100)/total);
+				if (total > 0){
+					for (int i = 0; i < count_ratings.length; i++) {
+						ratingMap.put(i, (count_ratings[i]*100)/total);
+					}
 				}
 				model.addAttribute("ammount", ratingMap.entrySet());
+
+				double avg = 0.0;
+				int avgPercent = 0;
+				if (total > 0){
+					avg = (double) sum/total;
+					avgPercent = (int)Math.round((avg / 5.0) * 100);
+				} 
+				model.addAttribute("totalRating", total);
+				model.addAttribute("avgRating", avg);
+				model.addAttribute("avgRatingPercent", avgPercent);
 			}
 			return "user_account";
 		}
@@ -218,15 +232,29 @@ public class UserController {
 			if(user.get().getMyRatings() != null){
 				int[] count_ratings = {0,0,0,0,0};
 				int total = 0;
+				int sum = 0;
 				for (Rating rating : user.get().getMyRatings()) {
 					count_ratings[rating.getRating()] += 1;
+					sum += rating.getRating();
 					total += 1;
 				}
 
 				Map<Integer, Integer> ratingMap = new HashMap<>();
-				for (int i = 0; i < count_ratings.length; i++) {
-					ratingMap.put(i, (count_ratings[i]*100)/total);
+				if (total > 0){
+					for (int i = 0; i < count_ratings.length; i++) {
+						ratingMap.put(i, (count_ratings[i]*100)/total);
+					}
 				}
+
+				double avg = 0.0;
+				int avgPercent = 0;
+				if (total > 0){
+					avg = (double) sum/total;
+					avgPercent = (int)Math.round((avg / 5.0) * 100);
+				} 
+				model.addAttribute("totalRating", total);
+				model.addAttribute("avgRating", avg);
+				model.addAttribute("avgRatingPercent", avgPercent);
 				model.addAttribute("ammount", ratingMap.entrySet());
 
 			}

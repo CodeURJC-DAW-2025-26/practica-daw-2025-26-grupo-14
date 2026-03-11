@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 import es.codeurjc.daw.library.model.Product;
+import es.codeurjc.daw.library.model.Rating;
 import es.codeurjc.daw.library.model.User;
+import es.codeurjc.daw.library.repository.RatingRepository;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.UserService;
 
@@ -33,6 +35,9 @@ public class ShopWebController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private RatingRepository ratingRepository;
 
 	/*@ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
@@ -86,6 +91,17 @@ public class ShopWebController {
 			if(product.get().getNumberImages() != 0){
 				model.addAttribute("main_image", product.get().getImage(0));
 			}
+
+			Long sellerId = product.get().getSeller().getId();
+			double avg = ratingRepository.findByRatedId(sellerId).stream()
+				.mapToInt(Rating::getRating)
+				.average()
+				.orElse(0.0);
+			
+			int avgPercent = (int)Math.round((avg / 5.0) * 100);
+			
+			model.addAttribute("avgRating", avg);
+			model.addAttribute("avgRatingPercent", avgPercent);
 			return "product";
 		} else {
 			// either the product doesn’t exist or it has no associated seller
