@@ -4,15 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.ProductRepository;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 @Service
 public class ProductService {
@@ -59,14 +58,14 @@ public class ProductService {
     }
 
     //Para Ajax
-    public List<Product> getProductsPage(int page, int size) {
-    Pageable pageable = PageRequest.of(page, size);
-    return productRepository.findAll(pageable).getContent();
+    public Page<Product> getProductsPage(int page, int size, String keyword, String category, Double minPrice, Double maxPrice, Integer minSellerRate) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.search(keyword, category, minPrice, maxPrice, minSellerRate, pageable);
     }
 
-    public boolean hasNextPage(int page, int size) {
+    public boolean hasNextPage(int page, int size, String keyword, String category, Double minPrice, Double maxPrice, Integer minSellerRate) {
         Pageable pageable = PageRequest.of(page, size);
-        return productRepository.findAll(pageable).hasNext();
+        return productRepository.search(keyword, category, minPrice, maxPrice, minSellerRate, pageable).hasNext();
     }
 
     public Page<Product> getProductsPage(int page, int size, String keyword, String category) {

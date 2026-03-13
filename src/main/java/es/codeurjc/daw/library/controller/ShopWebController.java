@@ -1,15 +1,19 @@
 package es.codeurjc.daw.library.controller;
  
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.Rating;
@@ -17,13 +21,6 @@ import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.RatingRepository;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.UserService;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.data.domain.Page;
 
 
 
@@ -123,9 +120,12 @@ public class ShopWebController {
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size,
 			@RequestParam(required = false) String keyword,
-			@RequestParam(required = false) String category) {
+			@RequestParam(required = false) String category,
+			@RequestParam(required = false) Double minPrice,
+			@RequestParam(required = false) Double maxPrice,
+			@RequestParam(required = false) Integer minSellerRate) {
 
-		Page<Product> result = productService.getProductsPage(page, size, keyword, category);
+		Page<Product> result = productService.getProductsPage(page, size, keyword, category, minPrice, maxPrice, minSellerRate);
 
 		List<Map<String, Object>> products = result.getContent().stream().map(p -> {
 			Map<String, Object> dto = new HashMap<>();

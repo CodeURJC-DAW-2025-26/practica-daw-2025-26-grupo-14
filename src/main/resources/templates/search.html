@@ -29,12 +29,38 @@
 <!--Main Navigation-->
 {{> header}}
 
+
 <!-- sidebar + content -->
 <section class="">
   <div class="container">
     <div class="row">
+       
       <!-- sidebar -->
       <div class="col-lg-3">
+      <!-- Filter section -->
+      
+        <div class = "card p-3 mb-4">
+          <h5>Filter by</h5>
+          <!-- Min¬Max Price -->
+          <div class="mb-3">
+            <label class= "form-label">Min Price</label>
+            <input type="number" class="form-control mb-3" id="minPrice" name="minPrice" placeholder="0">
+            <label class= "form-label">Max Price</label>
+            <input type="number" class="form-control mb-3" id="maxPrice" name="maxPrice" placeholder="1000">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Minimun Seller Rate</label>
+            <select id="minSellerRate" class="form-select">
+              <option value="">⭐+</option>
+              <option value="1">⭐⭐+</option>
+              <option value="2">⭐⭐⭐+</option>
+              <option value="3">⭐⭐⭐⭐+</option>
+              <option value="4">⭐⭐⭐⭐⭐</option>
+            </select>
+          </div>
+          <button id="price-filter-btn" class="btn btn-outline-secondary w-100">Apply</button>
+        </div>
+      
         <!-- Toggle button -->
         <button
                 class="btn btn-outline-secondary mb-3 w-100 d-lg-none"
@@ -47,7 +73,7 @@
                 >
           <span>Show filter</span>
         </button>
-       
+
       </div>
       <!-- sidebar -->
       <!-- content -->
@@ -59,7 +85,7 @@
 
         <div id="products_div" class="row">
           
-          <button id="load-more-btn" class="btn btn-outline-dark">Cargar más</button>
+          <button id="load-more-btn" class="btn btn-outline-dark">load more</button>
 
           <script>
           let page = 0;
@@ -96,6 +122,33 @@
             page++;
             if (!data.hasNext) btn.style.display = 'none';
           }
+
+
+          document.getElementById('price-filter-btn').addEventListener('click', () => {
+            const minPrice = document.getElementById('minPrice').value;
+            const maxPrice = document.getElementById('maxPrice').value;
+
+            if (minPrice) currentParams.set('minPrice', minPrice);
+            else currentParams.delete('minPrice');
+
+            if (maxPrice) currentParams.set('maxPrice', maxPrice);
+            else currentParams.delete('maxPrice');
+
+            const minSellerRate = document.getElementById('minSellerRate').value;
+
+            if (minSellerRate) currentParams.set('minSellerRate', minSellerRate);
+            else currentParams.delete('minSellerRate');
+
+            //update URL
+            history.replaceState( null, "", "?" + currentParams.toString());
+
+
+            // Reset page and products
+            page = 0;
+            row.innerHTML = '';
+            btn.style.display = 'block';
+            loadMore();
+          });
 
           btn.addEventListener('click', loadMore);
           loadMore();
