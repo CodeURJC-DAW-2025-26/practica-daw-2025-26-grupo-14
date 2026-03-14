@@ -58,14 +58,14 @@ public class ProductService {
     }
 
     //Para Ajax
-    public Page<Product> getProductsPage(int page, int size, String keyword, String category, Double minPrice, Double maxPrice, Integer minSellerRate, Long sellerId) {
+    public Page<Product> getProductsPage(int page, int size, String keyword, String category, Double minPrice, Double maxPrice, Integer minSellerRate, Long sellerId, Boolean reported) {
         Pageable pageable = PageRequest.of(page, size);
-        return productRepository.search(keyword, category, minPrice, maxPrice, minSellerRate, sellerId, pageable);
+        return productRepository.search(keyword, category, minPrice, maxPrice, minSellerRate, sellerId, reported, pageable);
     }
 
-    public boolean hasNextPage(int page, int size, String keyword, String category, Double minPrice, Double maxPrice, Integer minSellerRate, Long sellerId) {
+    public boolean hasNextPage(int page, int size, String keyword, String category, Double minPrice, Double maxPrice, Integer minSellerRate, Long sellerId, Boolean reported) {
         Pageable pageable = PageRequest.of(page, size);
-        return productRepository.search(keyword, category, minPrice, maxPrice, minSellerRate, sellerId, pageable).hasNext();
+        return productRepository.search(keyword, category, minPrice, maxPrice, minSellerRate, sellerId, reported, pageable).hasNext();
     }
 
     public Page<Product> getProductsPage(int page, int size, String keyword, String category) {

@@ -124,9 +124,10 @@ public class ShopWebController {
 			@RequestParam(required = false) Double minPrice,
 			@RequestParam(required = false) Double maxPrice,
 			@RequestParam(required = false) Integer minSellerRate,
-    		@RequestParam(required = false) Long sellerId) {
+    		@RequestParam(required = false) Long sellerId,
+			@RequestParam(required = false) Boolean reported) {
 
-		Page<Product> result = productService.getProductsPage(page, size, keyword, category, minPrice, maxPrice, minSellerRate, sellerId);
+		Page<Product> result = productService.getProductsPage(page, size, keyword, category, minPrice, maxPrice, minSellerRate, sellerId, reported);
 
 		List<Map<String, Object>> products = result.getContent().stream().map(p -> {
 			Map<String, Object> dto = new HashMap<>();
@@ -134,7 +135,9 @@ public class ShopWebController {
 			dto.put("name", p.getName());
 			dto.put("price", p.getPrice());
 			dto.put("shortDescription", p.getShortDescription());
-			dto.put("createdAt", p.getCreatedAt());//createdAt
+			dto.put("createdAt", p.getCreatedAt());
+			dto.put("sellerName", p.getSeller().getName());
+			dto.put("reportedMessage", p.getReportedMessage());
 
 
 			dto.put("imageId", p.getNumberImages() != 0 ? p.getImage(0).getId() : null);
