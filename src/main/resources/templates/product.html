@@ -159,42 +159,10 @@
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Other products from this seller</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">                    
+                <div id ="seller-row" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"> </div>                   
                     
-                    {{#seller_products}}
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                             {{#image}}
-                                <img class="card-img-top" src="/images/{{id}}" alt="..." />
-                            {{/image}}
-                            {{^image}}
-                                <img class="card-img-top" src="/my_images/noImage.png" alt="..." />
-                            {{/image}}
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{name}}</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    {{price}}
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product/{{id}}">View</a></div>
-                            </div>
-                        </div>
-                    </div>
-                  {{/seller_products}}  
+                <div class="text-center mt-3">
+                    <button id="load-more-btn_seller" class="btn btn-outline-dark">Load more</button>       
                 </div>
             </div>
         </section>
@@ -202,39 +170,12 @@
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Related products</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div id="others-row" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"></div>
                             
-                    {{#products}}
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <!--div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Price drop</div-->
-                            <!-- Product image-->
-                            {{#image}}
-                                <img class="card-img-top" src="/images/{{id}}" alt="..." />
-                            {{/image}}
-                            {{^image}}
-                                <img class="card-img-top" src="/my_images/noImage.png" alt="..." />
-                            {{/image}}
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{name}}</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$100.90</span>
-                                    ${{price}}
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product/{{id}}">View</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    {{/products}}
-                    
+                <div class="text-center mt-3">
+                    <button id="load-more-btn_others" class="btn btn-outline-dark">Load more</button>       
                 </div>
+                    
             </div>
         </section>
         <!-- Footer-->
@@ -255,6 +196,57 @@
             const p = parseInt(el.dataset.percent || "0", 10);
             el.style.width = p + "%";
         });
-    </script>
+
+       
+        let page = 0;
+        const size = 10;
+        const row_seller = document.getElementById('seller-row');
+        const btn_seller = document.getElementById('load-more-btn_seller');
+        const row = document.getElementById('others-row');
+        const btn = document.getElementById('load-more-btn_others');
+
+        function renderProduct(p) {
+            return `
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <img src="${p.imageId ? '/images/' + p.imageId : '/my_images/noImage.png'}" class="card-img-top rounded-2" style="aspect-ratio:1/1"/>
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">' ${p.name} '</h5>
+                            <!-- Product price-->
+                            <span class="text-muted text-decoration-line-through">${p.price} €</span>                
+                        </div>
+                    </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product/${p.id}">View</a></div>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        async function loadMore_seller() {
+            const res = await fetch(`/products/page?page=${page}&size=${size}&sellerId={{product.seller.id}}`);
+            const data = await res.json();
+            row_seller.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
+            page++;
+            if (!data.hasNext) btn_seller.style.display = 'none';
+        }
+
+        async function loadMore() {
+            const res = await fetch(`/products/page?page=${page}&size=${size}`);
+            const data = await res.json();
+            row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
+            page++;
+            if (!data.hasNext) btn.style.display = 'none';
+        }
+
+        btn_seller.addEventListener('click', loadMore_seller);
+        loadMore_seller();
+
+        btn.addEventListener('click', loadMore);
+        loadMore();
+  </script>
+    
 
 </html>

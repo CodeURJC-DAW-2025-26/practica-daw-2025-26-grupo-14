@@ -26,8 +26,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         + "AND (:category IS NULL OR :category = '' OR LOWER(p.category) = LOWER(:category)) "
         + "AND (:minPrice IS NULL OR p.price >= :minPrice) "
         + "AND (:maxPrice IS NULL OR p.price <= :maxPrice)"
+        + "AND (:sellerId IS NULL OR p.seller.id = :sellerId)"
         + "GROUP BY p HAVING (:minSellerRate IS NULL OR COALESCE(AVG(r.rating),0) >= :minSellerRate)")
-    Page<Product> search(String keyword, String category, Double minPrice, Double maxPrice, Integer minSellerRate, Pageable pageable);
+    Page<Product> search(String keyword, String category, Double minPrice, Double maxPrice, Integer minSellerRate, Long sellerId, Pageable pageable);
 
     @Query("SELECT p.category, COUNT(p) FROM Product p GROUP BY p.category ORDER BY COUNT(p) DESC")
     List<Object[]> countProductsByCategory();

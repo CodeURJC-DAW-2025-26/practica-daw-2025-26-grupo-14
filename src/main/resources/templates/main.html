@@ -121,7 +121,7 @@
 <!-- Recommended -->
  <div id="recommended-row" class="row"></div>
   <div class="text-center mt-3">
-    <button id="load-more-btn" class="btn btn-outline-dark">Cargar más</button>
+    <button id="load-more-btn" class="btn btn-outline-dark">Load more</button>
   </div>
 
   <script>
@@ -149,7 +149,7 @@
   async function loadMore() {
     const res = await fetch(`/products/page?page=${page}&size=${size}`);
     const data = await res.json();
-    row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
+    row.insertAdjacentHTML('beforeend', data.sellerproducts.map(renderProduct).join(''));
     page++;
     if (!data.hasNext) btn.style.display = 'none';
   }

@@ -123,9 +123,10 @@ public class ShopWebController {
 			@RequestParam(required = false) String category,
 			@RequestParam(required = false) Double minPrice,
 			@RequestParam(required = false) Double maxPrice,
-			@RequestParam(required = false) Integer minSellerRate) {
+			@RequestParam(required = false) Integer minSellerRate,
+    		@RequestParam(required = false) Long sellerId) {
 
-		Page<Product> result = productService.getProductsPage(page, size, keyword, category, minPrice, maxPrice, minSellerRate);
+		Page<Product> result = productService.getProductsPage(page, size, keyword, category, minPrice, maxPrice, minSellerRate, sellerId);
 
 		List<Map<String, Object>> products = result.getContent().stream().map(p -> {
 			Map<String, Object> dto = new HashMap<>();

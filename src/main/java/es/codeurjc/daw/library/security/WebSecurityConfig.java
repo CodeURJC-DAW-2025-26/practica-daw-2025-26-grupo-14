@@ -55,6 +55,7 @@ public class WebSecurityConfig {
 						.requestMatchers("/user_account/**").permitAll()
 						.requestMatchers("/loginerror").permitAll()
 						.requestMatchers("/register").permitAll()
+						.requestMatchers("/login").permitAll()
 						.requestMatchers("/error").permitAll()
 						.requestMatchers("/search").permitAll()//allow search for everyone
 						// PRIVATE PAGES
