@@ -528,7 +528,7 @@ public class UserController {
 			model.addAttribute("errorMessage", "Your user is not found.");
 			return "error";
 		}
-        model.addAttribute("products", user.get().getMyProducts());
+        model.addAttribute("user", user.get());
         return "my-listings";
     }
 

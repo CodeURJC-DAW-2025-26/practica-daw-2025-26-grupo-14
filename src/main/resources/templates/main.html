@@ -149,7 +149,7 @@
   async function loadMore() {
     const res = await fetch(`/products/page?page=${page}&size=${size}`);
     const data = await res.json();
-    row.insertAdjacentHTML('beforeend', data.sellerproducts.map(renderProduct).join(''));
+    row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
     page++;
     if (!data.hasNext) btn.style.display = 'none';
   }

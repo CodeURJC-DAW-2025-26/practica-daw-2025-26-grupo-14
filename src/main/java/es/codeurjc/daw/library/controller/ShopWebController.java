@@ -134,6 +134,7 @@ public class ShopWebController {
 			dto.put("name", p.getName());
 			dto.put("price", p.getPrice());
 			dto.put("shortDescription", p.getShortDescription());
+			dto.put("createdAt", p.getCreatedAt());//createdAt
 
 
 			dto.put("imageId", p.getNumberImages() != 0 ? p.getImage(0).getId() : null);
