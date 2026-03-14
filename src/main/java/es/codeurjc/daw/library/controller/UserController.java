@@ -1,5 +1,6 @@
 package es.codeurjc.daw.library.controller;
-import java.io.IOException; 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -366,6 +367,27 @@ public class UserController {
 			productService.delete(id);
 			return "redirect:/my_listings";
 
+	}
+
+	@GetMapping("/chat/{id}")
+	public String openChat(@PathVariable Long id, Model model) {
+
+		Optional<Order> deal = orderService.getOrderById(id);
+
+		if(!deal.isPresent()){
+			model.addAttribute("errorMessage", "Your deal is not found");
+			return "error";
+		}
+
+		if (model.getAttribute("userName") != null && model.getAttribute("userName").equals(deal.get().getProduct().getSeller().getName())) {
+			model.addAttribute("isSeller", true);
+		} else {
+			model.addAttribute("isSeller", false);
+		}
+
+		model.addAttribute("deal", deal.get());
+
+		return "deals_chat";
 	}
 
 	@PostMapping("/deleteuser/{id}")

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat de {{deal.product.name}}</title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sendbird/3.1.13/SendBird.min.js"></script>
+        <link href="/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        {{> header}}
+        <h1 style="text-align: center;">Chat de {{deal.product.name}}</h1>
+        <p style="text-align: center;">Acuerda las condiciones</p>
+        <div class="chat-card" 
+             id="chat"
+             data-buyer-id="{{deal.buyer.dni}}"
+             data-seller-id="{{deal.product.seller.dni}}"
+             data-deal-id="{{deal.id}}"
+             data-buyer-name="{{deal.buyer.name}}"
+             data-seller-name="{{deal.product.seller.name}}"
+             data-is-seller="{{isSeller}}">
+
+        <div id="chat-list" class="chat-list"></div>
+        <form id="chat-form" class="chat-form">
+            <input id="chat-input" type="text" placeholder="Message..." />
+            <button id="chat-send" type="submit">Send</button>
+        </form>
+        </div>
+
+        {{> footer}}
+
+        <script src="/js/chat_sendbird.js"></script>
+
+    </body>
+</html>

@@ -45,7 +45,7 @@
   <div class="container">
 
     {{#deals_buyer}}
-    <!-- DEAL 3 -->
+    <!-- Orders as buyer -->
     <div class="deal-card">
       <div class="row gy-3 align-items-center">
         <div class="col-lg-7">
@@ -74,7 +74,8 @@
         </div>
         <div class="col-lg-5 text-lg-end">
           <a href="/product/{{product.id}}" class="btn btn-outline-primary me-2">View product</a>
-          <a href="/user_account/{{buyer.id}}" class="btn btn-success me-2">See Buyer</a> 
+          <a href="/user_account/{{product.seller.id}}" class="btn btn-success me-2">See Seller</a> 
+          <a href="/chat/{{id}}" class="btn btn-success me-2">Chat with seller</a>
           {{#rating}}
           <!--Ojo id den rating no de order-->
           <a href="/edit_rating/{{id}}" class="btn btn-outline-primary me-2">Edit Rating</a> 
@@ -100,7 +101,7 @@
     </div>
     {{/deals_buyer}}
     {{#deals_seller}}
-    <!-- DEAL 4 -->
+    <!-- For each order as seller -->
     <div class="deal-card">
       <div class="row gy-3 align-items-center">
         <div class="col-lg-7">
@@ -128,15 +129,16 @@
               </form>
          
               <p class="mt-2 mb-0"><strong>Price:</strong> {{product.price}}€</p>
-              {{#Rating}}
-              <p class="mb-0"><strong>Rating:</strong> {{Rating.rating}}/5 - "{{Rating.summery}}"</p>
-              {{/Rating}}
+              {{#rating}}
+              <p class="mb-0"><strong>Rating:</strong> {{rating}}/5 - "{{summery}}"</p>
+              {{/rating}}
             </div>
           </div>
         </div>
         <div class="col-lg-5 text-lg-end">
           <a href="/product/{{product.id}}" class="btn btn-outline-primary me-2">View product</a>
           <a href="/user_account/{{buyer.id}}" class="btn btn-success me-2">See Buyer</a> 
+          <a href="/chat/{{id}}" class="btn btn-success me-2">Chat with buyer</a> 
         
           <form action="/delete_deal/{{id}}" method="post" class="col-lg-12 text-lg-end">
             <input type="hidden" name="_csrf" value="{{token}}">
