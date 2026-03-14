@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.daw.library.model.Image;
@@ -402,6 +406,24 @@ public class UserController {
 
 	@PostMapping("/delete_deal/{id}")
 	public String deleteDeal(@PathVariable Long id) {
+		String appId = "D718DE9B-58D6-449A-80A7-7AF34C6ABD1E";
+		String channelUrl = "deal-" + id;
+		String apiToken = "6c1470b9cb7b4b6f6d719eb56064103c6f21c2a9";
+
+		RestTemplate rt = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Api-Token", apiToken);
+		HttpEntity<Void> request = new HttpEntity<>(headers);
+
+  
+        rt.exchange(
+            "https://api-" + appId + ".sendbird.com/v3/group_channels/" + channelUrl,
+            HttpMethod.DELETE,
+            request,
+            String.class
+        );
+
+
 		Optional<Order> order = orderService.getOrderById(id);
 		if (order.isPresent() && order.get().getRating() != null) {
 			Rating rating = order.get().getRating();
