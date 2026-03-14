@@ -59,20 +59,20 @@ public class DataBaseInitializer {
 
         // Sample Products
 		Product prod1 = new Product(
-            "Camisa de manga larga", seller1, 15, "Ropa",
+            "Camisa de manga larga", seller1, 15, "Clothing",
             "New", "Camisa de manga larga en buen estado, talla M.",  "Phone"
         );
         prod1.setImage(setImage("/static/my_images/camisa.webp"));
         productService.save(prod1);
 
         Product prod2 = new Product(
-            "Bicicleta de montanna", seller2, 120, "Deportes", "Acceptable",
+            "Bicicleta de montanna", seller2, 120, "Sports", "Acceptable",
             "Bicicleta de montanna en buen estado, con cambios y frenos funcionales.",  "Chat"
         );
         prod2.setImage(setImage("/static/my_images/bicicleta.webp"));
         productService.save(prod2);
         Product prod3 = new Product(
-            "Sofa de dos plazas", seller3, 250, "Hogar", "Like new",
+            "Sofa de dos plazas", seller3, 250, "Home", "Like new",
             "Sofa de dos plazas en buen estado, color gris.",  "Both"
         );
         prod3.setImage(setImage("/static/my_images/sofa.webp"));
