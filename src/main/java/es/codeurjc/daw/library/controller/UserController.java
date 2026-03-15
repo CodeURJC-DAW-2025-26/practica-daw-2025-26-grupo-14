@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +32,7 @@ import es.codeurjc.daw.library.service.ImageService;
 import es.codeurjc.daw.library.service.OrderService;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.RatingService;
+import org.springframework.data.domain.Page;
 
 
 @Controller
@@ -572,6 +574,30 @@ public class UserController {
 		model.addAttribute("order", rating.get().getOrder());
 		model.addAttribute("rating", rating.get());
 		return "rating_form";
+	}
+
+	//Para AJAX
+	@GetMapping("/users/page")
+	@ResponseBody
+	public Map<String, Object> productsPage(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
+
+		Page<User> result = userService.getUsersPage(page, size);
+
+		List<Map<String, Object>> users = result.getContent().stream().map(u -> {
+			Map<String, Object> dto = new HashMap<>();
+			dto.put("id", u.getId());
+			dto.put("name", u.getName());
+			dto.put("email", u.getEmail());
+			dto.put("isBanned", u.getIsBanned());
+
+
+			dto.put("imageId", u.getImage() != null ? u.getImage().getId() : null);
+			return dto;
+		}).toList();
+
+		return Map.of("users", users, "hasNext", result.hasNext());
 	}
 
 }
