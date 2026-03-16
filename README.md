@@ -332,6 +332,10 @@ Que se pueda acceder de forma segura y cambios menores de front.
 
 ## 🛠 **Práctica 2: Incorporación de una API REST a la aplicación web, despliegue con Docker y despliegue remoto**
 
+### **Uso Trello**
+**[Enlace a nuestro Trello](https://trello.com/b/VIU1FiGj/practica-2)**
+> Hemos usado Trello para organizarnos mejor.
+
 ### **Vídeo de Demostración**
 📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
