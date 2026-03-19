@@ -1,15 +1,16 @@
 package es.codeurjc.daw.library.controller;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
+import es.codeurjc.daw.library.dto.DtoMapper;
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.repository.ProductRepository;
 import es.codeurjc.daw.library.repository.RatingRepository;
@@ -17,13 +18,10 @@ import es.codeurjc.daw.library.repository.UserRepository;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.UserService;
 
-import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 
-@Controller
+@RestController
 public class AdminController {
 
 	@Autowired
@@ -42,150 +40,109 @@ public class AdminController {
     private RatingRepository ratingRepository;
 	
 	@GetMapping("/administrator")
-	public String administrator() {
-		return "administrator";
+	public Map<String, Object> administrator() {
+		return Map.of("status", "ok");
 	}
 
     @GetMapping("/admin_listings")
-	public String listings(Model model) {
+	public Map<String, Object> listings() {
         List<Product> reportedProducts = new ArrayList<>();
         for (Product product : productRepository.findAll()) {
             if (product.getReported()){
                 reportedProducts.add(product);
             }
         }
-        if (!reportedProducts.isEmpty()){
-            model.addAttribute("Products", reportedProducts);
-        }
-		return "admin_listings";
+        Map<String, Object> response = new HashMap<>();
+        response.put("reportedProducts", DtoMapper.toProductDtoList(reportedProducts));
+        return response;
 	}
 
     @GetMapping("/admin_users")
-	public String users(Model model) {
-		model.addAttribute("users", userService.getAllUsers());
-		return "admin_users";
+	public Map<String, Object> users() {
+		return Map.of("users", DtoMapper.toUserDtoList(userService.getAllUsers()));
 	}
 
 	@GetMapping("/ban_user/{id}")
-	public String banUser(@PathVariable Long id, Model model) {
-    userService.banUser(id);
-    return "redirect:/admin_users";
+	public Map<String, Object> banUser(@PathVariable Long id) {
+        userService.banUser(id);
+        return Map.of("bannedUserId", id);
     }
 
     @GetMapping("/ignore_report/{id}")
-	public String ignoreReport(@PathVariable Long id, Model model) {
+	public ResponseEntity<Map<String, Object>> ignoreReport(@PathVariable Long id) {
     Optional<Product> p = productService.getProductById(id);
-    if (!p.isPresent()){
-        model.addAttribute("error", "Product not found.");
-        return "error";
+    if (p.isEmpty()){
+        return ResponseEntity.notFound().build();
     }
     Product product = p.get();
     product.setReported(false);
     product.setReportedMessage("");
     productService.save(product);
-    return "redirect:/admin_listings";
+    return ResponseEntity.ok(Map.of("ignoredReportFor", id));
     }
 
 
     @GetMapping("/admin_stats")
-public String adminStats(Model model) {
-    long total_u = userRepository.count();
-    long total_p = productRepository.count();
-    long total_r = ratingRepository.count();
-    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yy");
+    public ResponseEntity<Map<String, Object>> adminStats() {
+        long total_u = userRepository.count();
+        long total_p = productRepository.count();
+        long total_r = ratingRepository.count();
 
-    if (total_p > 0){
-        List<Object[]> rows = productRepository.countProductsByCategory(); // category, count
-        List<Map<String,Object>> categoryStats = rows.stream().map(r -> {
-            String category = (String) r[0];
-            long count = (Long) r[1];
-            long percent = total_p == 0 ? 0 : Math.round((count * 100.0) / total_p);
-            return Map.<String, Object>of(
-                "category", category,
-                "count", count,
-                "percent", percent,
-                "widthStyle", "width: " + percent + "%;"
-            );
-        }).toList();
-        
-        TreeMap<LocalDate, Long> byDate = new TreeMap<>();
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalUsers", total_u);
+        response.put("totalProducts", total_p);
+        response.put("totalRatings", total_r);
 
-        for (Object[] r : productRepository.countProductsByCreatedAt()) {
-            String createdAt = (String) r[0];
-            Long count = (Long) r[1];
-            byDate.put(LocalDate.parse(createdAt, fmt), count);
-        }
+        if (total_p > 0) {
+            List<Object[]> rows = productRepository.countProductsByCategory(); // category, count
+            List<Map<String, Object>> categoryStats = rows.stream().map(r -> {
+                String category = (String) r[0];
+                long count = (Long) r[1];
+                long percent = total_p == 0 ? 0 : Math.round((count * 100.0) / total_p);
+                return Map.<String, Object>of(
+                    "category", category,
+                    "count", count,
+                    "percent", percent
+                );
+            }).toList();
+            response.put("categoryStats", categoryStats);
 
-        String labelsJs = byDate.keySet().stream()
-            .map(d -> "\"" + d.format(fmt) + "\"")
-            .collect(Collectors.joining(","));
-
-        String dataJs = byDate.values().stream()
-            .map(String::valueOf)
-            .collect(Collectors.joining(","));
-
-        model.addAttribute("productChartLabels", labelsJs);
-        model.addAttribute("productChartData", dataJs);
-        model.addAttribute("categoryStats", categoryStats);
-        model.addAttribute("Products", true);
-    } else {
-        model.addAttribute("Products", false);
-    }
-
-    if (total_u > 0){
-        TreeMap<LocalDate, Long> usersByDate = new TreeMap<>();
-
-        for (Object[] r : userRepository.countUsersByCreatedAt()) {
-            String createdAt = (String) r[0];
-            Long count = (Long) r[1];
-            usersByDate.put(LocalDate.parse(createdAt, fmt), count);
-        }
-
-        String userLabelsJs = usersByDate.keySet().stream()
-            .map(d -> "\"" + d.format(fmt) + "\"")
-            .collect(Collectors.joining(","));
-
-        String userDataJs = usersByDate.values().stream()
-            .map(String::valueOf)
-            .collect(Collectors.joining(","));
-        model.addAttribute("userChartLabels", userLabelsJs);
-        model.addAttribute("userChartData", userDataJs);
-        model.addAttribute("Users", true);
-        List<Object[]> rows_r = ratingRepository.countRatingsByValue();
-        if (total_r > 0){
-            TreeMap<Integer, Long> ratings = new TreeMap<>();
-
-
-            for (Object[] r : ratingRepository.countRatingsByValue()) {
-                Number valueNum = (Number) r[0];
+            List<Map<String, Object>> productsByDate = productRepository.countProductsByCreatedAt().stream().map(r -> {
+                String createdAt = (String) r[0];
                 Long count = (Long) r[1];
-                ratings.put(valueNum.intValue(), count);
-            }
-
-            String ratingLabelsJs = ratings.keySet().stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining(","));
-
-            String ratingDataJs = ratings.values().stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining(","));
-
-            model.addAttribute("label", ratingLabelsJs);
-            model.addAttribute("count", ratingDataJs);
-            model.addAttribute("Ratings", true);
-        }else{
-            model.addAttribute("Ratings", false);
+                return Map.<String, Object>of(
+                    "date", createdAt,
+                    "count", count
+                );
+            }).toList();
+            response.put("productsByCreatedAt", productsByDate);
         }
-    }else{
-        model.addAttribute("Users", false);
+
+        if (total_u > 0) {
+            List<Map<String, Object>> usersByDate = userRepository.countUsersByCreatedAt().stream().map(r -> {
+                String createdAt = (String) r[0];
+                Long count = (Long) r[1];
+                return Map.<String, Object>of(
+                    "date", createdAt,
+                    "count", count
+                );
+            }).toList();
+            response.put("usersByCreatedAt", usersByDate);
+
+            if (total_r > 0) {
+                List<Map<String, Object>> ratingDistribution = ratingRepository.countRatingsByValue().stream().map(r -> {
+                    Number valueNum = (Number) r[0];
+                    Long count = (Long) r[1];
+                    return Map.<String, Object>of(
+                        "rating", valueNum.intValue(),
+                        "count", count
+                    );
+                }).toList();
+                response.put("ratingDistribution", ratingDistribution);
+            }
+        }
+
+        return ResponseEntity.ok(response);
     }
-
-    model.addAttribute("total_p", total_p);
-    model.addAttribute("total_u", total_u);
-    model.addAttribute("total_r", total_r);
-    return "admin_stats";
-}
-
-
 
 }

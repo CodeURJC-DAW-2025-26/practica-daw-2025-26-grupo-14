@@ -1,12 +1,10 @@
 package es.codeurjc.daw.library.security;
 
-import org.apache.catalina.connector.Connector;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -58,43 +56,21 @@ public class WebSecurityConfig {
 						.requestMatchers("/login").permitAll()
 						.requestMatchers("/error").permitAll()
 						.requestMatchers("/search").permitAll()//allow search for everyone
-						// PRIVATE PAGES
-						.requestMatchers("/newproduct").hasAnyRole("USER")
-						.requestMatchers("/editproduct").hasAnyRole("USER")
-						.requestMatchers("/editproduct/*").hasAnyRole("USER")
-						.requestMatchers("/edituser/**").hasAnyRole("USER")//allow users to edit their account, but not others
-						.requestMatchers("/create_deal/*").hasAnyRole("USER")
-						.requestMatchers("/removeproduct/*").hasAnyRole("ADMIN")
-						.requestMatchers("/deleteproduct/*").hasAnyRole("USER")
+							.requestMatchers(HttpMethod.GET, "/api/**").permitAll() // public read-only API
+							.requestMatchers(HttpMethod.POST, "/api/users").permitAll() // registration
+							// Allow access to other pages (like login, logout, etc.)
+							.anyRequest().authenticated())
 
-						// Allow access to other pages (like login, logout, etc.)
-						.anyRequest().authenticated())
-
-				.formLogin(formLogin -> formLogin
+					.formLogin(formLogin -> formLogin
 						.loginPage("/login")
 						.failureUrl("/loginerror")
 						.defaultSuccessUrl("/")
 						.permitAll())
-				.logout(logout -> logout
+					.logout(logout -> logout
 						.logoutUrl("/logout")
 						.logoutSuccessUrl("/")
 						.permitAll());
 
-		return http.build();
-		
+			return http.build();
 	}
-
-	@Bean
-public WebServerFactoryCustomizer<TomcatServletWebServerFactory> httpConnector() {
-    return factory -> {
-        Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
-        connector.setScheme("http");
-        connector.setPort(8080);
-        connector.setSecure(false);
-        connector.setRedirectPort(8443);
-        factory.addAdditionalConnectors(connector);
-    };
 }
-
-}
-

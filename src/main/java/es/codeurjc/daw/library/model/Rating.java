@@ -1,5 +1,7 @@
 package es.codeurjc.daw.library.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Min;
@@ -21,6 +23,7 @@ public class Rating {
 	private Long id = null;
 
 	@OneToOne(mappedBy = "rating")
+	@JsonBackReference
 	private Order order;
 
 	@ManyToOne

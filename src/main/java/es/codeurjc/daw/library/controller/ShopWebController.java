@@ -8,13 +8,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import es.codeurjc.daw.library.dto.DtoMapper;
+import es.codeurjc.daw.library.dto.ProductDto;
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.Rating;
 import es.codeurjc.daw.library.model.User;
@@ -24,7 +25,7 @@ import es.codeurjc.daw.library.service.UserService;
 
 
 
-@Controller
+@RestController
 public class ShopWebController {
 	
 	@Autowired
@@ -54,68 +55,67 @@ public class ShopWebController {
 
 
 	@GetMapping("/")
-	public String main(Model model, Principal principal) {
-		
-		model.addAttribute("products", productService.getAllProducts());
+	public Map<String, Object> main(Principal principal) {
+		Map<String, Object> response = new HashMap<>();
+		response.put("products", DtoMapper.toProductDtoList(productService.getAllProducts()));
 
 		if (principal != null) {
 			User user = userService.findByName(principal.getName()).orElse(null);
-			
 			String city = user != null ? user.getCity() : null;
 
-			List <Product> localProducts = city != null ? productService.searchProductsBySellerCity(city) : null;
-			model.addAttribute("localProducts", localProducts);
-			boolean hasLocalProducts = localProducts != null && !localProducts.isEmpty();
-			model.addAttribute("hasLocalProducts", hasLocalProducts);
-
+			List<ProductDto> localProducts = city != null ? DtoMapper.toProductDtoList(productService.searchProductsBySellerCity(city)) : List.of();
+			response.put("localProducts", localProducts);
+			response.put("hasLocalProducts", !localProducts.isEmpty());
+			response.put("currentUser", user != null ? DtoMapper.toDto(user) : null);
+			response.put("isAuthenticated", true);
+		} else {
+			response.put("isAuthenticated", false);
 		}
 
-		return "main";
+		return response;
 	}
 
 	@GetMapping("/product/{id}")
-	public String product(@PathVariable Long id, Model model) {
+	public ResponseEntity<Map<String, Object>> product(@PathVariable Long id, Principal principal) {
 		Optional<Product> product = productService.getProductById(id);
-		if (product.isPresent() && product.get().getSeller() != null) {
-			Product prod = product.get();
-			model.addAttribute("product", prod);
-			// list other products from the same seller; seller is guaranteed non‑null above
-			model.addAttribute("seller_products", productService.getProductsBySeller(prod.getSeller()));
-			model.addAttribute("products", productService.getAllProducts());
-			if (model.getAttribute("userName") != null && model.getAttribute("userName").equals(prod.getSeller().getName())) {
-				model.addAttribute("isOwner", true);
-			}
-			if(product.get().getNumberImages() != 0){
-				model.addAttribute("main_image", product.get().getImage(0));
-			}
-
-			Long sellerId = product.get().getSeller().getId();
-			double avg = ratingRepository.findByRatedId(sellerId).stream()
-				.mapToInt(Rating::getRating)
-				.average()
-				.orElse(0.0);
-			
-			int avgPercent = (int)Math.round((avg / 5.0) * 100);
-			
-			model.addAttribute("avgRating", avg);
-			model.addAttribute("avgRatingPercent", avgPercent);
-			return "product";
-		} else {
-			// either the product doesn’t exist or it has no associated seller
-			// return an error page (template: pageerror.html)
-			return "pageerror";
+		if (product.isEmpty() || product.get().getSeller() == null) {
+			return ResponseEntity.notFound().build();
 		}
 
+		Product prod = product.get();
+		Map<String, Object> response = new HashMap<>();
+		response.put("product", DtoMapper.toDto(prod));
+		response.put("sellerProducts", DtoMapper.toProductDtoList(productService.getProductsBySeller(prod.getSeller())));
+		response.put("products", DtoMapper.toProductDtoList(productService.getAllProducts()));
+
+		boolean isOwner = principal != null && principal.getName().equals(prod.getSeller().getName());
+		response.put("isOwner", isOwner);
+
+		if (prod.getNumberImages() != 0) {
+			response.put("mainImageId", prod.getImage(0).getId());
+		}
+
+		Long sellerId = prod.getSeller().getId();
+		double avg = ratingRepository.findByRatedId(sellerId).stream()
+			.mapToInt(Rating::getRating)
+			.average()
+			.orElse(0.0);
+
+		int avgPercent = (int) Math.round((avg / 5.0) * 100);
+
+		response.put("avgRating", avg);
+		response.put("avgRatingPercent", avgPercent);
+
+		return ResponseEntity.ok(response);
 	}
     
 	@GetMapping("/shop/search")
-	public String searchPage() {
-		return "search";
+	public List<ProductDto> searchPage() {
+		return DtoMapper.toProductDtoList(productService.getAllProducts());
 	}
 
 	//Para AJAX
 	@GetMapping("/products/page")
-	@ResponseBody
 	public Map<String, Object> productsPage(
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size,

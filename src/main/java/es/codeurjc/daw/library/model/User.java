@@ -7,6 +7,8 @@ import java.util.List;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -49,6 +51,7 @@ public class User {
 
 	@NotBlank(message = "password is required")
 	@Size(min = 6, message = "password must be at least 6 characters long")
+	@JsonIgnore
 	private String password;
 
 	
@@ -64,10 +67,13 @@ public class User {
 	private String createdAt;
     
 	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Product> myProducts;
     @OneToMany(mappedBy = "rated", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Rating> myRatings;
 	@OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Order> myOrders;
 
 	private boolean isBanned;

@@ -2,6 +2,7 @@ package es.codeurjc.daw.library.model;
 
 import java.sql.Blob;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
 
 import jakarta.persistence.Entity;
@@ -19,6 +20,7 @@ public class Image {
 
     @NotNull(message = "image file is required")
     @Lob
+    @JsonIgnore
     private Blob imageFile;
 
     public Image() {
