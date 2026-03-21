@@ -165,7 +165,7 @@ public class UserController {
 	
 
     @PostMapping("/newproduct")
-	public String postNewProduct(Model model, Product product, String sellerName,  List<MultipartFile> imageFields, @RequestParam(required = false) List<Long> deleteImageIds) throws IOException {
+	public String postNewProduct(Model model, Product product, String sellerName,  List<MultipartFile> imageFields, @RequestParam(required = false) List<Long> deleteImageIds) {
 		Optional<User> seller = userService.findByName(sellerName);
 		if (!seller.isPresent()) {
 			model.addAttribute("error", "You should be logged in to publish a product.");
@@ -174,6 +174,14 @@ public class UserController {
 		product.setSeller(seller.get());
 		product.setDate();
 
+		if (product.getName() == null || product.getName().isBlank()) {
+			model.addAttribute("error", "Product name is required.");
+			return "publish";
+		}
+		if (product.getPrice() <= 0) {
+			model.addAttribute("error", "Product price must be a positive number.");
+			return "publish";
+		}	
 		if (product.getId() != null) {
 			Optional<Product> p = productService.getProductById(product.getId());
 			if (!p.isPresent()) {
@@ -193,14 +201,22 @@ public class UserController {
 		}
 		if (imageFields != null && !imageFields.isEmpty()) {
 			
-			for (MultipartFile imageField : imageFields) {
-				Image image = imageService.createImage(imageField.getInputStream());
-				product.setImage(image);
+			try{
+				for (MultipartFile imageField : imageFields) {
+					Image image = imageService.createImage(imageField.getInputStream());
+					product.setImage(image);
+				}
+			}catch (IOException e) {
+				model.addAttribute("error", "Error occurred while uploading images.");
+				return "publish";
 			}
-			
 		}
-
-		productService.save(product);
+		try {
+			productService.save(product);
+		} catch (Exception e) {
+			model.addAttribute("error", "Could not save product. Please check the data and try again.");
+			return "publish";
+		}
 		model.addAttribute("products", productService.getAllProducts());
 		return "my-listings";
 	}

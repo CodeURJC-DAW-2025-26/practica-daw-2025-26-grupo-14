@@ -44,6 +44,13 @@
 
       <form action="/newproduct" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_csrf" value="{{token}}">
+
+        {{#error}}
+          <div class="alert alert-danger" role="alert">
+            {{error}}
+          </div>
+        {{/error}}
+        
         <div class="row g-4">
 
           {{#product}}
