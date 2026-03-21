@@ -1,6 +1,5 @@
 package es.codeurjc.daw.library.controller;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,11 +25,11 @@ import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.Rating;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.UserRepository;
-import es.codeurjc.daw.library.service.UserService;
 import es.codeurjc.daw.library.service.ImageService;
 import es.codeurjc.daw.library.service.OrderService;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.RatingService;
+import es.codeurjc.daw.library.service.UserService;
 
 
 @Controller
@@ -80,7 +79,7 @@ public class UserController {
 	public String register(Model model, User user, String confirmPassword, Boolean user_new) {
 		if (user_new && !user.getPassword().equals(confirmPassword)) {
 			model.addAttribute("error", "Passwords do not match");
-			return "registererror";
+			return "register";
 		} else if (user_new || confirmPassword != null){
 			user.setPassword(passwordEncoder.encode(confirmPassword));
 		}
@@ -88,17 +87,30 @@ public class UserController {
 		
 		if(!user.getDni().matches("\\d{8}[A-Za-z]")){
 			model.addAttribute("error", "DNI must have 8 numbers and 1 letter.");
-			return "registererror";
+			return "register";
 		}
 		
 		if(userRepository.findBydni(user.getDni()).isPresent()){
 			model.addAttribute("error", "DNI must unique.");
-			return "registererror";
+			return "register";
+		}
+		if(userRepository.findByEmail(user.getEmail()).isPresent()){
+			model.addAttribute("error", "Email must unique.");
+			return "register";
+		}
+		if (userRepository.findByName(user.getName()).isPresent()) {
+			model.addAttribute("error", "Username must be unique.");
+			return "register";
 		}
 
 		if (user_new) {
 			user.setDate();
-			userService.save(user);
+			try {
+				userService.save(user);
+			} catch (Exception e) {
+				model.addAttribute("error", "Error occurred while creating account.");
+				return "register";
+			}
 			model.addAttribute("message", "Account created successfully. Please log in.");
 			return "login";
 		} else {
@@ -108,7 +120,12 @@ public class UserController {
 				return "error";
 			}
 			user.setImage(u.get().getImage());
-			userService.save(user);
+			try {
+				userService.save(user);
+			} catch (Exception e) {
+				model.addAttribute("error", "Error occurred while updating account.");
+				return "register";
+			}
 			model.addAttribute("message", "Account updated successfully.");
 			model.addAttribute("user", user);
 			model.addAttribute("isOwner", true);
