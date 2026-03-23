@@ -74,6 +74,7 @@ public class WebSecurityConfig {
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/ratings/**").permitAll()
 				.requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/charts/**").permitAll()
 				.requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/images/**").permitAll()
+				.requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/users").permitAll()
                 // Create/modify products:Only authorized users (USER or ADMIN)
                 .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/products/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/v1/products/**").hasAnyRole("USER", "ADMIN")
@@ -88,7 +89,7 @@ public class WebSecurityConfig {
                 .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/v1/ratings/**").hasAnyRole("USER", "ADMIN")
                 // Users management: only ADMIN
                 .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/v1/users/**").hasRole("ADMIN")
-                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/users/**").hasRole("ADMIN")
+				.requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/users/**").hasRole("ADMIN")
                 // Any other API route: authenticated
                 .anyRequest().authenticated()
             )
