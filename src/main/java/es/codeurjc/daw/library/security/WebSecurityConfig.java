@@ -34,10 +34,14 @@ public class WebSecurityConfig {
 		return authProvider;
 	}
 
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.authenticationProvider(authenticationProvider());
+
+		http.csrf(csrf -> csrf.disable());
+
 
 		http
 				.authorizeHttpRequests(authorize -> authorize
@@ -58,6 +62,9 @@ public class WebSecurityConfig {
 						.requestMatchers("/login").permitAll()
 						.requestMatchers("/error").permitAll()
 						.requestMatchers("/search").permitAll()//allow search for everyone
+						//API ENDPOINTS
+						.requestMatchers("/api/**").permitAll()//allow API access for everyone, as it's read-only and doesn't expose sensitive data
+						//requestMatchers("/api/v1/admin/**").hasRole("ADMIN")restrict admin API endpoints to admins only
 						// PRIVATE PAGES
 						.requestMatchers("/newproduct").hasAnyRole("USER")
 						.requestMatchers("/editproduct").hasAnyRole("USER")

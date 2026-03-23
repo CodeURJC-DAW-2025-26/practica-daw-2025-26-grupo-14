@@ -34,7 +34,7 @@ import es.codeurjc.daw.library.service.UserService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class ApiRestController {
      @Autowired
     private ProductService productService;
@@ -53,6 +53,11 @@ public class ApiRestController {
 
     // --------- Products ---------
 
+     @GetMapping("")
+    public String test() {
+        return "API funcionando";
+    }
+    
     @GetMapping("/products")
     public List<ProductDto> getProducts(@RequestParam(required = false) String keyword,
             @RequestParam(required = false) String category) {
