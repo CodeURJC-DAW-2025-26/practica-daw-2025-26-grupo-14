@@ -1,5 +1,6 @@
 package es.codeurjc.daw.library.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,7 +112,9 @@ public class ApiRestController {
         p.setDate();
 
         productService.save(p);
-        return ResponseEntity.status(HttpStatus.CREATED).body(DtoMapper.toDto(p));
+
+        URI location = URI.create(String.format("/api/v1/products/%d", p.getId()));
+        return ResponseEntity.created(location).body(DtoMapper.toDto(p));
 
     }
 
@@ -197,7 +200,9 @@ public class ApiRestController {
         }
         user.setDate();
         userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(DtoMapper.toDto(user));
+
+        URI location = URI.create(String.format("/api/v1/users/%d", user.getId()));
+        return ResponseEntity.created(location).body(DtoMapper.toDto(user));
     }
 
     @PutMapping("/users/{id}")
@@ -280,7 +285,9 @@ public class ApiRestController {
         order.setState(orderDto.getState() != null ? orderDto.getState() : "Offer sent");
 
         orderService.save(order);
-        return ResponseEntity.status(HttpStatus.CREATED).body(DtoMapper.toDto(order));
+
+        URI location = URI.create(String.format("/api/v1/orders/%d", order.getId()));
+        return ResponseEntity.created(location).body(DtoMapper.toDto(order));
 
     }
 
@@ -346,7 +353,8 @@ public class ApiRestController {
 
         ratingService.save(rating);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(DtoMapper.toDto(rating));
+        URI location = URI.create(String.format("/api/v1/ratings/%d", rating.getId()));
+        return ResponseEntity.created(location).body(DtoMapper.toDto(rating));
 
     }
 
