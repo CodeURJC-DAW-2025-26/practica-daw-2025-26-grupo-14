@@ -1,0 +1,8 @@
+$kind: http-request
+name: List Orders
+method: GET
+url: '{{baseUrl}}/orders'
+order: 1000
+queryParams:
+  - key: page
+    value: '0'

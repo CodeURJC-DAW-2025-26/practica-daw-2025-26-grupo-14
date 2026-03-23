@@ -1,0 +1,5 @@
+$kind: http-request
+name: User Historical Chart
+method: GET
+url: '{{baseUrl}}/charts/userHistorical'
+order: 4000

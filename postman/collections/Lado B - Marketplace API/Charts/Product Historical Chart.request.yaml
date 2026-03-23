@@ -1,0 +1,5 @@
+$kind: http-request
+name: Product Historical Chart
+method: GET
+url: '{{baseUrl}}/charts/productHistorical'
+order: 3000

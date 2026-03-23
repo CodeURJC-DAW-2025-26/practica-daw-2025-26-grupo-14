@@ -1,0 +1,8 @@
+$kind: http-request
+name: List Ratings
+method: GET
+url: '{{baseUrl}}/ratings'
+order: 1000
+queryParams:
+  - key: page
+    value: '0'

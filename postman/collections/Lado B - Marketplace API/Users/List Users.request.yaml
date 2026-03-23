@@ -1,0 +1,8 @@
+$kind: http-request
+name: List Users
+method: GET
+url: '{{baseUrl}}/users'
+order: 1000
+queryParams:
+  - key: page
+    value: '0'

@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get Image
+method: GET
+url: '{{baseUrl}}/images/{{imageId}}'
+order: 2000

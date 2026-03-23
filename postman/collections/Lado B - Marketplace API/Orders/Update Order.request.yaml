@@ -1,0 +1,14 @@
+$kind: http-request
+name: Update Order
+method: PUT
+url: '{{baseUrl}}/orders/{{orderId}}'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "state": "COMPLETED"
+    }
