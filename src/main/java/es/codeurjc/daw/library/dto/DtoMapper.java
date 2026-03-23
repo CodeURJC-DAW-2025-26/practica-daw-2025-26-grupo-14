@@ -108,4 +108,8 @@ public final class DtoMapper {
     public static List<RatingDto> toRatingDtoList(List<Rating> ratings) {
         return ratings.stream().map(DtoMapper::toDto).collect(Collectors.toList());
     }
+
+    public static List<ImageDto> toImageDtoList(List<Image> images) {
+       return images.stream().map(DtoMapper::toDto).collect(Collectors.toList());
+    }
 }

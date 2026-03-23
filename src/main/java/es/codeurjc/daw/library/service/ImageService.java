@@ -3,6 +3,7 @@ package es.codeurjc.daw.library.service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -22,6 +23,10 @@ public class ImageService {
 
     public Image getImage(long id) {
         return imageRepository.findById(id).orElseThrow();
+    }
+
+    public List<Image> getAllImages() {
+        return imageRepository.findAll();
     }
 
     public Image createImage(InputStream inputStream) throws IOException {
