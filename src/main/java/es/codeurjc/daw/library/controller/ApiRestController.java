@@ -8,7 +8,11 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.codeurjc.daw.library.dto.ChartDto;
@@ -567,4 +572,33 @@ public class ApiRestController {
         return ResponseEntity.ok(dto);
     }
 
+    // --------- SendBird ---------
+    @GetMapping("/users/{id}/conversations")
+    public ResponseEntity<Map<String, Object>> getUserConversations(@PathVariable Long id) {
+        User user = userService.getUserById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "User not found with id " + id));
+
+        String appId = "D718DE9B-58D6-449A-80A7-7AF34C6ABD1E";
+        String apiToken = "6c1470b9cb7b4b6f6d719eb56064103c6f21c2a9";
+        String sendbirdUserId = user.getDni();
+
+        RestTemplate rt = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Api-Token", apiToken);
+
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+
+        ResponseEntity<Map<String, Object>> response = rt.exchange(
+                "https://api-" + appId + ".sendbird.com/v3/users/" + sendbirdUserId
+                        + "/my_group_channels?show_member=true&show_read_receipt=true&show_delivery_receipt=true",
+                HttpMethod.GET,
+                request,
+                new ParameterizedTypeReference<Map<String, Object>>() {}
+        );
+
+        return ResponseEntity.ok(response.getBody());
+    }
+    
 }
