@@ -151,7 +151,7 @@ public String adminStats(Model model) {
         model.addAttribute("userChartLabels", userLabelsJs);
         model.addAttribute("userChartData", userDataJs);
         model.addAttribute("Users", true);
-        List<Object[]> rows_r = ratingRepository.countRatingsByValue();
+        
         if (total_r > 0){
             TreeMap<Integer, Long> ratings = new TreeMap<>();
 

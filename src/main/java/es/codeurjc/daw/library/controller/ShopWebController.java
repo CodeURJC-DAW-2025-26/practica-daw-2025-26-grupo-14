@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,7 @@ import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.RatingRepository;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 
@@ -36,7 +38,7 @@ public class ShopWebController {
 	@Autowired
 	private RatingRepository ratingRepository;
 
-	/*@ModelAttribute
+	@ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 
 		Principal principal = request.getUserPrincipal();
@@ -50,7 +52,7 @@ public class ShopWebController {
 		} else {
 			model.addAttribute("logged", false);
 		}
-	}*/
+	}
 
 
 	@GetMapping("/")
