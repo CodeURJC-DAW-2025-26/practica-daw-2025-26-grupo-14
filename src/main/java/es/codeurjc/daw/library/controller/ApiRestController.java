@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -72,15 +73,14 @@ public class ApiRestController {
     }
     
     @GetMapping("/products")
-    public List<ProductDto> getProducts(@RequestParam(required = false) String keyword,
+    public List<ProductDto> getProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(required = false) String keyword,
             @RequestParam(required = false) String category) {
-        if (keyword != null && !keyword.isBlank()) {
-            return DtoMapper.toProductDtoList(productService.searchProductsByName(keyword));
-        }
-        if (category != null && !category.isBlank()) {
-            return DtoMapper.toProductDtoList(productService.searchProductsByCategory(category));
-        }
-        return DtoMapper.toProductDtoList(productService.getAllProducts());
+
+        Page<Product> productPage = productService.getProductsPage(page, 10, keyword, category);
+
+        return DtoMapper.toProductDtoList(productPage.getContent());
     }
 
     @GetMapping("/products/{id}")
@@ -174,8 +174,9 @@ public class ApiRestController {
     // --------- Users ---------
 
     @GetMapping("/users")
-    public List<UserDto> getUsers() {
-        return DtoMapper.toUserDtoList(userService.getAllUsers());
+    public List<UserDto> getUsers(@RequestParam(defaultValue = "0") int page) {
+        Page<User> userPage = userService.getUsersPage(page, 10);
+        return DtoMapper.toUserDtoList(userPage.getContent());
     }
 
     @GetMapping("/users/{id}")
