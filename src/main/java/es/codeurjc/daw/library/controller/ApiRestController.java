@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.codeurjc.daw.library.dto.DtoMapper;
 import es.codeurjc.daw.library.dto.OrderDto;
@@ -73,7 +74,9 @@ public class ApiRestController {
     @GetMapping("/products/{id}")
     public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {
         Product product = productService.getProductById(id)
-            .orElseThrow(() -> new RuntimeException("Product not found with id " + id));
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Product not found with id " + id)
+            );
 
         return ResponseEntity.ok(DtoMapper.toDto(product));
     }
@@ -81,65 +84,74 @@ public class ApiRestController {
     @PostMapping("/products")
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
         if (productDto == null || productDto.getSellerId() == null) {
-            return ResponseEntity.badRequest().build();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "sellerId is required");
         }
-        return userService.getUserById(productDto.getSellerId()).map(seller -> {
-            Product p = new Product();
-            p.setSeller(seller);
-            p.setName(productDto.getName());
-            p.setPrice(productDto.getPrice());
-            p.setCategory(productDto.getCategory());
-            p.setCondition(productDto.getCondition());
-            p.setFullDescription(productDto.getFullDescription());
-            p.setShortDescription(productDto.getShortDescription());
-            p.setContactPreference(productDto.getContactPreference());
-            p.setReported(Boolean.TRUE.equals(productDto.getReported()));
-            p.setReportedMessage(productDto.getReportedMessage());
-            p.setDate();
-            productService.save(p);
-            return ResponseEntity.status(HttpStatus.CREATED).body(DtoMapper.toDto(p));
-        }).orElse(ResponseEntity.badRequest().build());
+
+        User seller = userService.getUserById(productDto.getSellerId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Seller not found with id " + productDto.getSellerId()));
+
+        Product p = new Product();
+        p.setSeller(seller);
+        p.setName(productDto.getName());
+        p.setPrice(productDto.getPrice());
+        p.setCategory(productDto.getCategory());
+        p.setCondition(productDto.getCondition());
+        p.setFullDescription(productDto.getFullDescription());
+        p.setShortDescription(productDto.getShortDescription());
+        p.setContactPreference(productDto.getContactPreference());
+        p.setReported(Boolean.TRUE.equals(productDto.getReported()));
+        p.setReportedMessage(productDto.getReportedMessage());
+        p.setDate();
+
+        productService.save(p);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DtoMapper.toDto(p));
+
     }
 
     @PutMapping("/products/{id}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
-        return productService.getProductById(id).map(existing -> {
-            if (productDto.getName() != null) {
-                existing.setName(productDto.getName());
-            }
-            if (productDto.getPrice() != 0.0f) {
-                existing.setPrice(productDto.getPrice());
-            }
-            if (productDto.getCategory() != null) {
-                existing.setCategory(productDto.getCategory());
-            }
-            if (productDto.getCondition() != null) {
-                existing.setCondition(productDto.getCondition());
-            }
-            if (productDto.getFullDescription() != null) {
-                existing.setFullDescription(productDto.getFullDescription());
-            }
-            if (productDto.getShortDescription() != null) {
-                existing.setShortDescription(productDto.getShortDescription());
-            }
-            if (productDto.getContactPreference() != null) {
-                existing.setContactPreference(productDto.getContactPreference());
-            }
-            if (productDto.getReported() != null) {
-                existing.setReported(productDto.getReported());
-            }
-            if (productDto.getReportedMessage() != null) {
-                existing.setReportedMessage(productDto.getReportedMessage());
-            }
-            productService.save(existing);
-            return ResponseEntity.ok(DtoMapper.toDto(existing));
-        }).orElse(ResponseEntity.notFound().build());
+        Product existing = productService.getProductById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Product not found with id " + id));
+
+        if (productDto.getName() != null) {
+            existing.setName(productDto.getName());
+        }
+        if (productDto.getPrice() != 0.0f) {
+            existing.setPrice(productDto.getPrice());
+        }
+        if (productDto.getCategory() != null) {
+            existing.setCategory(productDto.getCategory());
+        }
+        if (productDto.getCondition() != null) {
+            existing.setCondition(productDto.getCondition());
+        }
+        if (productDto.getFullDescription() != null) {
+            existing.setFullDescription(productDto.getFullDescription());
+        }
+        if (productDto.getShortDescription() != null) {
+            existing.setShortDescription(productDto.getShortDescription());
+        }
+        if (productDto.getContactPreference() != null) {
+            existing.setContactPreference(productDto.getContactPreference());
+        }
+        if (productDto.getReported() != null) {
+            existing.setReported(productDto.getReported());
+        }
+        if (productDto.getReportedMessage() != null) {
+            existing.setReportedMessage(productDto.getReportedMessage());
+        }
+
+        productService.save(existing);
+        return ResponseEntity.ok(DtoMapper.toDto(existing));
+
     }
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         if (!productService.exist(id)) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with id " + id);
         }
         productService.delete(id);
         return ResponseEntity.noContent().build();
@@ -155,15 +167,15 @@ public class ApiRestController {
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
         User user = userService.getUserById(id)
-                    .orElseThrow(() -> new RuntimeException("User not found with id " + id));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id " + id));
 
         return ResponseEntity.ok(DtoMapper.toDto(user));
     }
 
-    @PostMapping("/users")
+    @PostMapping("/users") //Shouldn´t we use register?
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        if (userDto == null || userDto.getName() == null || userDto.getPassword() == null) {
-            return ResponseEntity.badRequest().build();
+        if (userDto == null || userDto.getName() == null || userDto.getPassword() == null || userDto.getDni() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Name and password and DNI are required");
         }
         User user = new User();
         user.setFullName(userDto.getFullName());
@@ -184,40 +196,44 @@ public class ApiRestController {
 
     @PutMapping("/users/{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
-        return userService.getUserById(id).map(existing -> {
-            if (userDto.getFullName() != null) {
-                existing.setFullName(userDto.getFullName());
-            }
-            if (userDto.getName() != null) {
-                existing.setName(userDto.getName());
-            }
-            if (userDto.getEmail() != null) {
-                existing.setEmail(userDto.getEmail());
-            }
-            if (userDto.getCity() != null) {
-                existing.setCity(userDto.getCity());
-            }
-            if (userDto.getDni() != null) {
-                existing.setDni(userDto.getDni());
-            }
-            if (userDto.getIsBanned() != null) {
-                existing.setBanned(userDto.getIsBanned());
-            }
-            if (userDto.getPassword() != null && !userDto.getPassword().isBlank()) {
-                existing.setPassword(passwordEncoder.encode(userDto.getPassword()));
-            }
-            if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
-                existing.setRoles(userDto.getRoles());
-            }
-            userService.save(existing);
-            return ResponseEntity.ok(DtoMapper.toDto(existing));
-        }).orElse(ResponseEntity.notFound().build());
+        User existing = userService.getUserById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "User not found with id " + id));
+
+        if (userDto.getFullName() != null) {
+            existing.setFullName(userDto.getFullName());
+        }
+        if (userDto.getName() != null) {
+            existing.setName(userDto.getName());
+        }
+        if (userDto.getEmail() != null) {
+            existing.setEmail(userDto.getEmail());
+        }
+        if (userDto.getCity() != null) {
+            existing.setCity(userDto.getCity());
+        }
+        if (userDto.getDni() != null) {
+            existing.setDni(userDto.getDni());
+        }
+        if (userDto.getIsBanned() != null) {
+            existing.setBanned(userDto.getIsBanned());
+        }
+        if (userDto.getPassword() != null && !userDto.getPassword().isBlank()) {
+            existing.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        }
+        if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
+            existing.setRoles(userDto.getRoles());
+        }
+
+        userService.save(existing);
+        return ResponseEntity.ok(DtoMapper.toDto(existing));
+
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         if (!userService.getUserById(id).isPresent()) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id " + id);
         }
         userService.delete(id);
         return ResponseEntity.noContent().build();
@@ -233,7 +249,7 @@ public class ApiRestController {
     @GetMapping("/orders/{id}")
     public ResponseEntity<OrderDto> getOrder(@PathVariable Long id) {
         Order order = orderService.getOrderById(id)
-                    .orElseThrow(() -> new RuntimeException("Order not found with id " + id));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found with id " + id));
 
         return ResponseEntity.ok(DtoMapper.toDto(order));
     }
@@ -241,35 +257,46 @@ public class ApiRestController {
     @PostMapping("/orders")
     public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto) {
         if (orderDto == null || orderDto.getBuyerId() == null || orderDto.getProductId() == null) {
-            return ResponseEntity.badRequest().build();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "buyerId and productId are required");
         }
-        return userService.getUserById(orderDto.getBuyerId()).flatMap(buyer ->
-                productService.getProductById(orderDto.getProductId()).map(product -> {
-                    Order order = new Order();
-                    order.setBuyer(buyer);
-                    order.setProduct(product);
-                    order.setState(orderDto.getState() != null ? orderDto.getState() : "Offer sent");
-                    orderService.save(order);
-                    return ResponseEntity.status(HttpStatus.CREATED).body(DtoMapper.toDto(order));
-                })
-        ).orElse(ResponseEntity.badRequest().build());
+
+        User buyer = userService.getUserById(orderDto.getBuyerId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Buyer not found with id " + orderDto.getBuyerId()));
+
+        Product product = productService.getProductById(orderDto.getProductId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Product not found with id " + orderDto.getProductId()));
+
+        Order order = new Order();
+        order.setBuyer(buyer);
+        order.setProduct(product);
+        order.setState(orderDto.getState() != null ? orderDto.getState() : "Offer sent");
+
+        orderService.save(order);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DtoMapper.toDto(order));
+
     }
 
     @PutMapping("/orders/{id}")
     public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id, @RequestBody OrderDto orderDto) {
-        return orderService.getOrderById(id).map(existing -> {
-            if (orderDto.getState() != null) {
-                existing.setState(orderDto.getState());
-            }
-            orderService.save(existing);
-            return ResponseEntity.ok(DtoMapper.toDto(existing));
-        }).orElse(ResponseEntity.notFound().build());
+        Order existing = orderService.getOrderById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Order not found with id " + id));
+
+        if (orderDto.getState() != null) {
+            existing.setState(orderDto.getState());
+        }
+
+        orderService.save(existing);
+        return ResponseEntity.ok(DtoMapper.toDto(existing));
+
     }
 
     @DeleteMapping("/orders/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         if (!orderService.getOrderById(id).isPresent()) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found with id " + id);
         }
         orderService.delete(id);
         return ResponseEntity.noContent().build();
@@ -285,7 +312,7 @@ public class ApiRestController {
     @GetMapping("/ratings/{id}")
     public ResponseEntity<RatingDto> getRating(@PathVariable Long id) {
         Rating rating = ratingService.getRatingById(id)
-        .orElseThrow(() -> new RuntimeException("Rating not found with id " + id));
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Rating not found with id " + id));
 
         return ResponseEntity.ok(DtoMapper.toDto(rating));
     }
@@ -293,43 +320,54 @@ public class ApiRestController {
     @PostMapping("/ratings")
     public ResponseEntity<RatingDto> createRating(@RequestBody RatingDto ratingDto) {
         if (ratingDto == null || ratingDto.getRaterId() == null || ratingDto.getRatedId() == null) {
-            return ResponseEntity.badRequest().build();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing required field");
+
         }
-        return userService.getUserById(ratingDto.getRaterId()).flatMap(rater ->
-                userService.getUserById(ratingDto.getRatedId()).map(rated -> {
-                    Rating rating = new Rating();
-                    rating.setRater(rater);
-                    rating.setRated(rated);
-                    rating.setSummery(ratingDto.getSummery());
-                    rating.setRating(ratingDto.getRating());
-                    rating.setDescription(ratingDto.getDescription());
-                    ratingService.save(rating);
-                    return ResponseEntity.status(HttpStatus.CREATED).body(DtoMapper.toDto(rating));
-                })
-        ).orElse(ResponseEntity.badRequest().build());
+        User rater = userService.getUserById(ratingDto.getRaterId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Rater not found with id " + ratingDto.getRaterId()));
+
+        User rated = userService.getUserById(ratingDto.getRatedId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Rated user not found with id " + ratingDto.getRatedId()));
+
+        Rating rating = new Rating();
+        rating.setRater(rater);
+        rating.setRated(rated);
+        rating.setSummery(ratingDto.getSummery());
+        rating.setRating(ratingDto.getRating());
+        rating.setDescription(ratingDto.getDescription());
+
+        ratingService.save(rating);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(DtoMapper.toDto(rating));
+
     }
 
     @PutMapping("/ratings/{id}")
     public ResponseEntity<RatingDto> updateRating(@PathVariable Long id, @RequestBody RatingDto ratingDto) {
-        return ratingService.getRatingById(id).map(existing -> {
-            if (ratingDto.getSummery() != null) {
-                existing.setSummery(ratingDto.getSummery());
-            }
-            if (ratingDto.getRating() != 0) {
-                existing.setRating(ratingDto.getRating());
-            }
-            if (ratingDto.getDescription() != null) {
-                existing.setDescription(ratingDto.getDescription());
-            }
-            ratingService.save(existing);
-            return ResponseEntity.ok(DtoMapper.toDto(existing));
-        }).orElse(ResponseEntity.notFound().build());
+        Rating existing = ratingService.getRatingById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Rating not found with id " + id));
+
+        if (ratingDto.getSummery() != null) {
+            existing.setSummery(ratingDto.getSummery());
+        }
+        if (ratingDto.getRating() != 0) {
+            existing.setRating(ratingDto.getRating());
+        }
+        if (ratingDto.getDescription() != null) {
+            existing.setDescription(ratingDto.getDescription());
+        }
+
+        ratingService.save(existing);
+        return ResponseEntity.ok(DtoMapper.toDto(existing));
     }
 
     @DeleteMapping("/ratings/{id}")
     public ResponseEntity<Void> deleteRating(@PathVariable Long id) {
         if (!ratingService.getRatingById(id).isPresent()) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Rating not found with id " + id);
         }
         ratingService.delete(id);
         return ResponseEntity.noContent().build();

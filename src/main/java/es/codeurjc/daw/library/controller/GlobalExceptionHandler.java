@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -20,11 +21,19 @@ public class GlobalExceptionHandler {
         ex.printStackTrace();
 
         if (request.getRequestURI() != null && request.getRequestURI().startsWith("/api/v1/")) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+             HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+            String message = ex.getMessage();
+
+            if (ex instanceof ResponseStatusException rse) {
+                status = HttpStatus.valueOf(rse.getStatusCode().value());
+                message = rse.getReason();
+            }
+
+            return ResponseEntity.status(status)
                     .body(Map.of(
-                            "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                            "error", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
-                            "message", ex.getMessage() != null ? ex.getMessage() : "Unexpected error",
+                            "status", status.value(),
+                            "error", status.getReasonPhrase(),
+                            "message", message != null ? message : "Unexpected error",
                             "path", request.getRequestURI()));
         }
 
