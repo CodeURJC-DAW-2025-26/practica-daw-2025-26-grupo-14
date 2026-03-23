@@ -24,6 +24,11 @@ public class GlobalExceptionHandler {
              HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
             String message = ex.getMessage();
 
+            if(request.getRequestURI().startsWith("/api/v1/chart/")){
+                status = HttpStatus.NOT_FOUND;
+                message = "Page not found";
+            }
+            
             if (ex instanceof ResponseStatusException rse) {
                 status = HttpStatus.valueOf(rse.getStatusCode().value());
                 message = rse.getReason();

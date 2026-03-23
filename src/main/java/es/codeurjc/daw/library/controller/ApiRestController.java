@@ -1,7 +1,11 @@
 package es.codeurjc.daw.library.controller;
 
 import java.net.URI;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import es.codeurjc.daw.library.dto.ChartDto;
 import es.codeurjc.daw.library.dto.DtoMapper;
 import es.codeurjc.daw.library.dto.ImageDto;
 import es.codeurjc.daw.library.dto.OrderDto;
@@ -404,6 +409,155 @@ public class ApiRestController {
         return ResponseEntity.ok(DtoMapper.toDto(image));
     }
 
+    // --------- Charts ---------
+     @GetMapping("/charts")
+    public ResponseEntity<ChartDto> getCharts() {
+        ChartDto dto = new ChartDto();
+        dto.setName("charts");
+        
+        Map<String, Long> data = new LinkedHashMap<>();
+        long products = productService.getAllProducts().size();
+        if (products != 0){
+            data.put("categories", products);
+            data.put("productHistorical", products);
+        }
+
+        long users = userService.getAllUsers().size();
+        if (users != 0){
+            data.put("userHistorical", users);
+        }
+
+        long ratings = ratingService.getAllRatings().size();
+        if (ratings != 0){
+            data.put("ratings", ratings);
+        }
+
+        for (User user : userService.getAllUsers()) {
+            long ratingCount = user.getMyRatings().size();
+
+            if (ratingCount > 0) {
+                data.put("users/" + user.getId().toString() + "/ratings",  ratingCount);
+            }
+        }
+
+        dto.setData(data);
+
+        return ResponseEntity.ok(dto);
+    }
     
+    @GetMapping("/charts/categories")
+    public ResponseEntity<ChartDto> getChartCategories() {
+        ChartDto dto = new ChartDto();
+        dto.setName("categories");
+        Map<String, Long> data = new LinkedHashMap<>();
+        
+        data.put("Clothing",(long) productService.searchProductsByCategory("Clothing").size());
+        data.put("Electronics", (long) productService.searchProductsByCategory("Electronics").size());
+        data.put("Home", (long) productService.searchProductsByCategory("Home").size());
+        data.put("Sports", (long) productService.searchProductsByCategory("Sports").size());
+        data.put("Books", (long) productService.searchProductsByCategory("Books").size());
+        data.put("Others", (long) productService.searchProductsByCategory("Others").size());
+        data.put("Total", (long) productService.getAllProducts().size());
+
+        dto.setData(data);
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/charts/productHistorical")
+    public ResponseEntity<ChartDto> getChartPHistorical() {
+        ChartDto dto = new ChartDto();
+        dto.setName("productHistorical");
+        
+        Map<String, Long> data = productService.getAllProducts().stream()
+            .collect(Collectors.groupingBy(
+                    p -> p.getCreatedAt().toString(),
+                    TreeMap::new,
+                    Collectors.counting()
+            ));
+        data.put("Total", (long) productService.getAllProducts().size());
+
+        dto.setData(data);
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/charts/userHistorical")
+    public ResponseEntity<ChartDto> getUsersHistorical() {
+        ChartDto dto = new ChartDto();
+        dto.setName("userHistorical");
+        
+        Map<String, Long> data = userService.getAllUsers().stream()
+            .collect(Collectors.groupingBy(
+                    p -> p.getCreatedAt().toString(),
+                    TreeMap::new,
+                    Collectors.counting()
+            ));
+        data.put("Total", (long) userService.getAllUsers().size());
+
+        dto.setData(data);
+
+        return ResponseEntity.ok(dto);
+    }
     
+    @GetMapping("/charts/ratings")
+    public ResponseEntity<ChartDto> getRatingsChart() {
+        ChartDto dto = new ChartDto();
+        dto.setName("ratings");
+        
+        Map<String, Long> data = ratingService.getAllRatings().stream()
+                .collect(Collectors.groupingBy(
+                        p -> String.valueOf(p.getRating()),
+                        TreeMap::new,
+                        Collectors.counting()
+                ));
+
+        data.put("Total", (long) ratingService.getAllRatings().size());
+
+        dto.setData(data);
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/charts/ratings/{id}")
+    public ResponseEntity<ChartDto> getRatingsIdChart() {
+        ChartDto dto = new ChartDto();
+        dto.setName("ratings");
+        
+        Map<String, Long> data = ratingService.getAllRatings().stream()
+                .collect(Collectors.groupingBy(
+                        p -> String.valueOf(p.getRating()),
+                        TreeMap::new,
+                        Collectors.counting()
+                ));
+
+        data.put("Total", (long) ratingService.getAllRatings().size());
+
+        dto.setData(data);
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/charts/users/{id}/ratings")
+    public ResponseEntity<ChartDto> getUserRatingsChart(@PathVariable Long id) {
+        User user = userService.getUserById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "User not found with id " + id));
+
+        Map<String, Long> data = user.getMyRatings().stream()
+                .collect(Collectors.groupingBy(
+                        rating -> String.valueOf(rating.getRating()),
+                        TreeMap::new,
+                        Collectors.counting()
+                ));
+
+        data.put("Total", (long) user.getMyRatings().size());
+
+        ChartDto dto = new ChartDto();
+        dto.setName("users/" + user.getId().toString() + "/ratings");
+        dto.setData(data);
+
+        return ResponseEntity.ok(dto);
+    }
+
 }
