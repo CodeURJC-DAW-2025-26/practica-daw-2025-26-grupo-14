@@ -72,8 +72,10 @@ public class ApiRestController {
 
     @GetMapping("/products/{id}")
     public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {
-        return productService.getProductById(id).map(p -> ResponseEntity.ok(DtoMapper.toDto(p)))
-                .orElse(ResponseEntity.notFound().build());
+        Product product = productService.getProductById(id)
+            .orElseThrow(() -> new RuntimeException("Product not found with id " + id));
+
+        return ResponseEntity.ok(DtoMapper.toDto(product));
     }
 
     @PostMapping("/products")
@@ -152,8 +154,10 @@ public class ApiRestController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
-        return userService.getUserById(id).map(u -> ResponseEntity.ok(DtoMapper.toDto(u)))
-                .orElse(ResponseEntity.notFound().build());
+        User user = userService.getUserById(id)
+                    .orElseThrow(() -> new RuntimeException("User not found with id " + id));
+
+        return ResponseEntity.ok(DtoMapper.toDto(user));
     }
 
     @PostMapping("/users")
@@ -228,8 +232,10 @@ public class ApiRestController {
 
     @GetMapping("/orders/{id}")
     public ResponseEntity<OrderDto> getOrder(@PathVariable Long id) {
-        return orderService.getOrderById(id).map(o -> ResponseEntity.ok(DtoMapper.toDto(o)))
-                .orElse(ResponseEntity.notFound().build());
+        Order order = orderService.getOrderById(id)
+                    .orElseThrow(() -> new RuntimeException("Order not found with id " + id));
+
+        return ResponseEntity.ok(DtoMapper.toDto(order));
     }
 
     @PostMapping("/orders")
@@ -278,8 +284,10 @@ public class ApiRestController {
 
     @GetMapping("/ratings/{id}")
     public ResponseEntity<RatingDto> getRating(@PathVariable Long id) {
-        return ratingService.getRatingById(id).map(r -> ResponseEntity.ok(DtoMapper.toDto(r)))
-                .orElse(ResponseEntity.notFound().build());
+        Rating rating = ratingService.getRatingById(id)
+        .orElseThrow(() -> new RuntimeException("Rating not found with id " + id));
+
+        return ResponseEntity.ok(DtoMapper.toDto(rating));
     }
 
     @PostMapping("/ratings")
