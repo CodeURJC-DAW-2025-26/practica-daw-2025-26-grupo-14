@@ -259,8 +259,11 @@ public class ApiRestController {
     // --------- Orders ---------
 
     @GetMapping("/orders")
-    public List<OrderDto> getOrders() {
-        return DtoMapper.toOrderDtoList(orderService.getAllOrders());
+    public org.springframework.data.domain.Page<OrderDto> getOrders(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return orderService.getOrdersPage(page, size)
+                .map(DtoMapper::toDto);
     }
 
     @GetMapping("/orders/{id}")
@@ -324,8 +327,11 @@ public class ApiRestController {
     // --------- Ratings ---------
 
     @GetMapping("/ratings")
-    public List<RatingDto> getRatings() {
-        return DtoMapper.toRatingDtoList(ratingService.getAllRatings());
+    public org.springframework.data.domain.Page<RatingDto> getRatings(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ratingService.getRatingsPage(page, size)
+                .map(DtoMapper::toDto);
     }
 
     @GetMapping("/ratings/{id}")

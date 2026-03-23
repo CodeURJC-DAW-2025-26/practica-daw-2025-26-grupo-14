@@ -34,8 +34,13 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
-    	public boolean exist(long id) {
+    public boolean exist(long id) {
         return orderRepository.existsById(id);
     }
-    
+
+    public org.springframework.data.domain.Page<Order> getOrdersPage(int page, int size) {
+        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);
+        return orderRepository.findAll(pageable);
+    }
+
 }
