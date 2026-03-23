@@ -19,14 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.codeurjc.daw.library.dto.DtoMapper;
+import es.codeurjc.daw.library.dto.ImageDto;
 import es.codeurjc.daw.library.dto.OrderDto;
 import es.codeurjc.daw.library.dto.ProductDto;
 import es.codeurjc.daw.library.dto.RatingDto;
 import es.codeurjc.daw.library.dto.UserDto;
+import es.codeurjc.daw.library.model.Image;
 import es.codeurjc.daw.library.model.Order;
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.Rating;
 import es.codeurjc.daw.library.model.User;
+import es.codeurjc.daw.library.service.ImageService;
 import es.codeurjc.daw.library.service.OrderService;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.RatingService;
@@ -48,6 +51,9 @@ public class ApiRestController {
 
     @Autowired
     private RatingService ratingService;
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -312,7 +318,7 @@ public class ApiRestController {
     @GetMapping("/ratings/{id}")
     public ResponseEntity<RatingDto> getRating(@PathVariable Long id) {
         Rating rating = ratingService.getRatingById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Rating not found with id " + id));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Rating not found with id " + id));
 
         return ResponseEntity.ok(DtoMapper.toDto(rating));
     }
@@ -372,5 +378,24 @@ public class ApiRestController {
         ratingService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    // --------- Images ---------
+    @GetMapping("/images")
+    public List<ImageDto> getImages() {
+        return DtoMapper.toImageDtoList(imageService.getAllImages());
+    }
+
+    @GetMapping("/images/{id}")
+    public ResponseEntity<ImageDto> getImage(@PathVariable Long id) {
+        Image image = imageService.getImage(id);
+        
+        if (image == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found with id " + id);
+        }
+
+        return ResponseEntity.ok(DtoMapper.toDto(image));
+    }
+
+    
     
 }
