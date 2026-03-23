@@ -11,6 +11,5 @@ body:
   content: |-
     {
       "productId": 1,
-      "buyerId": 1,
       "state": "PENDING"
     }

@@ -10,7 +10,6 @@ body:
   type: json
   content: |-
     {
-      "sellerId": 1,
       "name": "Vintage Jacket",
       "price": 25.99,
       "category": "Clothing",

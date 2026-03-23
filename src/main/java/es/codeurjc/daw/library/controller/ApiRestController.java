@@ -15,6 +15,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -99,14 +101,14 @@ public class ApiRestController {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
-        if (productDto == null || productDto.getSellerId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "sellerId is required");
+    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto, @AuthenticationPrincipal UserDetails currentUser) {
+
+        if (productDto == null || productDto.getName() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product name is required");
         }
 
-        User seller = userService.getUserById(productDto.getSellerId())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST, "Seller not found with id " + productDto.getSellerId()));
+        User seller = userService.findByName(currentUser.getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
 
         Product p = new Product();
         p.setSeller(seller);
@@ -280,14 +282,13 @@ public class ApiRestController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto) {
-        if (orderDto == null || orderDto.getBuyerId() == null || orderDto.getProductId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "buyerId and productId are required");
+    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto, @AuthenticationPrincipal UserDetails currentUser) {
+        if (orderDto == null || orderDto.getProductId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "productId is required");
         }
 
-        User buyer = userService.getUserById(orderDto.getBuyerId())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST, "Buyer not found with id " + orderDto.getBuyerId()));
+        User buyer = userService.findByName(currentUser.getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
 
         Product product = productService.getProductById(orderDto.getProductId())
                 .orElseThrow(() -> new ResponseStatusException(
@@ -348,14 +349,13 @@ public class ApiRestController {
     }
 
     @PostMapping("/ratings")
-    public ResponseEntity<RatingDto> createRating(@RequestBody RatingDto ratingDto) {
-        if (ratingDto == null || ratingDto.getRaterId() == null || ratingDto.getRatedId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing required field");
-
+    public ResponseEntity<RatingDto> createRating(@RequestBody RatingDto ratingDto, @AuthenticationPrincipal UserDetails currentUser) {
+        if (ratingDto == null || ratingDto.getRatedId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ratedId is required");
         }
-        User rater = userService.getUserById(ratingDto.getRaterId())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST, "Rater not found with id " + ratingDto.getRaterId()));
+
+        User rater = userService.findByName(currentUser.getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
 
         User rated = userService.getUserById(ratingDto.getRatedId())
                 .orElseThrow(() -> new ResponseStatusException(
