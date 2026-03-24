@@ -46,6 +46,7 @@ import es.codeurjc.daw.library.service.OrderService;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.RatingService;
 import es.codeurjc.daw.library.service.UserService;
+import es.codeurjc.daw.library.util.SecurityUtil;
 
 
 @CrossOrigin(origins = "*")
@@ -69,6 +70,9 @@ public class ApiRestController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private SecurityUtil securityUtil;
 
     // --------- Products ---------
 
@@ -108,6 +112,11 @@ public class ApiRestController {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "Seller not found with id " + productDto.getSellerId()));
 
+        if (!securityUtil.isProductOwnerOrAdmin(seller.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "You don't have permission to create a product for this seller");
+        }
+
         Product p = new Product();
         p.setSeller(seller);
         p.setName(productDto.getName());
@@ -133,6 +142,11 @@ public class ApiRestController {
         Product existing = productService.getProductById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Product not found with id " + id));
+
+        if (!securityUtil.isProductOwnerOrAdmin(existing.getSeller().getId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "You don't have permission to modify this product");
+        }
 
         if (productDto.getName() != null) {
             existing.setName(productDto.getName());
@@ -169,9 +183,16 @@ public class ApiRestController {
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        if (!productService.exist(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with id " + id);
+        Product product = productService.getProductById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Product not found with id " + id));
+
+        // Check access: user must be the seller or admin
+        if (!securityUtil.isProductOwnerOrAdmin(product.getSeller().getId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "You don't have permission to delete this product");
         }
+
         productService.delete(id);
         return ResponseEntity.noContent().build();
     }
@@ -221,6 +242,12 @@ public class ApiRestController {
         User existing = userService.getUserById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "User not found with id " + id));
+
+        // Check access: user can only update their own profile or admin can update any
+        if (!securityUtil.isUserOwnerOrAdmin(id)) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "You don't have permission to update this user profile");
+        }
 
         if (userDto.getFullName() != null) {
             existing.setFullName(userDto.getFullName());
@@ -311,6 +338,12 @@ public class ApiRestController {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Order not found with id " + id));
 
+        // Check access: user must be the buyer or admin
+        if (!securityUtil.isOrderOwnerOrAdmin(existing.getBuyer().getId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "You don't have permission to modify this order");
+        }
+
         if (orderDto.getState() != null) {
             existing.setState(orderDto.getState());
         }
@@ -322,9 +355,16 @@ public class ApiRestController {
 
     @DeleteMapping("/orders/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
-        if (!orderService.getOrderById(id).isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found with id " + id);
+        Order order = orderService.getOrderById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Order not found with id " + id));
+
+        // Check access: user must be the buyer or admin
+        if (!securityUtil.isOrderOwnerOrAdmin(order.getBuyer().getId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "You don't have permission to delete this order");
         }
+
         orderService.delete(id);
         return ResponseEntity.noContent().build();
     }
@@ -381,6 +421,12 @@ public class ApiRestController {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Rating not found with id " + id));
 
+        // Check access: user must be the rater or admin
+        if (!securityUtil.isRatingOwnerOrAdmin(existing.getRater().getId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "You don't have permission to modify this rating");
+        }
+
         if (ratingDto.getSummery() != null) {
             existing.setSummery(ratingDto.getSummery());
         }
@@ -397,9 +443,16 @@ public class ApiRestController {
 
     @DeleteMapping("/ratings/{id}")
     public ResponseEntity<Void> deleteRating(@PathVariable Long id) {
-        if (!ratingService.getRatingById(id).isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Rating not found with id " + id);
+        Rating rating = ratingService.getRatingById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Rating not found with id " + id));
+
+        // Check access: user must be the rater or admin
+        if (!securityUtil.isRatingOwnerOrAdmin(rating.getRater().getId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "You don't have permission to delete this rating");
         }
+
         ratingService.delete(id);
         return ResponseEntity.noContent().build();
     }
