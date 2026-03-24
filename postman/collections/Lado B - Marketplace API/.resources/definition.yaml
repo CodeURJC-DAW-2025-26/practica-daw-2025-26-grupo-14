@@ -1,0 +1,12 @@
+$kind: collection
+name: Lado B - Marketplace API
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+variables:
+  - key: baseUrl
+    value: 'http://localhost:8080/api/v1'
+  - key: token
+    value: ''

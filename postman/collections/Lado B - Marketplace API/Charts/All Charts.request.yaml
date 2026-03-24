@@ -1,0 +1,5 @@
+$kind: http-request
+name: All Charts
+method: GET
+url: '{{baseUrl}}/charts'
+order: 1000

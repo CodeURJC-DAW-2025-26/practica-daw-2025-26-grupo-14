@@ -1,0 +1,5 @@
+$kind: http-request
+name: User Ratings Chart
+method: GET
+url: '{{baseUrl}}/charts/users/{{userId}}/ratings'
+order: 7000

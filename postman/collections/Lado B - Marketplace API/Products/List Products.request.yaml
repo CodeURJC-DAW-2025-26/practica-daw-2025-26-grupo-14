@@ -1,0 +1,14 @@
+$kind: http-request
+name: List Products
+method: GET
+url: '{{baseUrl}}/products'
+order: 1000
+queryParams:
+  - key: page
+    value: '0'
+  - key: keyword
+    value: ''
+    disabled: true
+  - key: category
+    value: ''
+    disabled: true

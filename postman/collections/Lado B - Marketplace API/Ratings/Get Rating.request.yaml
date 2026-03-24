@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get Rating
+method: GET
+url: '{{baseUrl}}/ratings/{{ratingId}}'
+order: 2000

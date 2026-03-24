@@ -1,0 +1,22 @@
+$kind: http-request
+name: Update Product
+method: PUT
+url: '{{baseUrl}}/products/{{productId}}'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Updated Jacket",
+      "price": 19.99,
+      "category": "Clothing",
+      "condition": "Fair",
+      "shortDescription": "Updated short description",
+      "fullDescription": "Updated full description",
+      "contactPreference": "Phone",
+      "reported": false,
+      "reportedMessage": null
+    }
