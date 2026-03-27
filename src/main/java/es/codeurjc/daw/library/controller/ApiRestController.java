@@ -632,6 +632,11 @@ public class ApiRestController {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "User not found with id " + id));
 
+        if(!securityUtil.getAuthenticatedUser().equals(user)){
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "You don't have permission to see this conversations");
+        }
+
         String appId = "D718DE9B-58D6-449A-80A7-7AF34C6ABD1E";
         String apiToken = "6c1470b9cb7b4b6f6d719eb56064103c6f21c2a9";
         String sendbirdUserId = user.getDni();
