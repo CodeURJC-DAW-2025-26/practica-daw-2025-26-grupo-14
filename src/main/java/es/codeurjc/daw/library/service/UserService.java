@@ -44,8 +44,8 @@ public class UserService {
 
         public void banUser(Long id) {
         userRepository.findById(id).ifPresent(user -> {
-            user.setBanned(!user.getIsBanned()); // alterna ban/unban
-            userRepository.save(user);       // guarda el cambio
+            user.setBanned(!user.getIsBanned()); // switches ban/unban
+            userRepository.save(user);       // saves changes
         });
     }
 

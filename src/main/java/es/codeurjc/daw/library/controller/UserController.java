@@ -576,7 +576,7 @@ public class UserController {
 		return "rating_form";
 	}
 
-	//Para AJAX
+	//ForAJAX
 	@GetMapping("/users/page")
 	@ResponseBody
 	public Map<String, Object> productsPage(
