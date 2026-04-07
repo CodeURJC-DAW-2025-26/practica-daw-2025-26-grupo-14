@@ -115,7 +115,7 @@ public class ShopWebController {
 		return "search";
 	}
 
-	//Para AJAX
+	//For AJAX
 	@GetMapping("/products/page")
 	@ResponseBody
 	public Map<String, Object> productsPage(

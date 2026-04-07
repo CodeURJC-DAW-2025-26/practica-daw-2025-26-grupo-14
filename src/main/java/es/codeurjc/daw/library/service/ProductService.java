@@ -57,7 +57,7 @@ public class ProductService {
         return productRepository.findBySellerCityIgnoreCase(city);
     }
 
-    //Para Ajax
+    //For AJAX
     public Page<Product> getProductsPage(int page, int size, String keyword, String category, Double minPrice, Double maxPrice, Integer minSellerRate, Long sellerId) {
         Pageable pageable = PageRequest.of(page, size);
         return productRepository.search(keyword, category, minPrice, maxPrice, minSellerRate, sellerId, pageable);

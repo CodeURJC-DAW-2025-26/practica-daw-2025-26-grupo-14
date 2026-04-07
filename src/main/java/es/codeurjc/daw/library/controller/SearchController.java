@@ -27,7 +27,7 @@ public class SearchController {
 
         if (category != null && !category.trim().isEmpty()) {
 
-            // Cuando haces click en la categoría
+            // Click on category
             results = productService.searchProductsByCategory(category);
 
             if (results.isEmpty()) {
@@ -37,7 +37,7 @@ public class SearchController {
 
         } else if (keyword != null && !keyword.trim().isEmpty()) {
 
-            // Cuando usas la barra de búsqueda
+            // Using search bar
             results = productService.searchProductsByName(keyword);
 
             if (results.isEmpty()) {
