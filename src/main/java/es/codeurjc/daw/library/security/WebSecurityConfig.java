@@ -67,6 +67,14 @@ public class WebSecurityConfig {
 						.requestMatchers("/removeproduct/*").hasAnyRole("ADMIN")
 						.requestMatchers("/deleteproduct/*").hasAnyRole("USER")
 
+						.requestMatchers("/administrator/**").hasRole("ADMIN")
+						.requestMatchers("/admin_users").hasRole("ADMIN")
+						.requestMatchers("/admin_listings").hasRole("ADMIN")
+						.requestMatchers("/admin_stats").hasRole("ADMIN")
+						.requestMatchers("/ban_user/**").hasRole("ADMIN")
+						.requestMatchers("/ignore_report/**").hasRole("ADMIN")
+						.requestMatchers("/deleteuser/**").hasRole("ADMIN")
+
 						// Allow access to other pages (like login, logout, etc.)
 						.anyRequest().authenticated())
 
