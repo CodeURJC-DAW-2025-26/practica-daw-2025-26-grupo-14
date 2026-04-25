@@ -87,14 +87,14 @@
                                 <i class="bi-cart-fill me-1"></i>
                                 Contact seller
                             </button>-->
-                            <!-- interruptor invisible -->
+                            <!-- invisible checkbox -->
                             <input type="checkbox" id="offerToggle" hidden>
 
                             <div class="d-flex gap-3 mb-3">
                             {{#message}}
                                 <p>{{message}}</p>
                             {{/message}}
-                                <!-- comprar -->
+                                <!-- buy -->
                                  {{^isOwner}}
                                 <form action="/create_deal/{{product.id}}" method="post" style="display:inline;">
                                     <input type="hidden" name="_csrf" value="{{token}}">
