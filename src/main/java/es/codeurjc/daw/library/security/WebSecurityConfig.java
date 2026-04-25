@@ -108,6 +108,7 @@ public class WebSecurityConfig {
 
 				.authorizeHttpRequests(authorize -> authorize
 						//STATIC RESOURCES
+						.requestMatchers("/new/**").permitAll() //allow access to new product page for everyone, as it will show a message to login if the user is not authenticated
 						.requestMatchers("/css/**").permitAll()
 						.requestMatchers("/js/**").permitAll()
 						.requestMatchers("/webjars/**").permitAll()
