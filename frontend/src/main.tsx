@@ -1,9 +1,24 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import App from './App'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element:   <App/>,
+    },
+  ],
+  {
+    basename: '/new',
+  }
+)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <h1>React funcionando 🎉</h1>
+    
+    <RouterProvider router={router} />
   </StrictMode>
 )
