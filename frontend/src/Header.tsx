@@ -11,7 +11,7 @@ function Header() {
             <div className="container">
             <div className="row gy-3">
                 <div className="col-lg-2 col-sm-4 col-4">
-                <a href="/" className="float-start">
+                <a href="/new/" className="float-start">
                     <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
                 </a>
                 </div>
@@ -42,7 +42,7 @@ function Header() {
                 
                 
             <div className="col-lg-5 col-md-12 col-12">
-                <form action="/search" method="get">
+                <form action="/new/search" method="get">
                     <div className="input-group float-center" style={{ maxWidth: '500px' }}>
                     
                     <input 
@@ -81,23 +81,23 @@ function Header() {
             <div className="collapse navbar-collapse" id="navbarLeftAlignExample">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="/search?category=Clothing">Clothing</a>
+                    <a className="nav-link text-dark" href="/new/search?category=Clothing">Clothing</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="/search?category=Electronics">Electronics</a>
+                    <a className="nav-link text-dark" href="/new/search?category=Electronics">Electronics</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="/search?category=Home">Home</a>
+                    <a className="nav-link text-dark" href="/new/search?category=Home">Home</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="/search?category=Sports">Sports</a>
+                    <a className="nav-link text-dark" href="/new/search?category=Sports">Sports</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="/search?category=Books">Books</a>
+                    <a className="nav-link text-dark" href="/new/search?category=Books">Books</a>
                 </li>
                 <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle text-dark mb-0"
-                    href="/search?category=Others"
+                    href="/new/search?category=Others"
                     id="navbarDropdown"
                     role="button"
                     data-mdb-toggle="dropdown"

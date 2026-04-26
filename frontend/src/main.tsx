@@ -1,9 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { StrictMode } from 'react'
+//import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './Layout'
 import HomePage from './HomePage'
+import SearchPage from './SearchPage'
 
 const router = createBrowserRouter(
   [
@@ -12,6 +13,7 @@ const router = createBrowserRouter(
       element:   <Layout />,
       children: [
         { index: true, element: <HomePage /> },
+        { path: 'search', element: <SearchPage /> },
       ],
     },
   ],

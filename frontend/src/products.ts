@@ -37,7 +37,7 @@ export function appendProducts(current: Product[], next: Product[]): Product[] {
 export async function fetchProductsPage(
   page: number
 ): Promise<Product[]> {
-  const response = await fetch(`/api/v1/products?page=${page}`)
+  const response = await fetch(`http://localhost:8080/api/v1/products?page=${page}`)
 
   if (!response.ok) {
     throw new Error('Error loading products page')
@@ -51,7 +51,7 @@ export async function fetchLocalProducts(
   page: number
 ): Promise<Product[]> {
   const response = await fetch(
-    `/api/v1/products?city=${encodeURIComponent(city)}&page=${page}`
+    `http://localhost:8080/api/v1/products?city=${encodeURIComponent(city)}&page=${page}`
   )
 
   if (!response.ok) {
@@ -61,13 +61,30 @@ export async function fetchLocalProducts(
   return response.json()
 }
 
-export async function searchProducts(
-  query: string,
-  page: number
-): Promise<Product[]> {
-  const response = await fetch(
-    `/api/v1/products?keyword=${encodeURIComponent(query)}&page=${page}`
-  )
+type SearchProductsParams = {
+  keyword?: string
+  category?: string
+  page?: number
+}
+
+export async function searchProducts({
+  keyword,
+  category,
+  page = 0,
+}: SearchProductsParams): Promise<Product[]> {
+  const params = new URLSearchParams()
+
+  if (keyword) {
+    params.set('keyword', keyword)
+  }
+
+  if (category) {
+    params.set('category', category)
+  }
+
+  params.set('page', page.toString())
+
+  const response = await fetch(`http://localhost:8080/api/v1/products?${params.toString()}`)
 
   if (!response.ok) {
     throw new Error('Error searching products')

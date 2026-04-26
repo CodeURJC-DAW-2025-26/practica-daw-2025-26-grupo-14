@@ -10,4 +10,9 @@ public class reactController {
     public String reactApp() {
         return "react";
     }
+
+    @GetMapping("/new/**")
+    public String reactAppPlus() {
+        return "react";
+    }
 }

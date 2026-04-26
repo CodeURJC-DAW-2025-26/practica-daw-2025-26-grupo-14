@@ -70,6 +70,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 // Products public read (GET) endpoints
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/products/**").permitAll()
+				.requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/search/**").permitAll()
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/users/**").permitAll()
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/ratings/**").permitAll()
 				.requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/charts/**").permitAll()
@@ -114,6 +115,8 @@ public class WebSecurityConfig {
 						.requestMatchers("/webjars/**").permitAll()
 						.requestMatchers("/assets/**").permitAll() 
 						.requestMatchers("/favicon.ico").permitAll()
+						.requestMatchers("/react").permitAll() //Change to outside like what done with /api
+						.requestMatchers("/react/**").permitAll()
 						// PUBLIC PAGES
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/images/**").permitAll()

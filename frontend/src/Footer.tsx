@@ -9,7 +9,7 @@ function Footer() {
                     <div className="col-md-6 col-sm-12 mb-2 mb-md-0 d-flex justify-content-center justify-content-md-start">
                     <div className="">
                         <div className="input-group" style={{ maxWidth: '400px' }}>
-                        <input type="email" className="form-control border" placeholder="Email" aria-label="Email" aria-describedby="button-addon2" />
+                        {/* <input type="email" className="form-control border" placeholder="Email" aria-label="Email" aria-describedby="button-addon2" /> */}
                         <button className="btn btn-light border" type="button" id="button-addon2" data-mdb-ripple-color="dark">
                             Subscribe
                         </button>
