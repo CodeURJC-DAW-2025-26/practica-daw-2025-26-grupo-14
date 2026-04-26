@@ -1,11 +1,13 @@
 package es.codeurjc.daw.library.controller;
 
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.codeurjc.daw.library.dto.ChartDto;
@@ -49,6 +52,7 @@ import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.RatingService;
 import es.codeurjc.daw.library.service.UserService;
 import es.codeurjc.daw.library.util.SecurityUtil;
+
 
 
 @CrossOrigin(origins = "*")
@@ -197,6 +201,27 @@ public class ApiRestController {
 
         productService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/products/{id}/images")
+    public ResponseEntity<?> uploadProductImages(
+            @PathVariable Long id,
+            @RequestParam("imageFiles") List<MultipartFile> imageFiles) throws IOException, SQLException {
+
+        Product product = productService.getProductById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+
+        if (!securityUtil.isProductOwnerOrAdmin(product.getSeller().getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have permission");
+        }
+
+        for (MultipartFile file : imageFiles) {
+            Image image = imageService.createImage(file.getInputStream());
+            product.setImage(image);
+        }
+
+        productService.save(product);
+        return ResponseEntity.ok().build();
     }
 
     // --------- Users ---------

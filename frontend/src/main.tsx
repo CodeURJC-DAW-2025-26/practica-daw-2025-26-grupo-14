@@ -8,6 +8,7 @@ import { useAuthStore } from './authStore'
 import LoginPage from './LoginPage'
 import ProductPage from './ProductPage'
 import PublishPage from './PublishPage'
+import MyListingsPage from './MyListingsPage'
 
 async function initApp() {
   // At startup, check the API if the user is already logged in (e.g. from a previous session)
@@ -36,6 +37,7 @@ async function initApp() {
         { path: 'login', element: <LoginPage /> },
         { path: 'product/:id', element: <ProductPage /> },
         { path: 'publish', element:<PublishPage /> },
+        { path: 'my_listings', element: <MyListingsPage /> },
       ],
     },
   ])

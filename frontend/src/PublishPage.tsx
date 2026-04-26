@@ -20,35 +20,46 @@ function PublishPage() {
   }
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError('')
+      e.preventDefault()
+      setError('')
 
-    const formData = new FormData()
-    formData.append('name', form.name)
-    formData.append('price', form.price)
-    formData.append('category', form.category)
-    formData.append('condition', form.condition)
-    formData.append('shortDescription', form.shortDescription)
-    formData.append('fullDescription', form.fullDescription)
-    formData.append('contactPreference', form.contactPreference)
+      // Paso 1: crear el producto con JSON
+      const res = await fetch('/api/v1/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          name: form.name,
+          price: parseFloat(form.price),
+          category: form.category,
+          condition: form.condition,
+          shortDescription: form.shortDescription,
+          fullDescription: form.fullDescription,
+          contactPreference: form.contactPreference,
+        }),
+      })
 
-    if (images) {
-      Array.from(images).forEach(img => formData.append('imageFields', img))
-    }
+      if (!res.ok) {
+        setError('Error publishing product. Please try again.')
+        return
+      }
 
-    const res = await fetch('/api/v1/products', {
-      method: 'POST',
-      credentials: 'include',
-      body: formData,
-    })
+      const data = await res.json()
+      const productId = data.id
 
-    if (!res.ok) {
-      setError('Error publishing product. Please try again.')
-      return
-    }
+      // Paso 2: subir imágenes si las hay
+      if (images && images.length > 0) {
+        const formData = new FormData()
+        Array.from(images).forEach(img => formData.append('imageFiles', img))
 
-    const data = await res.json()
-    navigate(`/product/${data.id}`)
+        await fetch(`/api/v1/products/${productId}/images`, {
+          method: 'POST',
+          credentials: 'include',
+          body: formData,
+        })
+      }
+
+      navigate(`/product/${productId}`)
   }
 
   return (
