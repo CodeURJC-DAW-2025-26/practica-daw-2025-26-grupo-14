@@ -20,9 +20,10 @@ async function handleSubmit(e: React.FormEvent) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
         credentials: 'include',
+        redirect: 'manual', // Not follow redirects automatically
       })
 
-      if (!res.ok) {
+      if (!res.ok && res.status !== 0) {
         setError('Usuario o contraseña incorrectos')
         return
       }

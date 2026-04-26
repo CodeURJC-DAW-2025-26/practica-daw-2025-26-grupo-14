@@ -1,5 +1,5 @@
 import { useAuthStore } from "./authStore"
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import "./styles.css"
 
@@ -48,8 +48,8 @@ function Header() {
                         <a href="/user_account/{{myid}}" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-user"></i><span>My account</span> </a> 
                         </> 
                     : <>
-                        <a href="/new/login" className="btn btn-outline-dark btn-sm d-flex align-items-center"><i className="fas fa-user-alt me-2"></i><span>Log in</span></a>
-                        <a href="/register" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-user-plus me-2"></i><span>Register</span> </a>
+                        <Link to="/login" className="btn btn-outline-dark btn-sm d-flex align-items-center"><i className="fas fa-user-alt me-2"></i><span>Log in</span></Link>
+                        <Link to="/register" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-user-plus me-2"></i><span>Register</span> </Link>
                     </>
                     }    
                 </div>
