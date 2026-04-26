@@ -5,6 +5,7 @@ type UserRole = 'USER' | 'ADMIN'
 type AuthUser = {
   id: number
   name: string
+  city: string
   role: UserRole
 }
 
@@ -12,6 +13,7 @@ type AuthState = {
   logged: boolean
   id: number | null
   name: string | null
+  city: string | null
   role: UserRole | null
   login: (user: AuthUser) => void
   logout: () => void
@@ -22,6 +24,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   logged: false,
   id: null,
   name: null,
+  city: null,
   role: null,
 
   login: (user) =>
@@ -29,6 +32,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       logged: true,
       id: user.id,
       name: user.name,
+      city: user.city,
       role: user.role,
     }),
 
@@ -37,6 +41,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       logged: false,
       id: null,
       name: null,
+      city: null,
       role: null,
     }),
 
@@ -47,12 +52,14 @@ export const useAuthStore = create<AuthState>((set) => ({
             logged: true,
             id: user.id,
             name: user.name,
+            city: user.city,
             role: user.role,
           }
         : {
             logged: false,
             id: null,
             name: null,
+            city: null,
             role: null,
           }
     ),
