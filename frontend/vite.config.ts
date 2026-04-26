@@ -5,8 +5,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'http://localhost:8443',
-      '/images': 'http://localhost:8443',
+      '/api': { target: 'https://localhost:8443', secure: false, changeOrigin: true, followRedirects: false },
+      '/images': { target: 'https://localhost:8443', secure: false, changeOrigin: true, followRedirects: false },
+      '/login': { target: 'https://localhost:8443', secure: false, changeOrigin: true, followRedirects: false },
+      '/logout': { target: 'https://localhost:8443', secure: false, changeOrigin: true, followRedirects: false }
     }
   }
 })

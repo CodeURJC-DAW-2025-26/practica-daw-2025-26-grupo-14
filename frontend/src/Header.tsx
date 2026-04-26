@@ -1,10 +1,20 @@
 import { useAuthStore } from "./authStore"
 import "./styles.css"
 
-
 function Header() {
     const logged = useAuthStore((state) => state.logged)
     const role = useAuthStore((state) => state.role)
+    const logout = useAuthStore((state) => state.logout)
+
+    async function handleLogout() {
+        await fetch('/api/v1/auth/logout', {
+            method: 'POST',
+            credentials: 'include',
+        })
+        logout()
+        window.location.href = '/'
+    }
+
   return (
     <header>
         <div className="p-3 text-center bg-white border-bottom">
@@ -16,14 +26,10 @@ function Header() {
                 </a>
                 </div>
 
-
                 <div className="order-lg-last col-lg-4 col-sm-6 col-6">
                 <div className="d-flex align-items-center gap-1 flex-wrap">
                     {logged ? <>
-                        <form action="/logout" method="post" className="d-inline">
-                            <button className="btn btn-primary btn-nowrap" type="submit">Log Out</button>
-                            <input type="hidden" name="_csrf" value="{{token}}" />
-                        </form>
+                        <button className="btn btn-primary btn-nowrap" onClick={handleLogout}>Log Out</button>
                         <a href="/publish" className="btn btn-primary btn-sm d-flex align-items-center"><i className="fas fa-tag me-2"></i><span>Sell</span></a>
                         <a href="/my_listings" className="btn btn-outline-primary btn-sm d-flex align-items-center"><i className=" fas fa-box me-2"></i><span>My items</span> </a>
                         <a href="/my_deals" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-shopping-cart me-2"></i><span>My deals</span> </a> 
@@ -33,36 +39,31 @@ function Header() {
                         <a href="/user_account/{{myid}}" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-user"></i><span>My account</span> </a> 
                         </> 
                     : <>
-                        <a href="/login" className="btn btn-outline-dark btn-sm d-flex align-items-center"><i className="fas fa-user-alt me-2"></i><span>Log in</span></a>
+                        <a href="/new/login" className="btn btn-outline-dark btn-sm d-flex align-items-center"><i className="fas fa-user-alt me-2"></i><span>Log in</span></a>
                         <a href="/register" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-user-plus me-2"></i><span>Register</span> </a>
                     </>
                     }    
                 </div>
                 </div>
                 
-                
             <div className="col-lg-5 col-md-12 col-12">
                 <form action="/new/search" method="get">
                     <div className="input-group float-center" style={{ maxWidth: '500px' }}>
-                    
                     <input 
                         type="search" 
                         name="keyword" 
                         className="form-control" 
                         placeholder="Search" 
                     />
-                    
                     <button type="submit" className="btn btn-primary shadow-0">
                         <i className="fas fa-search"></i>
                     </button>
-
                     </div>
                 </form>
                 </div>
             </div>
             </div>
         </div>
-        
         
         <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#f5f5f5' }}>
             <div className="container justify-content-center justify-content-md-between">
@@ -104,18 +105,11 @@ function Header() {
                     aria-expanded="false">
                     Others
                     </a>
-
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li>
-                        <a className="dropdown-item" href="#">Action</a>
-                    </li>
-                    <li>
-                        <a className="dropdown-item" href="#">Another action xddd</a>
-                    </li>
+                    <li><a className="dropdown-item" href="#">Action</a></li>
+                    <li><a className="dropdown-item" href="#">Another action xddd</a></li>
                     <li><hr className="dropdown-divider" /></li>
-                    <li>
-                        <a className="dropdown-item" href="#">Something else here</a>
-                    </li>
+                    <li><a className="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </li>
                 </ul>
