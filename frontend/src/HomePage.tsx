@@ -6,7 +6,7 @@ import type { Product, ProductsState} from "./products"
 
 
 
-function main() {
+function HomePage() {
     const city = useAuthStore((state) => state.city)
     const [localProd, setLocalProd] = useState<ProductsState>({
         products: [],
@@ -110,7 +110,7 @@ function main() {
             </section>
 
 
-            {useAuthStore().city && localProd!=null && localProd.products.map((product : Product) => ( <>
+            {city && localProd!=null && localProd.products.map((product : Product) => ( <>
                 <section>
                 <div className="container my-5">
                     <header className="mb-4">
@@ -141,7 +141,7 @@ function main() {
                 </div>
                 </section>
             </>))}
-            {useAuthStore().city && localProd.next  && (
+            { city && localProd.next  && (
                 <div className="text-center mt-3">
                 <button onClick={() => loadMoreLocal()} className="btn btn-outline-dark">Load more</button>
                 </div>
@@ -183,4 +183,4 @@ function main() {
     )
 }
 
-export default main
+export default HomePage

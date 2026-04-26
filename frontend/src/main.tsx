@@ -17,9 +17,9 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  {
+  /*{
     basename: '/new',
-  }
+  }*/
 )
 
 createRoot(document.getElementById('root')!).render(
