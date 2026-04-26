@@ -1,10 +1,14 @@
 import { useAuthStore } from "./authStore"
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import "./styles.css"
 
 function Header() {
     const logged = useAuthStore((state) => state.logged)
     const role = useAuthStore((state) => state.role)
     const logout = useAuthStore((state) => state.logout)
+    const navigate = useNavigate()
+    const [keyword, setKeyword] = useState('')
 
     async function handleLogout() {
         await fetch('/api/v1/auth/logout', {
@@ -13,6 +17,11 @@ function Header() {
         })
         logout()
         window.location.href = '/'
+    }
+
+    function handleSearch(e: React.FormEvent) {
+        e.preventDefault()
+        navigate(`/search?keyword=${encodeURIComponent(keyword)}`)
     }
 
   return (
@@ -47,13 +56,14 @@ function Header() {
                 </div>
                 
             <div className="col-lg-5 col-md-12 col-12">
-                <form action="/new/search" method="get">
+                <form onSubmit={handleSearch}>
                     <div className="input-group float-center" style={{ maxWidth: '500px' }}>
                     <input 
                         type="search" 
-                        name="keyword" 
                         className="form-control" 
-                        placeholder="Search" 
+                        placeholder="Search"
+                        value={keyword}
+                        onChange={(e) => setKeyword(e.target.value)}
                     />
                     <button type="submit" className="btn btn-primary shadow-0">
                         <i className="fas fa-search"></i>
