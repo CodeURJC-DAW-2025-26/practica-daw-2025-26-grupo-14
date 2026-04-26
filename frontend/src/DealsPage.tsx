@@ -62,7 +62,7 @@ function DealsPage() {
 
   async function deleteOrder(orderId: number) {
   try {
-    const res = await fetch(`http://localhost:8080/api/v1/orders/${orderId}`, {
+    const res = await fetch(`/api/v1/orders/${orderId}`, {
       method: 'DELETE',
       credentials: 'include',
     })
@@ -81,7 +81,7 @@ function DealsPage() {
 
 async function deleteRating(ratingId: number) {
   try {
-    const res = await fetch(`http://localhost:8080/api/v1/ratings/${ratingId}`, {
+    const res = await fetch(`/api/v1/ratings/${ratingId}`, {
       method: 'DELETE',
       credentials: 'include',
     })
@@ -309,12 +309,7 @@ async function deleteRating(ratingId: number) {
                             </button>
                         ) : null}
 
-                        <button
-                        onClick={() => deleteOrder(order.id)}
-                        className="btn btn-outline-danger"
-                        >
-                        Cancel deal
-                        </button>
+                    
                       </div>
                     </div>
                   </div>
