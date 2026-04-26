@@ -12,6 +12,7 @@ import RegisterPage from './RegisterPage'
 import MyListingsPage from './MyListingsPage'
 import DealsPage from './DealsPage'
 import RatingFormPage from './RatingFormPage'
+import SendBirdPage from './SendBirdPage'
 
 
 async function initApp() {
@@ -46,9 +47,10 @@ async function initApp() {
         { path: 'publish', element:<PublishPage /> },
         { path: 'my_listings', element: <MyListingsPage /> },
         {path: 'my_deals', element: <DealsPage /> },
-         { path: 'create_rating/:orderId', element: <RatingFormPage /> },
+        { path: 'create_rating/:orderId', element: <RatingFormPage /> },
         { path: 'edit_rating/:ratingId', element: <RatingFormPage /> },
-        { path: 'register', element: <RegisterPage /> }
+        { path: 'register', element: <RegisterPage /> },
+        { path: 'chat/:orderId', element: <SendBirdPage /> }
       ],
     },
   ])
