@@ -30,9 +30,9 @@ function Header() {
             <div className="container">
             <div className="row gy-3">
                 <div className="col-lg-2 col-sm-4 col-4">
-                <a href="/new/" className="float-start">
+                <a href="/" className="float-start">
                     <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
-                </a>
+                </a>/* when we end the development, add the /new/ again */
                 </div>
 
                 <div className="order-lg-last col-lg-4 col-sm-6 col-6">

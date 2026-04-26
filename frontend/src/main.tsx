@@ -6,6 +6,7 @@ import HomePage from './HomePage'
 import SearchPage from './SearchPage'
 import { useAuthStore } from './authStore'
 import LoginPage from './LoginPage'
+import ProductPage from './ProductPage'
 
 async function initApp() {
   // At startup, check the API if the user is already logged in (e.g. from a previous session)
@@ -31,7 +32,8 @@ async function initApp() {
       children: [
         { index: true, element: <HomePage /> },
         { path: 'search', element: <SearchPage /> },
-        { path: 'login', element: <LoginPage /> }
+        { path: 'login', element: <LoginPage /> },
+        { path: 'product/:id', element: <ProductPage /> },
       ],
     },
   ])
