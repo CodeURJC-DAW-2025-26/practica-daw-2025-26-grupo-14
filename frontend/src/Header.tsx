@@ -30,22 +30,22 @@ function Header() {
             <div className="container">
             <div className="row gy-3">
                 <div className="col-lg-2 col-sm-4 col-4">
-                <a href="/" className="float-start">
-                    <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
-                </a>/* when we end the development, add the /new/ again */
+                {/* In production with basename='/new' this will resolve to /new/ automatically */}
+                <Link to="/" className="float-start">
+                <img src="https://cdn-icons-png.flaticon.com/256/13410/13410905.png" height="35" />
+                </Link>
                 </div>
-
                 <div className="order-lg-last col-lg-4 col-sm-6 col-6">
                 <div className="d-flex align-items-center gap-1 flex-wrap">
                     {logged ? <>
                         <button className="btn btn-primary btn-nowrap" onClick={handleLogout}>Log Out</button>
-                        <a href="/publish" className="btn btn-primary btn-sm d-flex align-items-center"><i className="fas fa-tag me-2"></i><span>Sell</span></a>
-                        <a href="/my_listings" className="btn btn-outline-primary btn-sm d-flex align-items-center"><i className=" fas fa-box me-2"></i><span>My items</span> </a>
-                        <a href="/my_deals" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-shopping-cart me-2"></i><span>My deals</span> </a> 
+                        <Link to="/publish" className="btn btn-primary btn-sm d-flex align-items-center"><i className="fas fa-tag me-2"></i><span>Sell</span></Link>
+                        <Link to="/my_listings" className="btn btn-outline-primary btn-sm d-flex align-items-center"><i className=" fas fa-box me-2"></i><span>My items</span> </Link>
+                        <Link to="/my_deals" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-shopping-cart me-2"></i><span>My deals</span> </Link> 
                         {role === 'ADMIN' &&
-                            <a href="/administrator" className="btn btn-dark btn-sm d-flex align-items-center"><i className="fas fa-user-shield me-2"></i><span>admin</span> </a>
+                            <Link to="/administrator" className="btn btn-dark btn-sm d-flex align-items-center"><i className="fas fa-user-shield me-2"></i><span>admin</span> </Link>
                         }
-                        <a href="/user_account/{{myid}}" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-user"></i><span>My account</span> </a> 
+                        <Link to="/user_account/{{myid}}" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-user"></i><span>My account</span> </Link> 
                         </> 
                     : <>
                         <Link to="/login" className="btn btn-outline-dark btn-sm d-flex align-items-center"><i className="fas fa-user-alt me-2"></i><span>Log in</span></Link>
@@ -53,24 +53,23 @@ function Header() {
                     </>
                     }    
                 </div>
-                </div>
-                
-            <div className="col-lg-5 col-md-12 col-12">
-                <form onSubmit={handleSearch}>
-                    <div className="input-group float-center" style={{ maxWidth: '500px' }}>
-                    <input 
+        </div>
+        <div className="col-lg-5 col-md-12 col-12">
+            <form onSubmit={handleSearch}>
+                <div className="input-group float-center" style={{ maxWidth: '500px' }}>
+                <input 
                         type="search" 
                         className="form-control" 
                         placeholder="Search"
                         value={keyword}
                         onChange={(e) => setKeyword(e.target.value)}
-                    />
-                    <button type="submit" className="btn btn-primary shadow-0">
+                />
+                 <button type="submit" className="btn btn-primary shadow-0">
                         <i className="fas fa-search"></i>
-                    </button>
-                    </div>
-                </form>
+                </button>
                 </div>
+            </form>
+            </div>
             </div>
             </div>
         </div>
