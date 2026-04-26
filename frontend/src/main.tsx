@@ -10,6 +10,7 @@ import ProductPage from './ProductPage'
 import PublishPage from './PublishPage'
 import RegisterPage from './RegisterPage'
 import MyListingsPage from './MyListingsPage'
+import DealsPage from './DealsPage'
 
 
 async function initApp() {
@@ -43,6 +44,7 @@ async function initApp() {
         { path: 'product/:id', element: <ProductPage /> },
         { path: 'publish', element:<PublishPage /> },
         { path: 'my_listings', element: <MyListingsPage /> },
+        {path: 'my_deals', element: <DealsPage /> },
         { path: 'register', element: <RegisterPage /> }
       ],
     },
