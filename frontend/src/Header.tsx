@@ -8,6 +8,7 @@ function Header() {
     const role = useAuthStore((state) => state.role)
     const logout = useAuthStore((state) => state.logout)
     const navigate = useNavigate()
+    const id = useAuthStore(state => state.id)
     const [keyword, setKeyword] = useState('')
 
     async function handleLogout() {
@@ -45,7 +46,7 @@ function Header() {
                         {role === 'ADMIN' &&
                             <Link to="/administrator" className="btn btn-dark btn-sm d-flex align-items-center"><i className="fas fa-user-shield me-2"></i><span>admin</span> </Link>
                         }
-                        <Link to="/user_account/{{myid}}" className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-user"></i><span>My account</span> </Link> 
+                        <Link to={`/user_account/${id}`} className="btn btn-outline-secondary btn-sm d-flex align-items-center"><i className="fas fa-user"></i><span>My account</span> </Link> 
                         </> 
                     : <>
                         <Link to="/login" className="btn btn-outline-dark btn-sm d-flex align-items-center"><i className="fas fa-user-alt me-2"></i><span>Log in</span></Link>

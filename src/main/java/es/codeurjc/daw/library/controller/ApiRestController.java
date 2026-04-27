@@ -2,6 +2,7 @@ package es.codeurjc.daw.library.controller;
 
 import java.net.URI;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,9 +92,20 @@ public class ApiRestController {
     public List<ProductDto> getProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(required = false) String keyword,
-            @RequestParam(required = false) String category) {
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Long sellerId) {
 
-        Page<Product> productPage = productService.getProductsPage(page, 10, keyword, category);
+        Page<Product> productPage;
+        
+        if (sellerId != null) {
+            // Get products by seller
+            User seller = userService.getUserById(sellerId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+            List<Product> products = productService.getProductsBySeller(seller);
+            return DtoMapper.toProductDtoList(products);
+        }
+        
+        productPage = productService.getProductsPage(page, 10, keyword, category);
 
         return DtoMapper.toProductDtoList(productPage.getContent());
     }
@@ -648,6 +660,25 @@ public class ApiRestController {
         dto.setData(data);
 
         return ResponseEntity.ok(dto);
+    }
+    
+    @GetMapping("/users/{id}/ratings")
+    public ResponseEntity<Map<String, Object>> getUserRatings(@PathVariable Long id) {
+        User user = userService.getUserById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "User not found with id " + id));
+
+        List<Rating> ratings = user.getMyRatings();
+        double avgRating = ratings.stream()
+                .mapToInt(Rating::getRating)
+                .average()
+                .orElse(0.0);
+        
+        Map<String, Object> result = new HashMap<>();
+        result.put("avgRating", avgRating);
+        result.put("totalRatings", ratings.size());
+        
+        return ResponseEntity.ok(result);
     }
 
     // --------- SendBird ---------
