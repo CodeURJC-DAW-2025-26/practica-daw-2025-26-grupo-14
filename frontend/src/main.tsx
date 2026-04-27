@@ -14,6 +14,9 @@ import DealsPage from './DealsPage'
 import RatingFormPage from './RatingFormPage'
 import SendBirdPage from './SendBirdPage'
 import UserAccountPage from './UserAccountPage'
+import AdministratorPage from './AdministratorPage'
+import AdminUsersPage from './AdminUsersPage'
+import AdminListingsPage from './AdminListingsPage'
 
 
 async function initApp() {
@@ -53,7 +56,10 @@ async function initApp() {
         { path: 'register', element: <RegisterPage /> },
         { path: 'chat/:orderId', element: <SendBirdPage /> },
         { path: 'user_account/:id', element: <UserAccountPage /> },
-        { path: 'edituser/:id', element: <RegisterPage /> }
+        { path: 'edituser/:id', element: <RegisterPage /> },
+        { path: 'administrator', element: <AdministratorPage /> },
+        { path: 'admin_users', element: <AdminUsersPage /> },
+        { path: 'admin_listings', element: <AdminListingsPage /> }
       ],
     },
   ])
