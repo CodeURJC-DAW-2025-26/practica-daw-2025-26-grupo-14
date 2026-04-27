@@ -14,6 +14,7 @@ import DealsPage from './DealsPage'
 import RatingFormPage from './RatingFormPage'
 import SendBirdPage from './SendBirdPage'
 import AdministratorPage from './AdministratorPage'
+import AdminUsersPage from './AdminUsersPage'
 
 
 async function initApp() {
@@ -52,7 +53,8 @@ async function initApp() {
         { path: 'edit_rating/:ratingId', element: <RatingFormPage /> },
         { path: 'register', element: <RegisterPage /> },
         { path: 'chat/:orderId', element: <SendBirdPage /> },
-        {path: 'administrator', element: <AdministratorPage /> }
+        { path: 'administrator', element: <AdministratorPage /> },
+        { path: 'admin_users', element: <AdminUsersPage /> }
       ],
     },
   ])
