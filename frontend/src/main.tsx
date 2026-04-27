@@ -18,7 +18,6 @@ import SendBirdPage from './SendBirdPage'
 async function initApp() {
   // At startup, check the API if the user is already logged in (e.g. from a previous session)
   // Commented out to avoid 401 errors in console
-  /*
   try {
     const res = await fetch('/api/v1/auth/me', { credentials: 'include' })
     if (res.ok) {
@@ -33,7 +32,7 @@ async function initApp() {
   } catch {
     // ifnNo sesion, it doesnt do nothing
   }
-  */
+
 
   const router = createBrowserRouter([
     {
@@ -45,6 +44,7 @@ async function initApp() {
         { path: 'login', element: <LoginPage /> },
         { path: 'product/:id', element: <ProductPage /> },
         { path: 'publish', element:<PublishPage /> },
+        { path: 'editproduct/:id', element: <PublishPage /> },
         { path: 'my_listings', element: <MyListingsPage /> },
         {path: 'my_deals', element: <DealsPage /> },
         { path: 'create_rating/:orderId', element: <RatingFormPage /> },

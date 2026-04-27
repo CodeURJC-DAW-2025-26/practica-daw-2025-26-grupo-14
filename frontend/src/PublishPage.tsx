@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 function PublishPage() {
   const navigate = useNavigate()
@@ -15,6 +15,34 @@ function PublishPage() {
   })
   const [images, setImages] = useState<FileList | null>(null)
 
+  const [existingImages, setExistingImages] = useState<any[]>([])
+  const [imagesToDelete, setImagesToDelete] = useState<number[]>([])
+
+  const { id } = useParams()
+  const isEditMode = !!id
+
+  useEffect(() => {
+    if (isEditMode) {
+      fetch(`/api/v1/products/${id}`, { credentials: 'include' })
+      .then (res => res.json())
+      .then (data => {
+        setForm({
+          name: data.name,
+          price: data.price.toString(),
+          category: data.category,
+          condition: data.condition,
+          shortDescription: data.shortDescription,
+          fullDescription: data.fullDescription,
+          contactPreference: data.contactPreference,
+        })
+
+        setExistingImages(data.images ?? [])
+        console.log("IMAGES FROM BACKEND:", data.images)
+      })
+    }
+  }, [id])
+
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
@@ -23,9 +51,16 @@ function PublishPage() {
       e.preventDefault()
       setError('')
 
-      // Paso 1: crear el producto con JSON
-      const res = await fetch('/api/v1/products', {
-        method: 'POST',
+
+
+      // crate or update product
+
+      const url = isEditMode ? `/api/v1/products/${id}` : '/api/v1/products'
+
+      const method = isEditMode ? 'PUT' : 'POST'
+
+      const res = await fetch(url, {
+        method: method,
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({
@@ -44,10 +79,26 @@ function PublishPage() {
         return
       }
 
-      const data = await res.json()
-      const productId = data.id
+      let productId: number
 
-      // Paso 2: subir imágenes si las hay
+      if (isEditMode) {
+        productId = Number(id)
+      } else {
+        const data = await res.json()
+        productId = data.id
+      }
+
+      // upload images if any
+
+      // DELETE selected images (ONLY EDIT)
+      if (isEditMode && imagesToDelete.length > 0) {
+        await fetch(`/api/v1/products/${productId}/images`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(imagesToDelete),
+        })
+      }
       if (images && images.length > 0) {
         const formData = new FormData()
         Array.from(images).forEach(img => formData.append('imageFiles', img))
@@ -59,14 +110,14 @@ function PublishPage() {
         })
       }
 
-      navigate(`/product/${productId}`)
+      navigate('/my_listings')
   }
 
   return (
     <>
       <div className="bg-primary text-white py-4 mb-4">
         <div className="container">
-          <h2 className="mb-0">Post a new item</h2>
+          <h2>{isEditMode ? 'Edit item' : 'Post a new item'}</h2>
           <small>Create a listing to sell your product</small>
         </div>
       </div>
@@ -159,6 +210,41 @@ function PublishPage() {
                 </div>
 
                 {/* Images */}
+
+                {/* Existing images (ONLY EDIT MODE) */}
+                {isEditMode && existingImages.length > 0 && (
+                  <div className="col-12">
+                    <label className="form-label">Current images:</label>
+                    <div className="d-flex gap-2 flex-wrap">
+                      {existingImages.map(img => (
+                        <div key={img.id}>
+                          <img
+                            src={`/images/${img.id}`}
+                            width="100"
+                            height="100"
+                            style={{ objectFit: 'cover' }}
+                          />
+                          <div>
+                            <label>
+                              <input
+                                type="checkbox"
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setImagesToDelete(prev => [...prev, img.id])
+                                  } else {
+                                    setImagesToDelete(prev => prev.filter(i => i !== img.id))
+                                  }
+                                }}
+                              />
+                              Delete
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <div className="col-12">
                   <label className="form-label">Images</label>
                   <input
@@ -182,7 +268,7 @@ function PublishPage() {
 
                 {/* Submit */}
                 <div className="col-12 text-end">
-                  <button type="submit" className="btn btn-primary btn-lg">Publish item</button>
+                  <button type="submit">{isEditMode ? 'Update item' : 'Publish item'}</button>
                 </div>
 
               </div>
