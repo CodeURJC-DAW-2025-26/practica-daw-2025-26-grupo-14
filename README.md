@@ -243,11 +243,15 @@ Han cambiado principalmente en como se ven porque ahora tienen datos, aunque se 
    ALTER USER 'root'@'localhost' IDENTIFIED BY 'Th1$1$MyP@$$W0Rd';
    FLUSH PRIVILEGES;
    ```
-4. **Instalar las dependencias**
+4. **Moverse a la carpeta adecuada**
+   ```bash
+   cd ./backend
+   ```
+5. **Instalar las dependencias**
    ```bash
    mvn install
    ```
-5. **Correr la aplicación**
+6. **Correr la aplicación**
    ``` bash
    mvn spring-boot:run
    ```
