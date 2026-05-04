@@ -16,6 +16,7 @@ import es.codeurjc.daw.library.repository.RatingRepository;
 import es.codeurjc.daw.library.repository.UserRepository;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.UserService;
+import es.codeurjc.daw.library.repository.OrderRepository;
 
 import java.util.Map;
 import java.util.Optional;
@@ -40,9 +41,20 @@ public class AdminController {
 
     @Autowired
     private RatingRepository ratingRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 	
 	@GetMapping("/administrator")
-	public String administrator() {
+	public String administrator(Model model) {
+            long total_u = userRepository.count();
+            long total_p = productRepository.count();
+            long total_r = ratingRepository.count();
+            long total_d = orderRepository.count();
+            model.addAttribute("t_users", total_u);
+            model.addAttribute("t_listings", total_p);
+            model.addAttribute("t_ratings", total_r);
+            model.addAttribute("t_deals", total_d);
 		return "administrator";
 	}
 
