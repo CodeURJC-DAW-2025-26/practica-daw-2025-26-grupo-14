@@ -46,7 +46,6 @@ public class WebSecurityConfig {
 						.requestMatchers("/js/**").permitAll()
 						.requestMatchers("/webjars/**").permitAll()
 						.requestMatchers("/assets/**").permitAll() 
-						.requestMatchers("/favicon.ico").permitAll()
 						// PUBLIC PAGES
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/images/**").permitAll()
@@ -81,7 +80,7 @@ public class WebSecurityConfig {
 				.formLogin(formLogin -> formLogin
 						.loginPage("/login")
 						.failureUrl("/loginerror")
-						.defaultSuccessUrl("/")
+						.defaultSuccessUrl("/", true)
 						.permitAll())
 				.logout(logout -> logout
 						.logoutUrl("/logout")

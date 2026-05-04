@@ -120,12 +120,12 @@
   {{#products}}
   <div class="col-lg-3 col-md-6 mb-4">
     <div class="card h-100 shadow-sm">
-      {{#image}}
-        <img class="card-img-top" src="/images/{{id}}" alt="..." />
-      {{/image}}
-      {{^image}}
+      {{#imageId}}
+        <img class="card-img-top" src="/images/{{imageId}}" alt="..." />
+      {{/imageId}}
+      {{^imageId}}
         <img class="card-img-top" src="/my_images/noImage.png" alt="..." />
-      {{/image}}
+      {{/imageId}}
 
       <div class="card-body">
         <h5 class="card-title">{{name}}</h5>

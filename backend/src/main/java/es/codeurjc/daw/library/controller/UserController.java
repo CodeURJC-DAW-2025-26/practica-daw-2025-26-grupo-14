@@ -186,8 +186,8 @@ public class UserController {
 		}
 
 		productService.save(product);
-		model.addAttribute("products", productService.getAllProducts());
-		return "my-listings";
+		return "redirect:/my_listings";
+
 	}
 
     @GetMapping("/editproduct/{id}")
@@ -230,7 +230,16 @@ public class UserController {
 		Optional<User> user = userService.getUserById(id);
 		if (user.isPresent()) {
 
-           List<Product> products = productService.getProductsBySeller(user.get());
+           List<Map<String, Object>> products = productService.getProductsBySeller(user.get()).stream().map(p -> {
+				Map<String, Object> dto = new HashMap<>();
+				dto.put("id", p.getId());
+				dto.put("name", p.getName());
+				dto.put("price", p.getPrice());
+				dto.put("shortDescription", p.getShortDescription());
+				dto.put("imageId", p.getNumberImages() != 0 ? p.getImage(0).getId() : null);
+				return dto;
+			}).toList();
+
             model.addAttribute("user", user.get());
 			if (model.getAttribute("userName") != null && model.getAttribute("userName").equals(user.get().getName())) {
 				model.addAttribute("isOwner", true);
