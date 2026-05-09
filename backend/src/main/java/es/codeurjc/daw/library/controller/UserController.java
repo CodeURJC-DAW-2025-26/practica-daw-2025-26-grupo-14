@@ -407,6 +407,10 @@ public class UserController {
 
 	@PostMapping("/deleteuser/{id}")
 	public String deleteUser(@PathVariable Long id, Model model) {	
+		if(!userService.getUserById(id).isPresent()){
+			model.addAttribute("errorMessage", "User not found.");
+			return "error";
+		}
 		for (Product p : productService.getProductsBySeller(userService.getUserById(id).get())) {
 			productService.delete(p.getId());
 		}
@@ -447,12 +451,16 @@ public class UserController {
 	}
 
 	@PostMapping("/new_rating")
-	public String postNewRating(Model model, Rating rating, Long order_id) {
+	public String postNewRating(Model model, Rating rating, Long order_id, Long rating_id) {
 		Order order = orderService.getOrderById(order_id).orElse(null);
 		if(order == null) {
 			model.addAttribute("errorMessage", "Order not found");
 			return "error";
 		}
+		if(rating_id != null){
+			rating.setId(rating_id);
+		};
+
 		String raterName = (String) model.getAttribute("userName");
 		Optional<User> raterUser = userService.findByName(raterName);
 		if (!raterUser.isPresent()) {
