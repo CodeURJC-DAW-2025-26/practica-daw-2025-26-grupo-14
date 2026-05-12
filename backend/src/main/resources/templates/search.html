@@ -83,16 +83,23 @@
           
         </header>
 
-        <div id="products_div" class="row">
-          
+        <div id="products_div" class="row"></div>
+        <div id="products-spinner" class="loading-indicator is-hidden" role="status" aria-live="polite">
+          <div class="spinner-border spinner-border-sm" aria-hidden="true"></div>
+          <span>Loading items...</span>
+        </div>
+        <div class="text-center">
           <button id="load-more-btn" class="btn btn-outline-dark">load more</button>
+        </div>
 
           <script>
           let page = 0;
           const size = 10;
           const row = document.getElementById('products_div');
           const btn = document.getElementById('load-more-btn');
+          const spinner = document.getElementById('products-spinner');
           const currentParams = new URLSearchParams(window.location.search); // category, keyword...
+          let isLoading = false;
 
           function renderProduct(p) {
             return `
@@ -110,17 +117,31 @@
               </div>`;
           }
 
+          function setLoading(loading) {
+            isLoading = loading;
+            spinner.classList.toggle('is-hidden', !loading);
+            btn.disabled = loading;
+          }
+
           async function loadMore() {
+            if (isLoading) return;
+
             const params = new URLSearchParams(currentParams);
             params.set('page', page);
             params.set('size', size);
 
-            const res = await fetch(`/products/page?${params.toString()}`);
-            const data = await res.json();
+            setLoading(true);
+            try {
+              const res = await fetch(`/products/page?${params.toString()}`);
+              const data = await res.json();
 
-            row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
-            page++;
-            if (!data.hasNext) btn.style.display = 'none';
+              row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
+              page++;
+              //sleep(500); // Simulate loading delay 
+              if (!data.hasNext) btn.style.display = 'none';
+            } finally {
+              setLoading(false);
+            }
           }
 
 

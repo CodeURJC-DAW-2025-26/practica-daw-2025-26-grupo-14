@@ -67,6 +67,10 @@ body{background:#f4f6f9}
               {{/users}}
             </tbody>
           </table>
+          <div id="admin-users-spinner" class="loading-indicator is-hidden" role="status" aria-live="polite">
+            <div class="spinner-border spinner-border-sm" aria-hidden="true"></div>
+            <span>Loading users...</span>
+          </div>
           <div class="text-center mt-3">
             <button id="load-more-btn-users" class="btn btn-outline-dark">Load more</button>       
           </div>
@@ -82,7 +86,9 @@ body{background:#f4f6f9}
   const size = 10;
   const row = document.getElementById('users-tree');
   const btn = document.getElementById('load-more-btn-users');
+  const spinner = document.getElementById('admin-users-spinner');
   const csrfToken = "{{token}}";
+  let isLoading = false;
 
   function renderUser(u) {
   return `
@@ -107,12 +113,26 @@ body{background:#f4f6f9}
     </tr>`;
 }
 
+        function setLoading(loading) {
+            isLoading = loading;
+            spinner.classList.toggle('is-hidden', !loading);
+            btn.disabled = loading;
+        }
+
         async function loadMore() {
-            const res = await fetch(`/users/page?page=${page}&size=${size}&reported=true`);
-            const data = await res.json();
-            row.insertAdjacentHTML('beforeend', data.users.map(renderUser).join(''));
-            page++;
-            if (!data.hasNext) btn.style.display = 'none';
+            if (isLoading) return;
+
+            setLoading(true);
+            try {
+                const res = await fetch(`/users/page?page=${page}&size=${size}&reported=true`);
+                const data = await res.json();
+                row.insertAdjacentHTML('beforeend', data.users.map(renderUser).join(''));
+                page++;
+                //sleep(500); // Simulate loading delay 
+                if (!data.hasNext) btn.style.display = 'none';
+            } finally {
+                setLoading(false);
+            }
         }
 
         btn.addEventListener('click', loadMore);

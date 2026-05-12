@@ -60,6 +60,10 @@ body{background:#f4f6f9}
             </thead>
             <tbody id="admin_listings_tree"></tbody>
           </table>
+          <div id="admin-listings-spinner" class="loading-indicator is-hidden" role="status" aria-live="polite">
+            <div class="spinner-border spinner-border-sm" aria-hidden="true"></div>
+            <span>Loading items...</span>
+          </div>
 
               {{#Products}}
                 <div class="text-center mt-3">
@@ -84,7 +88,9 @@ body{background:#f4f6f9}
   const size = 10;
   const row = document.getElementById('admin_listings_tree');
   const btn = document.getElementById('load-more-btn_admin');
+  const spinner = document.getElementById('admin-listings-spinner');
   const csrfToken = "{{token}}";
+  let isLoading = false;
 
   function renderProduct(p) {
     return `
@@ -102,15 +108,30 @@ body{background:#f4f6f9}
         </tr>`;
   }
 
-        async function loadMore() {
-            const res = await fetch(`/products/page?page=${page}&size=${size}&reported=true`);
-            const data = await res.json();
-            row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
-            page++;
-            if (!data.hasNext) btn.style.display = 'none';
+        function setLoading(loading) {
+            isLoading = loading;
+            spinner.classList.toggle('is-hidden', !loading);
+            if (btn) btn.disabled = loading;
         }
 
-        btn.addEventListener('click', loadMore);
+        async function loadMore() {
+            if (isLoading) return;
+
+            setLoading(true);
+            try {
+                const res = await fetch(`/products/page?page=${page}&size=${size}&reported=true`);
+                const data = await res.json();
+                row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
+                page++;
+                //sleep(500); // Simulate loading delay 
+                if (btn && !data.hasNext) btn.style.display = 'none';
+                
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        if (btn) btn.addEventListener('click', loadMore);
         loadMore();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

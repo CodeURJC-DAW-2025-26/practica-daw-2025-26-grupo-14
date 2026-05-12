@@ -160,6 +160,10 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Other products from this seller</h2>
                 <div id ="seller-row" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"> </div>                   
+                <div id="seller-spinner" class="loading-indicator is-hidden" role="status" aria-live="polite">
+                    <div class="spinner-border spinner-border-sm" aria-hidden="true"></div>
+                    <span>Loading items...</span>
+                </div>
                     
                 <div class="text-center mt-3">
                     <button id="load-more-btn_seller" class="btn btn-outline-dark">Load more</button>       
@@ -171,6 +175,10 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Related products</h2>
                 <div id="others-row" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"></div>
+                <div id="others-spinner" class="loading-indicator is-hidden" role="status" aria-live="polite">
+                    <div class="spinner-border spinner-border-sm" aria-hidden="true"></div>
+                    <span>Loading items...</span>
+                </div>
                             
                 <div class="text-center mt-3">
                     <button id="load-more-btn_others" class="btn btn-outline-dark">Load more</button>       
@@ -198,12 +206,17 @@
         });
 
        
-        let page = 0;
         const size = 10;
+        let sellerPage = 0;
+        let relatedPage = 0;
         const row_seller = document.getElementById('seller-row');
         const btn_seller = document.getElementById('load-more-btn_seller');
+        const sellerSpinner = document.getElementById('seller-spinner');
         const row = document.getElementById('others-row');
         const btn = document.getElementById('load-more-btn_others');
+        const othersSpinner = document.getElementById('others-spinner');
+        let isLoadingSeller = false;
+        let isLoadingOthers = false;
 
         function renderProduct(p) {
             return `
@@ -225,20 +238,44 @@
             </div>`;
         }
 
+        function setLoading(button, spinner, loading) {
+            spinner.classList.toggle('is-hidden', !loading);
+            button.disabled = loading;
+        }
+
         async function loadMore_seller() {
-            const res = await fetch(`/products/page?page=${page}&size=${size}&sellerId={{product.seller.id}}`);
-            const data = await res.json();
-            row_seller.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
-            page++;
-            if (!data.hasNext) btn_seller.style.display = 'none';
+            if (isLoadingSeller) return;
+
+            isLoadingSeller = true;
+            setLoading(btn_seller, sellerSpinner, true);
+            try {
+                const res = await fetch(`/products/page?page=${sellerPage}&size=${size}&sellerId={{product.seller.id}}`);
+                const data = await res.json();
+                row_seller.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
+                sellerPage++;
+                //sleep(500); // Simulate loading delay 
+                if (!data.hasNext) btn_seller.style.display = 'none';
+            } finally {
+                isLoadingSeller = false;
+                setLoading(btn_seller, sellerSpinner, false);
+            }
         }
 
         async function loadMore() {
-            const res = await fetch(`/products/page?page=${page}&size=${size}`);
-            const data = await res.json();
-            row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
-            page++;
-            if (!data.hasNext) btn.style.display = 'none';
+            if (isLoadingOthers) return;
+
+            isLoadingOthers = true;
+            setLoading(btn, othersSpinner, true);
+            try {
+                const res = await fetch(`/products/page?page=${relatedPage}&size=${size}`);
+                const data = await res.json();
+                row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
+                relatedPage++;
+                if (!data.hasNext) btn.style.display = 'none';
+            } finally {
+                isLoadingOthers = false;
+                setLoading(btn, othersSpinner, false);
+            }
         }
 
         btn_seller.addEventListener('click', loadMore_seller);

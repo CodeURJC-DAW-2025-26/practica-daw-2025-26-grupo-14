@@ -43,6 +43,10 @@
 <!-- ITEMS GRID -->
 <div class="container mb-5">
   <div id="my_listings_row" class="row g-4"></div>
+  <div id="my-listings-spinner" class="loading-indicator is-hidden" role="status" aria-live="polite">
+    <div class="spinner-border spinner-border-sm" aria-hidden="true"></div>
+    <span>Loading items...</span>
+  </div>
    
   <div class="text-center mt-3">
     <button id="load-more-btn_listings" class="btn btn-outline-dark">Load more</button>       
@@ -56,7 +60,9 @@
   const size = 10;
   const row = document.getElementById('my_listings_row');
   const btn = document.getElementById('load-more-btn_listings');
+  const spinner = document.getElementById('my-listings-spinner');
   const csrfToken = "{{token}}";
+  let isLoading = false;
 
   function renderProduct(p) {
     return `
@@ -81,12 +87,26 @@
       </div>`;
   }
 
+        function setLoading(loading) {
+            isLoading = loading;
+            spinner.classList.toggle('is-hidden', !loading);
+            btn.disabled = loading;
+        }
+
         async function loadMore() {
-            const res = await fetch(`/products/page?page=${page}&size=${size}&sellerId={{user.id}}`);
-            const data = await res.json();
-            row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
-            page++;
-            if (!data.hasNext) btn.style.display = 'none';
+            if (isLoading) return;
+
+            setLoading(true);
+            try {
+                const res = await fetch(`/products/page?page=${page}&size=${size}&sellerId={{user.id}}`);
+                const data = await res.json();
+                row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
+                page++;
+                sleep(500); // Simulate loading delay 
+                if (!data.hasNext) btn.style.display = 'none';
+            } finally {
+                setLoading(false);
+            }
         }
 
         btn.addEventListener('click', loadMore);

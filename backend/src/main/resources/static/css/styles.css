@@ -10901,3 +10901,17 @@ textarea.form-control-lg {
 
 .msg { max-width:70%; margin:6px 0; padding:10px 12px; border-radius:12px; background:#e2e8f0; }
 .msg.me { margin-left:auto; background:#2563eb; color:#fff; }
+
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem 0;
+  color: var(--bs-secondary);
+}
+
+.loading-indicator.is-hidden {
+  display: none;
+}

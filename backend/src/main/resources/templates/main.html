@@ -115,10 +115,13 @@
     <header class="mb-4">
       <h3>Recommended for You</h3>
     </header>    
-    <div id="recommended-row" class="row">
-      <div class="text-center mt-3">
-        <button id="load-more-btn" class="btn btn-outline-dark">Load more</button>
-      </div>
+    <div id="recommended-row" class="row"></div>
+    <div id="recommended-spinner" class="loading-indicator is-hidden" role="status" aria-live="polite">
+      <div class="spinner-border spinner-border-sm" aria-hidden="true"></div>
+      <span>Loading items...</span>
+    </div>
+    <div class="text-center mt-3">
+      <button id="load-more-btn" class="btn btn-outline-dark">Load more</button>
     </div>
   </div>
 </section>
@@ -130,6 +133,8 @@
   const size = 10;
   const row = document.getElementById('recommended-row');
   const btn = document.getElementById('load-more-btn');
+  const spinner = document.getElementById('recommended-spinner');
+  let isLoading = false;
 
   function renderProduct(p) {
     return `
@@ -147,12 +152,27 @@
       </div>`;
   }
 
+  function setLoading(loading) {
+    isLoading = loading;
+    spinner.classList.toggle('is-hidden', !loading);
+    btn.disabled = loading;
+  }
+
   async function loadMore() {
-    const res = await fetch(`/products/page?page=${page}&size=${size}`);
-    const data = await res.json();
-    row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
-    page++;
-    if (!data.hasNext) btn.style.display = 'none';
+    if (isLoading) return;
+
+    setLoading(true);
+    try {
+      const res = await fetch(`/products/page?page=${page}&size=${size}`);
+      const data = await res.json();
+      row.insertAdjacentHTML('beforeend', data.products.map(renderProduct).join(''));
+      page++;
+      sleep(500); // Simulate loading delay 
+      
+      if (!data.hasNext) btn.style.display = 'none';
+    } finally {
+      setLoading(false);
+    }
   }
 
   btn.addEventListener('click', loadMore);
