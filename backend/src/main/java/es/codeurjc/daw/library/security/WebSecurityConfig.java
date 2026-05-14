@@ -71,6 +71,7 @@ public class WebSecurityConfig {
                 // Products public read (GET) endpoints
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/products/**").permitAll()
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/users/**").permitAll()
+				.requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/users/**").permitAll()
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/ratings/**").permitAll()
 				.requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/charts/**").permitAll()
 				.requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/images/**").permitAll()
@@ -88,7 +89,6 @@ public class WebSecurityConfig {
                 .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/v1/ratings/**").hasAnyRole("USER", "ADMIN")
                 // Users management: only ADMIN
                 .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/v1/users/**").hasRole("ADMIN")
-				.requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/users/**").hasRole("ADMIN")
                 // Any other API route: authenticated
                 .anyRequest().authenticated()
             )

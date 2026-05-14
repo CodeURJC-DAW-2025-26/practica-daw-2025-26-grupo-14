@@ -83,13 +83,17 @@ public class ApiRestController {
         return "API funcionando";
     }
     
-    @GetMapping("/products")
+    @GetMapping("/products") 
     public List<ProductDto> getProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(required = false) String keyword,
-            @RequestParam(required = false) String category) {
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Integer minSellerRate,
+            @RequestParam(required = false) Long sellerId){
 
-        Page<Product> productPage = productService.getProductsPage(page, 10, keyword, category);
+        Page<Product> productPage = productService.getProductsPage(page, 10, keyword, category, minPrice, maxPrice, minSellerRate, sellerId);
 
         return DtoMapper.toProductDtoList(productPage.getContent());
     }
@@ -228,6 +232,9 @@ public class ApiRestController {
         user.setDni(userDto.getDni());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
+            if(userDto.getRoles().contains("ADMIN") && !securityUtil.isAdmin()) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only admins can assign this role");
+            }
             user.setRoles(userDto.getRoles());
         } else {
             user.setRoles("USER");
@@ -273,6 +280,9 @@ public class ApiRestController {
             existing.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
         if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
+            if(userDto.getRoles().contains("ADMIN") && !securityUtil.isAdmin()) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only admins can assign this role");
+            }
             existing.setRoles(userDto.getRoles());
         }
 
@@ -285,6 +295,9 @@ public class ApiRestController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         if (!userService.getUserById(id).isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id " + id);
+        }
+        for (Product p : productService.getProductsBySeller(userService.getUserById(id).get())) {
+            deleteProduct(p.getId());
         }
         userService.delete(id);
         return ResponseEntity.noContent().build();
@@ -401,14 +414,22 @@ public class ApiRestController {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "Rated user not found with id " + ratingDto.getRatedId()));
 
+        Order order = orderService.getAllOrders().stream()
+                .filter(o -> o.getBuyer().equals(rater) && o.getProduct().getSeller().equals(rated))
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "You can only rate users you have completed a purchase with"));
+
         Rating rating = new Rating();
         rating.setRater(rater);
         rating.setRated(rated);
         rating.setSummery(ratingDto.getSummery());
         rating.setRating(ratingDto.getRating());
         rating.setDescription(ratingDto.getDescription());
+        order.setRating(rating); 
 
         ratingService.save(rating);
+        orderService.save(order);
 
         URI location = URI.create(String.format("/api/v1/ratings/%d", rating.getId()));
         return ResponseEntity.created(location).body(DtoMapper.toDto(rating));
@@ -452,6 +473,10 @@ public class ApiRestController {
             throw new ResponseStatusException(
                     HttpStatus.FORBIDDEN, "You don't have permission to delete this rating");
         }
+
+        Order order = rating.getOrder();
+        order.setRating(null);
+        orderService.save(order);
 
         ratingService.delete(id);
         return ResponseEntity.noContent().build();
@@ -585,18 +610,17 @@ public class ApiRestController {
     }
 
     @GetMapping("/charts/ratings/{id}")
-    public ResponseEntity<ChartDto> getRatingsIdChart() {
+    public ResponseEntity<ChartDto> getRatingsIdChart(@PathVariable Long Id) {
         ChartDto dto = new ChartDto();
         dto.setName("ratings");
         
-        Map<String, Long> data = ratingService.getAllRatings().stream()
+        Map<String, Long> data = userService.getUserById(Id).get().getMyRatings().stream()
                 .collect(Collectors.groupingBy(
                         p -> String.valueOf(p.getRating()),
                         TreeMap::new,
                         Collectors.counting()
                 ));
-
-        data.put("Total", (long) ratingService.getAllRatings().size());
+        data.put("Total", (long) userService.getUserById(Id).get().getMyRatings().size());
 
         dto.setData(data);
 
