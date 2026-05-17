@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.Rating;
 import es.codeurjc.daw.library.model.User;
-import es.codeurjc.daw.library.repository.RatingRepository;
 import es.codeurjc.daw.library.service.ProductService;
+import es.codeurjc.daw.library.service.RatingService;
 import es.codeurjc.daw.library.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -36,7 +36,7 @@ public class ShopWebController {
 	private UserService userService;
 
 	@Autowired
-	private RatingRepository ratingRepository;
+	private RatingService ratingService;
 
 	@ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
@@ -92,7 +92,7 @@ public class ShopWebController {
 			}
 
 			Long sellerId = product.get().getSeller().getId();
-			double avg = ratingRepository.findByRatedId(sellerId).stream()
+			double avg = ratingService.findByRatedId(sellerId).stream()
 				.mapToInt(Rating::getRating)
 				.average()
 				.orElse(0.0);

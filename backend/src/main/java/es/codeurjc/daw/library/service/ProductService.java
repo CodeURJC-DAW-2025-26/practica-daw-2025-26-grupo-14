@@ -57,6 +57,24 @@ public class ProductService {
         return productRepository.findBySellerCityIgnoreCase(city);
     }
 
+    public long count() {
+        return productRepository.count();
+    }
+
+    public List<Object[]> countProductsByCategory() {
+        return productRepository.countProductsByCategory();
+    }
+
+    public List<Object[]> countProductsByCreatedAt() {
+        return productRepository.countProductsByCreatedAt();
+    }
+
+    public List<Product> getReportedProducts() {
+        return productRepository.findAll().stream()
+            .filter(Product::getReported)
+            .toList();
+    }
+
     //For AJAX
     public Page<Product> getProductsPage(int page, int size, String keyword, String category, Double minPrice, Double maxPrice, Integer minSellerRate, Long sellerId) {
         Pageable pageable = PageRequest.of(page, size);

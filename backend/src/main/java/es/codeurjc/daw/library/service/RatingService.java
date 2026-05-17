@@ -34,6 +34,18 @@ public class RatingService {
         return ratingRepository.existsById(id);
     }
 
+    public List<Object[]> countRatingsByValue() {
+        return ratingRepository.countRatingsByValue();
+    }
+
+    public List<Rating> findByRatedId(Long ratedId) {
+        return ratingRepository.findByRatedId(ratedId);
+    }
+
+    public long count(){
+        return ratingRepository.count();
+    }
+
     public org.springframework.data.domain.Page<Rating> getRatingsPage(int page, int size) {
         org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);
         return ratingRepository.findAll(pageable);

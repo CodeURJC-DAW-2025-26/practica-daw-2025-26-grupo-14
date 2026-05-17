@@ -3,6 +3,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,16 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import es.codeurjc.daw.library.model.Product;
-import es.codeurjc.daw.library.repository.ProductRepository;
-import es.codeurjc.daw.library.repository.RatingRepository;
-import es.codeurjc.daw.library.repository.UserRepository;
 import es.codeurjc.daw.library.service.ProductService;
+import es.codeurjc.daw.library.service.RatingService;
 import es.codeurjc.daw.library.service.UserService;
-
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 
 @Controller
@@ -29,17 +26,11 @@ public class AdminController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private ProductRepository productRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
     @Autowired
     private ProductService productService;
 
     @Autowired
-    private RatingRepository ratingRepository;
+    private RatingService ratingService;
 	
 	@GetMapping("/administrator")
 	public String administrator() {
@@ -49,7 +40,7 @@ public class AdminController {
     @GetMapping("/admin_listings")
 	public String listings(Model model) {
         List<Product> reportedProducts = new ArrayList<>();
-        for (Product product : productRepository.findAll()) {
+        for (Product product : productService.getAllProducts()) {
             if (product.getReported()){
                 reportedProducts.add(product);
             }
@@ -89,13 +80,13 @@ public class AdminController {
 
     @GetMapping("/admin_stats")
 public String adminStats(Model model) {
-    long total_u = userRepository.count();
-    long total_p = productRepository.count();
-    long total_r = ratingRepository.count();
+    long total_u = userService.count();
+    long total_p = productService.count();
+    long total_r = ratingService.count();
     DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     if (total_p > 0){
-        List<Object[]> rows = productRepository.countProductsByCategory(); // category, count
+        List<Object[]> rows = productService.countProductsByCategory(); // category, count
         List<Map<String,Object>> categoryStats = rows.stream().map(r -> {
             String category = (String) r[0];
             long count = (Long) r[1];
@@ -110,7 +101,7 @@ public String adminStats(Model model) {
         
         TreeMap<LocalDate, Long> byDate = new TreeMap<>();
 
-        for (Object[] r : productRepository.countProductsByCreatedAt()) {
+        for (Object[] r : productService.countProductsByCreatedAt()) {
             String createdAt = (String) r[0];
             Long count = (Long) r[1];
             byDate.put(LocalDate.parse(createdAt, fmt), count);
@@ -135,7 +126,7 @@ public String adminStats(Model model) {
     if (total_u > 0){
         TreeMap<LocalDate, Long> usersByDate = new TreeMap<>();
 
-        for (Object[] r : userRepository.countUsersByCreatedAt()) {
+        for (Object[] r : userService.countUsersByCreatedAt()) {
             String createdAt = (String) r[0];
             Long count = (Long) r[1];
             usersByDate.put(LocalDate.parse(createdAt, fmt), count);
@@ -156,7 +147,7 @@ public String adminStats(Model model) {
             TreeMap<Integer, Long> ratings = new TreeMap<>();
 
 
-            for (Object[] r : ratingRepository.countRatingsByValue()) {
+            for (Object[] r : ratingService.countRatingsByValue()) {
                 Number valueNum = (Number) r[0];
                 Long count = (Long) r[1];
                 ratings.put(valueNum.intValue(), count);

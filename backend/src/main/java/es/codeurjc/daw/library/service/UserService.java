@@ -47,6 +47,14 @@ public class UserService {
 		return userRepository.existsById(id);
 	}
 
+    public long count() {
+        return userRepository.count();
+    }
+
+    public List<Object[]> countUsersByCreatedAt() {
+        return userRepository.countUsersByCreatedAt();
+    }
+
         public void banUser(Long id) {
         userRepository.findById(id).ifPresent(user -> {
             user.setBanned(!user.getIsBanned()); // alterna ban/unban
