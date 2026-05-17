@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 import es.codeurjc.daw.library.security.jwt.JwtRequestFilter;
 import es.codeurjc.daw.library.security.jwt.UnauthorizedHandlerJwt;
 
@@ -116,6 +115,7 @@ public class WebSecurityConfig {
 						// PUBLIC PAGES
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/images/**").permitAll()
+						.requestMatchers("/my_images/**").permitAll()
 						.requestMatchers("/products/**").permitAll() 
 						.requestMatchers("/product/**").permitAll()
 						.requestMatchers("/user_account/**").permitAll()
