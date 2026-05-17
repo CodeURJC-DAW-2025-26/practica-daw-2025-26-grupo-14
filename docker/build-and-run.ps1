@@ -1,5 +1,5 @@
-#Use with command powershell -ExecutionPolicy Bypass -File build-and-run.ps1
-#$ErrorActionPreference = 'Stop' --> Error pssw injection insecure, step 4
+#Use with command powershell -File build-and-run.ps1
+$ErrorActionPreference = 'Stop'
 
 if ($PSScriptRoot) {
     $scriptDir = $PSScriptRoot
@@ -83,35 +83,16 @@ if (-not (Test-ContainerRunning $dbContainer)) {
     Show-ContainerLogsAndFail $dbContainer "MySQL isn´t running."
 }
 
-Write-Host "4) Wait for MySQL to accept connections"
-$maxAttempts = 30
-for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
-    if (-not (Test-ContainerRunning $dbContainer)) {
-        Show-ContainerLogsAndFail $dbContainer "MySQL has stopped while waiting to be ready."
-    }
-
-    docker exec $dbContainer mysqladmin ping -h 127.0.0.1 -u $dbUser "-p$dbPassword" --silent *> $null
-    if ($LASTEXITCODE -eq 0) {
-        break
-    }
-
-    if ($attempt -eq $maxAttempts) {
-        throw "MySQL has not been ready in time."
-    }
-
-    Start-Sleep -Seconds 2
-}
-
-Write-Host "5) Build Docker image for the API"
+Write-Host "4) Build Docker image for the API"
 docker build -f (Join-Path $scriptDir "Dockerfile") -t $imageName $repoRoot
 
-Write-Host "6) Recreate previous API container if it exists"
+Write-Host "5) Recreate previous API container if it exists"
 if (docker ps -aq -f "name=$apiContainer") {
     docker stop $apiContainer | Out-Null
     docker rm $apiContainer | Out-Null
 }
 
-Write-Host "7) Start the API connected to MySQL"
+Write-Host "6) Start the API connected to MySQL"
 docker run -d `
     --name $apiContainer `
     --network $networkName `
@@ -122,5 +103,5 @@ docker run -d `
     -e SPRING_DATASOURCE_PASSWORD=$dbPassword `
     $imageName | Out-Null
 
-Write-Host "8) docker logs -f $apiContainer"
+Write-Host "7) docker logs -f $apiContainer"
 docker logs -f $apiContainer
