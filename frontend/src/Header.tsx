@@ -92,35 +92,22 @@ function Header() {
             <div className="collapse navbar-collapse" id="navbarLeftAlignExample">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="/new/search?category=Clothing">Clothing</a>
+                    <a className="nav-link text-dark" href="search?category=Clothing">Clothing</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="/new/search?category=Electronics">Electronics</a>
+                    <a className="nav-link text-dark" href="search?category=Electronics">Electronics</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="/new/search?category=Home">Home</a>
+                    <a className="nav-link text-dark" href="search?category=Home">Home</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="/new/search?category=Sports">Sports</a>
+                    <a className="nav-link text-dark" href="search?category=Sports">Sports</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="/new/search?category=Books">Books</a>
+                    <a className="nav-link text-dark" href="search?category=Books">Books</a>
                 </li>
-                <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle text-dark mb-0"
-                    href="/new/search?category=Others"
-                    id="navbarDropdown"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false">
-                    Others
-                    </a>
-                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a className="dropdown-item" href="#">Action</a></li>
-                    <li><a className="dropdown-item" href="#">Another action xddd</a></li>
-                    <li><hr className="dropdown-divider" /></li>
-                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                <li className="nav-item">
+                    <a className="nav-link text-dark" href="search?category=Others">Others</a>
                 </li>
                 </ul>
             </div>
