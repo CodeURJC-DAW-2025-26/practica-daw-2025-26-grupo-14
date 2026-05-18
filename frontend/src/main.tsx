@@ -17,6 +17,7 @@ import UserAccountPage from './UserAccountPage'
 import AdministratorPage from './AdministratorPage'
 import AdminUsersPage from './AdminUsersPage'
 import AdminListingsPage from './AdminListingsPage'
+import AdminStatsPage from './AdminStatsPage'
 
 
 async function initApp() {
@@ -59,7 +60,8 @@ async function initApp() {
         { path: 'edituser/:id', element: <RegisterPage /> },
         { path: 'administrator', element: <AdministratorPage /> },
         { path: 'admin_users', element: <AdminUsersPage /> },
-        { path: 'admin_listings', element: <AdminListingsPage /> }
+        { path: 'admin_listings', element: <AdminListingsPage /> },
+        { path: 'admin_stats', element: <AdminStatsPage /> }
       ],
     },
   ])
