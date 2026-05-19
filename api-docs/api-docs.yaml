@@ -1,0 +1,849 @@
+openapi: 3.0.3
+info:
+  title: Lado B Marketplace API
+  version: v1
+  description: |
+    API REST del marketplace Lado B.
+    Incluye autenticacion, usuarios, productos, pedidos, valoraciones, imagenes y endpoints de estadisticas.
+servers:
+  - url: https://localhost:8443
+    description: Desarrollo local HTTPS
+  - url: http://localhost:8080
+    description: Redireccion HTTP local
+tags:
+  - name: Authentication
+    description: Operaciones de autenticacion basadas en cookies JWT.
+  - name: Products
+    description: Gestion de productos del marketplace.
+  - name: Users
+    description: Gestion de cuentas de usuario.
+  - name: Orders
+    description: Gestion de pedidos y ofertas.
+  - name: Ratings
+    description: Gestion de valoraciones entre usuarios.
+  - name: Images
+    description: Consulta de imagenes registradas.
+  - name: Charts
+    description: Endpoints agregados para cuadros de mando.
+paths:
+  /api/v1:
+    get:
+      tags: [Products]
+      summary: Comprobar disponibilidad de la API
+      description: Endpoint simple para validar que la API REST esta operativa.
+      security: []
+      responses:
+        '200':
+          description: API disponible
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: API funcionando
+  /api/v1/auth/login:
+    post:
+      tags: [Authentication]
+      summary: Iniciar sesion
+      description: Valida credenciales y emite cookies JWT de acceso y refresco.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Sesion iniciada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Credenciales invalidas
+  /api/v1/auth/refresh:
+    post:
+      tags: [Authentication]
+      summary: Refrescar token
+      description: Renueva la cookie de acceso a partir de la cookie RefreshToken.
+      security: []
+      responses:
+        '200':
+          description: Token renovado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Refresh token ausente o invalido
+  /api/v1/auth/logout:
+    post:
+      tags: [Authentication]
+      summary: Cerrar sesion
+      description: Invalida las cookies de autenticacion del cliente.
+      security: []
+      responses:
+        '200':
+          description: Sesion cerrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /api/v1/products:
+    get:
+      tags: [Products]
+      summary: Listar productos
+      description: Devuelve productos paginados con filtros opcionales.
+      security: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 0
+        - in: query
+          name: keyword
+          schema:
+            type: string
+        - in: query
+          name: category
+          schema:
+            type: string
+        - in: query
+          name: minPrice
+          schema:
+            type: number
+            format: double
+        - in: query
+          name: maxPrice
+          schema:
+            type: number
+            format: double
+        - in: query
+          name: minSellerRate
+          schema:
+            type: integer
+        - in: query
+          name: sellerId
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Productos recuperados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDto'
+    post:
+      tags: [Products]
+      summary: Crear producto
+      description: Publica un nuevo producto para el usuario autenticado.
+      security:
+        - accessTokenCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDto'
+      responses:
+        '201':
+          description: Producto creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDto'
+        '400':
+          description: Datos invalidos
+        '401':
+          description: No autenticado
+        '403':
+          description: Sin permisos
+  /api/v1/products/{id}:
+    get:
+      tags: [Products]
+      summary: Obtener producto
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDto'
+        '404':
+          description: Producto no encontrado
+    put:
+      tags: [Products]
+      summary: Actualizar producto
+      description: Modifica parcialmente un producto existente.
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDto'
+      responses:
+        '200':
+          description: Producto actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDto'
+        '403':
+          description: Sin permisos
+        '404':
+          description: Producto no encontrado
+    delete:
+      tags: [Products]
+      summary: Eliminar producto
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: Producto eliminado
+        '403':
+          description: Sin permisos
+        '404':
+          description: Producto no encontrado
+  /api/v1/users:
+    get:
+      tags: [Users]
+      summary: Listar usuarios
+      security: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Usuarios recuperados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+    post:
+      tags: [Users]
+      summary: Registrar usuario
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        '201':
+          description: Usuario creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '400':
+          description: Datos invalidos
+        '403':
+          description: Intento no autorizado de asignar rol ADMIN
+  /api/v1/users/{id}:
+    get:
+      tags: [Users]
+      summary: Obtener usuario
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '404':
+          description: Usuario no encontrado
+    put:
+      tags: [Users]
+      summary: Actualizar usuario
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        '200':
+          description: Usuario actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '403':
+          description: Sin permisos
+        '404':
+          description: Usuario no encontrado
+    delete:
+      tags: [Users]
+      summary: Eliminar usuario
+      description: Elimina un usuario y sus productos asociados. Requiere rol ADMIN.
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: Usuario eliminado
+        '404':
+          description: Usuario no encontrado
+  /api/v1/users/{id}/conversations:
+    get:
+      tags: [Users]
+      summary: Listar conversaciones del usuario
+      description: Consulta SendBird para recuperar los canales de conversacion del usuario autenticado.
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Conversaciones recuperadas
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '403':
+          description: Sin permisos
+        '404':
+          description: Usuario no encontrado
+  /api/v1/orders:
+    get:
+      tags: [Orders]
+      summary: Listar pedidos
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 0
+        - in: query
+          name: size
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Pedidos recuperados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderPage'
+    post:
+      tags: [Orders]
+      summary: Crear pedido
+      security:
+        - accessTokenCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+      responses:
+        '201':
+          description: Pedido creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+        '400':
+          description: Producto invalido
+        '401':
+          description: No autenticado
+  /api/v1/orders/{id}:
+    get:
+      tags: [Orders]
+      summary: Obtener pedido
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Pedido encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+        '404':
+          description: Pedido no encontrado
+    put:
+      tags: [Orders]
+      summary: Actualizar pedido
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+      responses:
+        '200':
+          description: Pedido actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+        '403':
+          description: Sin permisos
+        '404':
+          description: Pedido no encontrado
+    delete:
+      tags: [Orders]
+      summary: Eliminar pedido
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: Pedido eliminado
+        '403':
+          description: Sin permisos
+        '404':
+          description: Pedido no encontrado
+  /api/v1/ratings:
+    get:
+      tags: [Ratings]
+      summary: Listar valoraciones
+      security: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 0
+        - in: query
+          name: size
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Valoraciones recuperadas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingPage'
+    post:
+      tags: [Ratings]
+      summary: Crear valoracion
+      description: Crea una valoracion para un vendedor con el que el usuario autenticado haya completado una compra.
+      security:
+        - accessTokenCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingDto'
+      responses:
+        '201':
+          description: Valoracion creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingDto'
+        '400':
+          description: Datos invalidos o no existe compra asociada
+  /api/v1/ratings/{id}:
+    get:
+      tags: [Ratings]
+      summary: Obtener valoracion
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Valoracion encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingDto'
+        '404':
+          description: Valoracion no encontrada
+    put:
+      tags: [Ratings]
+      summary: Actualizar valoracion
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingDto'
+      responses:
+        '200':
+          description: Valoracion actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingDto'
+        '403':
+          description: Sin permisos
+        '404':
+          description: Valoracion no encontrada
+    delete:
+      tags: [Ratings]
+      summary: Eliminar valoracion
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: Valoracion eliminada
+        '403':
+          description: Sin permisos
+        '404':
+          description: Valoracion no encontrada
+  /api/v1/images:
+    get:
+      tags: [Images]
+      summary: Listar imagenes
+      security: []
+      responses:
+        '200':
+          description: Imagenes recuperadas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ImageDto'
+  /api/v1/images/{id}:
+    get:
+      tags: [Images]
+      summary: Obtener imagen
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Imagen encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageDto'
+        '404':
+          description: Imagen no encontrada
+  /api/v1/charts:
+    get:
+      tags: [Charts]
+      summary: Obtener catalogo de graficos
+      security: []
+      responses:
+        '200':
+          description: Resumen de graficos disponibles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartDto'
+  /api/v1/charts/categories:
+    get:
+      tags: [Charts]
+      summary: Grafico por categorias
+      security: []
+      responses:
+        '200':
+          description: Totales por categoria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartDto'
+  /api/v1/charts/productHistorical:
+    get:
+      tags: [Charts]
+      summary: Historico de productos
+      security: []
+      responses:
+        '200':
+          description: Agrupacion de productos por fecha
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartDto'
+  /api/v1/charts/userHistorical:
+    get:
+      tags: [Charts]
+      summary: Historico de usuarios
+      security: []
+      responses:
+        '200':
+          description: Agrupacion de usuarios por fecha
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartDto'
+  /api/v1/charts/ratings:
+    get:
+      tags: [Charts]
+      summary: Distribucion de valoraciones
+      security: []
+      responses:
+        '200':
+          description: Agrupacion de valoraciones por puntuacion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartDto'
+  /api/v1/charts/ratings/{id}:
+    get:
+      tags: [Charts]
+      summary: Distribucion de valoraciones de un usuario
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Distribucion de valoraciones del usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartDto'
+  /api/v1/charts/users/{id}/ratings:
+    get:
+      tags: [Charts]
+      summary: Grafico de valoraciones de un usuario
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Distribucion de valoraciones recibidas por un usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartDto'
+components:
+  securitySchemes:
+    accessTokenCookie:
+      type: apiKey
+      in: cookie
+      name: AccessToken
+      description: Cookie JWT de acceso emitida tras el login.
+  parameters:
+    IdPath:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        format: int64
+  schemas:
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+          example: anagarcia
+        password:
+          type: string
+          example: MiPasswordSegura123
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [SUCCESS, FAILURE]
+        message:
+          type: string
+        error:
+          type: string
+          nullable: true
+    ProductDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        sellerId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        category:
+          type: string
+        shortDescription:
+          type: string
+        fullDescription:
+          type: string
+        createdAt:
+          type: string
+        condition:
+          type: string
+        contactPreference:
+          type: string
+        imageIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        reported:
+          type: boolean
+        reportedMessage:
+          type: string
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        fullName:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        city:
+          type: string
+        dni:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+        isBanned:
+          type: boolean
+        createdAt:
+          type: string
+        profilePictureId:
+          type: integer
+          format: int64
+        password:
+          type: string
+          description: Solo para operaciones de alta o cambio.
+    OrderDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        productId:
+          type: integer
+          format: int64
+        buyerId:
+          type: integer
+          format: int64
+        state:
+          type: string
+        ratingId:
+          type: integer
+          format: int64
+    RatingDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        orderId:
+          type: integer
+          format: int64
+        raterId:
+          type: integer
+          format: int64
+        ratedId:
+          type: integer
+          format: int64
+        summery:
+          type: string
+        rating:
+          type: integer
+        description:
+          type: string
+    ImageDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        url:
+          type: string
+    ChartDto:
+      type: object
+      properties:
+        name:
+          type: string
+        data:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    OrderPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDto'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
+    RatingPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/RatingDto'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
