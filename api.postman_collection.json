@@ -1,0 +1,997 @@
+{
+  "info": {
+    "_postman_id": "1e85e9a0-73b0-45a6-8348-527b4d3d9fd7",
+    "name": "Lado B Marketplace API",
+    "description": "Postman collection for the Spring Boot API exposed under /api/v1. Login and refresh rely on HTTP-only cookies, so Postman should keep the session automatically when requests target the same host.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "userId",
+      "value": "1"
+    },
+    {
+      "key": "productId",
+      "value": "1"
+    },
+    {
+      "key": "orderProductId",
+      "value": "2"
+    },
+    {
+      "key": "ratedUserId",
+      "value": "2"
+    },
+    {
+      "key": "createdUserId",
+      "value": ""
+    },
+    {
+      "key": "createdProductId",
+      "value": ""
+    },
+    {
+      "key": "createdOrderId",
+      "value": ""
+    },
+    {
+      "key": "createdRatingId",
+      "value": ""
+    },
+    {
+      "key": "imageId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "API Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login as Mario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"Mario\",\n  \"password\": \"pass\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login as Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"Admin\",\n  \"password\": \"adminpass\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/users?page=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"postman_user\",\n  \"fullName\": \"Postman User\",\n  \"email\": \"postman.user@example.com\",\n  \"password\": \"securepassword\",\n  \"city\": \"Madrid\",\n  \"dni\": \"87654321Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  var json = pm.response.json();",
+                  "  if (json && json.id) {",
+                  "    pm.collectionVariables.set('createdUserId', json.id);",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"John Updated Doe\",\n  \"email\": \"john.updated@example.com\",\n  \"city\": \"Barcelona\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/users/{{createdUserId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{createdUserId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Ratings Summary",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/ratings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}",
+                "ratings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Conversations",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/conversations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}",
+                "conversations"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products?page=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "keyword",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "sellerId",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "{{productId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Vintage Jacket\",\n  \"price\": 25.99,\n  \"category\": \"Clothing\",\n  \"shortDescription\": \"A great vintage jacket\",\n  \"fullDescription\": \"Full description of the vintage jacket\",\n  \"condition\": \"Good\",\n  \"contactPreference\": \"Email\",\n  \"reported\": false,\n  \"reportedMessage\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  var json = pm.response.json();",
+                  "  if (json && json.id) {",
+                  "    pm.collectionVariables.set('createdProductId', json.id);",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 19.99,\n  \"condition\": \"Like New\",\n  \"shortDescription\": \"Updated short description\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{createdProductId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "{{createdProductId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/products/{{createdProductId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "{{createdProductId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Product Images",
+          "request": {
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "imageFiles",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{createdProductId}}/images",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "{{createdProductId}}",
+                "images"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "List Orders",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/orders?page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/orders/{{createdOrderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "{{createdOrderId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": {{orderProductId}},\n  \"state\": \"Offer sent\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  var json = pm.response.json();",
+                  "  if (json && json.id) {",
+                  "    pm.collectionVariables.set('createdOrderId', json.id);",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Update Order",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"Accepted\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/{{createdOrderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "{{createdOrderId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Order",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/orders/{{createdOrderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "{{createdOrderId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ratings",
+      "item": [
+        {
+          "name": "List Ratings",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ratings?page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ratings"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Rating",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ratings/{{createdRatingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ratings",
+                "{{createdRatingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Rating",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ratedId\": {{ratedUserId}},\n  \"summery\": \"Great seller!\",\n  \"rating\": 5,\n  \"description\": \"The product was exactly as described and delivery was fast.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ratings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ratings"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  var json = pm.response.json();",
+                  "  if (json && json.id) {",
+                  "    pm.collectionVariables.set('createdRatingId', json.id);",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Update Rating",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"summery\": \"Updated review\",\n  \"rating\": 4,\n  \"description\": \"Still a good experience overall.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ratings/{{createdRatingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ratings",
+                "{{createdRatingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Rating",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/ratings/{{createdRatingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ratings",
+                "{{createdRatingId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "item": [
+        {
+          "name": "List Images",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/images",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "images"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Image",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/images/{{imageId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "images",
+                "{{imageId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Charts",
+      "item": [
+        {
+          "name": "All Charts",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/charts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "charts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Categories Chart",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/charts/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "charts",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Product Historical Chart",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/charts/productHistorical",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "charts",
+                "productHistorical"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User Historical Chart",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/charts/userHistorical",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "charts",
+                "userHistorical"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ratings Chart",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/charts/ratings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "charts",
+                "ratings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ratings Chart by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/charts/ratings/{{createdRatingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "charts",
+                "ratings",
+                "{{createdRatingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User Ratings Chart",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/charts/users/{{userId}}/ratings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "charts",
+                "users",
+                "{{userId}}",
+                "ratings"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
