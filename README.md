@@ -547,15 +547,15 @@ Diagrama mostrando los componentes React, hooks personalizados, servicios y sus 
 
 #### **Alumno 2 - [Alejandro Triguero Ruiz]**
 
-[EMpezar a familiarizarnos con las aplicaciones SPA, arreglar errores y añadir contenido.]
+[Empezar a familiarizarnos con las aplicaciones SPA, arreglar errores, añadir contenido y funcionalidades en react.]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
 |1| [Empezar a familiarizarnos](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/f0b90d78a28105f2ff17ecdbfc714792cb4b0abc)  | [Archivo1](URL_archivo_1)   |
 |2| [Arreglar errores](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/20c87850c29c60e92f7d0182f04b6b733c2c9fd7)  | [Archivo2](URL_archivo_2)   |
-|3| [Arreglar errores](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/f4eb9e6e53003f660d1d05765e34492be1f252bd)  | [Archivo3](URL_archivo_3)   |
-|4| [Añadir contenido](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/2be6484c9ee28b804c053cc002538502ae6e792a)  | [Archivo4](URL_archivo_4)   |
-|5| [Añadir contenido](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/6bba781ed3bbd00297a6b1eb81356b68d3a0f610)  | [Archivo5](URL_archivo_5)   |
+|3| [Pagina principal ](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/20c87850c29c60e92f7d0182f04b6b733c2c9fd7)  | [Archivo3](URL_archivo_3)   |
+|4| Busqueda en react] (https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/7c21ef0c02399b3b74f2f305613780faf49f48e2)  | [Archivo4](URL_archivo_4)   |
+|5| [Listado de productos](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/2be6484c9ee28b804c053cc002538502ae6e792a)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
