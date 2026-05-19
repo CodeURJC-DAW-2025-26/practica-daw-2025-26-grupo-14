@@ -434,7 +434,7 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
    sudo docker build -t ladob-api:latest -f docker/Dockerfile .
    ```
 10. **Lanzar imagen**:
-    ```bash
+   ```bash
    sudo docker compose up
    ```
 Da error con la base de datos al lanzarse así, dice que no existe la tabla USERS en la BBDD.
