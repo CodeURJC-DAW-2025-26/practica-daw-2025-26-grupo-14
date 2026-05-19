@@ -177,7 +177,7 @@ A su vez, en la parte izquierda de la pagina, se puede ver un panel de administr
 ## 🛠 **Práctica 1: Web con HTML generado en servidor y AJAX**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://youtu.be/T_p0byu14zw)**
+📹 **[Enlace al vídeo en YouTube](https://youtu.be/GAmT_ejYk7U)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Navegación y Capturas de Pantalla**
