@@ -450,61 +450,46 @@ Da error con la base de datos al lanzarse así, dice que no existe la tabla USER
 
 ### **Participación de Miembros en la Práctica 2**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - [Sara Tuset Villoria]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
-
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
-
----
-
-#### **Alumno 2 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Añadir apis, manejo de seguridad y el readme]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Añadida Api](9ebf3affded21d1fe5a785f988b0e73b24acad8b)  | [Archivo1](URL_archivo_1)   |
+|2| [Manejo de seguridad](b990d52e8d804a17e6939036b25dc61c261269dd)  | [Archivo2](URL_archivo_2)   |
+|3| [Arreglos de seguridad](8a5a5efcd63a7cd2c0f4b1e86118143eb846c536)  | [Archivo3](URL_archivo_3)   |
+|4| [Encargarme del readme](ae340705f7aaa69f2beb3c44f55122e96f820e68)  | [Archivo4](URL_archivo_4)   |
+|5| [Añadir contenido](18c91b2dff21c9f8e6ac061b6f6a276b6f04fbae)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 2 - [Alejandro Triguero Ruiz]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Añadir apis, manejo de seguridad, arreglo de errores y documentación]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Configurar la seguridad](17e6a75b64b94185a74a59f33d9421612942c35f)  | [Archivo1](URL_archivo_1)   |
+|2| [Añadir APIs](bf721ee49d6a01eca53921bc71bec936d5ff447e)  | [Archivo2](URL_archivo_2)   |
+|3| [Colección de Postman](cf879870d631f20802c2a1f087b8cac6762d4395)  | [Archivo3](URL_archivo_3)   |
+|4| [Arreglo de errores](2ccede8865ef1f2a0ea776cad55c2305e2b5ac96)  | [Archivo4](URL_archivo_4)   |
+|5| [Rematar carpeta docker](824e233b184e8a107fcf35d30d3f3be37b616533)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
-#### **Alumno 4 - [Nombre Completo]**
+#### **Alumno 3 - [Sergio Villagarcía Sánchez]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Paginación, endpoints y docker]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Añadir paginación](0916ff3edb49d3ad266769073603750c08be140d)  | [Archivo1](URL_archivo_1)   |
+|2| [Manejar control del usuario](0916ff3edb49d3ad266769073603750c08be140d)  | [Archivo2](URL_archivo_2)   |
+|3| [Automatización de docker](86d39ed2478c8e0f7315f851144baad4897a41c6)  | [Archivo3](URL_archivo_3)   |
 
 ---
+
 
 ## 🛠 **Práctica 3: Implementación de la web con arquitectura SPA**
 
