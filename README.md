@@ -370,7 +370,13 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
    cd [repositorio]
    ```
 
-2. **AQUÍ LOS SIGUIENTES PASOS**:
+2. **Crear la imagen**:
+   Explicado justo debajo.
+   
+3. **Lanzar el Docker Compose**:
+    ```bash
+   docker compose up
+   ```
 
 ### **Construcción de la Imagen Docker**
 
@@ -384,7 +390,10 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
    cd docker
    ```
 
-2. **AQUÍ LOS SIGUIENTES PASOS**
+2. **Crear la imagen** 
+   ```bash
+     powershell -File build-and-run.ps1
+   ```
 
 ### **Despliegue en Máquina Virtual**
 
@@ -395,7 +404,15 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 #### **Pasos para desplegar:**
 
-1. **Conectar a la máquina virtual**:
+1.**Crear carpeta en maquina virtual**: 
+  ```bash
+   [ruta/a/clave.key] [usuario]@[IP-o-dominio-VM] mkdir -p /home/[usuario]/practica-daw-2025-26-grupo-14
+   ```
+2. **Clonar la carpeta en maquina virtual**:
+3. ```bash
+   scp -r -i [ruta/a/clave.key] ./* [usuario]@[IP-o-dominio-VM] mkdir -p /home/[usuario]/practica-daw-2025-26-grupo-14/
+   ```
+4.  **Conectar a la máquina virtual**:
    ```bash
    ssh -i [ruta/a/clave.key] [usuario]@[IP-o-dominio-VM]
    ```
@@ -404,20 +421,32 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
    ```bash
    ssh -i ssh-keys/app.key vmuser@10.100.139.XXX
    ```
-
-2. **AQUÍ LOS SIGUIENTES PASOS**:
-
-### **URL de la Aplicación Desplegada**
-
-🌐 **URL de acceso**: `https://[nombre-app].etsii.urjc.es:8443`
+4. **Descargar docker una vez dentro**:
+   ```bash
+   sudo docker install
+   ```
+6. **Ir a la carpeta adecuada**:
+   ```bash
+   cd /home/[usuario]/practica-daw-2025-26-grupo-14
+   ```
+8. **Crear imagen**:
+   ```bash
+   sudo docker build -t ladob-api:latest -f docker/Dockerfile .
+   ```
+10. **Lanzar imagen**:
+    ```bash
+   sudo docker compose up
+   ```
+Da error con la base de datos al lanzarse así, dice que no existe la tabla USERS en la BBDD.
 
 #### **Credenciales de Usuarios de Ejemplo**
 
 | Rol | Usuario | Contraseña |
 |:---|:---|:---|
-| Administrador | admin | admin123 |
-| Usuario Registrado | user1 | user123 |
-| Usuario Registrado | user2 | user123 |
+| Administrador | admin | adminpass |
+| Usuario Registrado | Mario | pass |
+| Usuario Registrado | LuGar | pass |
+| Usuario Registrado | Carlos | pass |
 
 ### **Participación de Miembros en la Práctica 2**
 
