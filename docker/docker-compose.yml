@@ -1,30 +1,50 @@
 services:
   db:
     image: mysql:8.4
+    container_name: ladob-db
+    hostname: db
+    restart: unless-stopped
     environment:
       MYSQL_DATABASE: ladob
+      MYSQL_USER: ladob
+      MYSQL_PASSWORD: Th1$$1$$MyP@$$$$W0Rd
       MYSQL_ROOT_PASSWORD: Th1$$1$$MyP@$$$$W0Rd
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -pTh1$$1$$MyP@$$$$W0Rd --silent"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "--password=Th1$$1$$MyP@$$$$W0Rd", "--silent"]
       interval: 5s
       timeout: 5s
       retries: 20
       start_period: 20s
+    networks:
+      ladob-network:
+        aliases:
+          - db
 
   app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     image: ladob-api:latest #change this to <DockerHubUsername>/ladob-api:latest
+    container_name: ladob-app
+    hostname: app
     ports:
       - "8443:8443"
+      - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/ladob?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_USERNAME: ladob
       SPRING_DATASOURCE_PASSWORD: Th1$$1$$MyP@$$$$W0Rd
-      SPRING_JPA_HIBERNATE_DDL_AUTO: ${DDL_AUTO:-none}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${DDL_AUTO:-update}
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - ladob-network
 
 volumes:
   mysql-data:
+
+networks:
+  ladob-network:

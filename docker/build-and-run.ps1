@@ -20,7 +20,7 @@ $networkName = "ladob-network"
 $volumeName = "ladob-mysql-data"
 
 $dbName = "ladob"
-$dbUser = "root"
+$dbUser = "ladob"
 $dbPassword = 'Th1$1$MyP@$$W0Rd'
 $jdbcUrl = "jdbc:mysql://$($dbContainer):3306/$($dbName)?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true"
 
@@ -71,6 +71,8 @@ if (-not (docker ps -aq -f "name=$dbContainer")) {
         --name $dbContainer `
         --network $networkName `
         -e MYSQL_DATABASE=$dbName `
+        -e MYSQL_USER=$dbUser `
+        -e MYSQL_PASSWORD=$dbPassword `
         -e MYSQL_ROOT_PASSWORD=$dbPassword `
         -v "${volumeName}:/var/lib/mysql" `
         mysql:8.4 | Out-Null
