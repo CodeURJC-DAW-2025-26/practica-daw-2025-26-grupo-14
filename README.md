@@ -489,7 +489,6 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 - **Node.js**: versión 18.x o superior
 - **npm**: versión 9.x o superior (se instala con Node.js)
 - **Git**: para clonar el repositorio
-- **Maven**:para correr la aplicación original
 
 #### **Pasos para configurar el entorno de desarrollo**
 
@@ -519,18 +518,10 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
    npm install
    ```
    
-6. **Volver a la raíz**
+6. **Correr la aplicación**
    ```bash
-   cd ../
+   npm run dev
    ```
-      
-8. **Correr la aplicación**
-   ```bash
-   mvn spring-boot:run
-   ```
-   
-10. **Entrar en la aplicación con React**
-    Entrar el localhost:8080/new o en https://localhost:8484/new
 
 ### **Diagrama de Clases y Templates de la SPA**
 
