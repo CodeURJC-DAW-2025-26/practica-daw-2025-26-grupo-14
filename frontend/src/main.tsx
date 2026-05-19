@@ -39,32 +39,37 @@ async function initApp() {
   }
 
 
-  const router = createBrowserRouter([
+  const router = createBrowserRouter(
+    [
+      {
+        path: '/',
+        element: <Layout />,
+        children: [
+          { index: true, element: <HomePage /> },
+          { path: 'search', element: <SearchPage /> },
+          { path: 'login', element: <LoginPage /> },
+          { path: 'product/:id', element: <ProductPage /> },
+          { path: 'publish', element:<PublishPage /> },
+          { path: 'editproduct/:id', element: <PublishPage /> },
+          { path: 'my_listings', element: <MyListingsPage /> },
+          {path: 'my_deals', element: <DealsPage /> },
+          { path: 'create_rating/:orderId', element: <RatingFormPage /> },
+          { path: 'edit_rating/:ratingId', element: <RatingFormPage /> },
+          { path: 'register', element: <RegisterPage /> },
+          { path: 'chat/:orderId', element: <SendBirdPage /> },
+          { path: 'user_account/:id', element: <UserAccountPage /> },
+          { path: 'edituser/:id', element: <RegisterPage /> },
+          { path: 'administrator', element: <AdministratorPage /> },
+          { path: 'admin_users', element: <AdminUsersPage /> },
+          { path: 'admin_listings', element: <AdminListingsPage /> },
+          { path: 'admin_stats', element: <AdminStatsPage /> }
+        ],
+      },
+    ],
     {
-      path: '/',
-      element: <Layout />,
-      children: [
-        { index: true, element: <HomePage /> },
-        { path: 'search', element: <SearchPage /> },
-        { path: 'login', element: <LoginPage /> },
-        { path: 'product/:id', element: <ProductPage /> },
-        { path: 'publish', element:<PublishPage /> },
-        { path: 'editproduct/:id', element: <PublishPage /> },
-        { path: 'my_listings', element: <MyListingsPage /> },
-        {path: 'my_deals', element: <DealsPage /> },
-        { path: 'create_rating/:orderId', element: <RatingFormPage /> },
-        { path: 'edit_rating/:ratingId', element: <RatingFormPage /> },
-        { path: 'register', element: <RegisterPage /> },
-        { path: 'chat/:orderId', element: <SendBirdPage /> },
-        { path: 'user_account/:id', element: <UserAccountPage /> },
-        { path: 'edituser/:id', element: <RegisterPage /> },
-        { path: 'administrator', element: <AdministratorPage /> },
-        { path: 'admin_users', element: <AdminUsersPage /> },
-        { path: 'admin_listings', element: <AdminListingsPage /> },
-        { path: 'admin_stats', element: <AdminStatsPage /> }
-      ],
-    },
-  ])
+      basename: '/new',
+    }
+  )
 
   createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router} />

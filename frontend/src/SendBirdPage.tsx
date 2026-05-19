@@ -85,10 +85,9 @@ function SendBirdPage() {
 
         const isSeller = deal.product?.sellerId === userId
         const currentUserId = isSeller ? deal.product.sellerId.toString() : deal.buyerId.toString()
-        const otherUserId = isSeller ? deal.buyerId.toString() : deal.product.sellerId.toString()
         const currentUserName = isSeller ? deal.product.seller.name : deal.buyer.name
 
-        sb.connect(currentUserId, (user: any, error: any) => {
+        sb.connect(currentUserId, (_user: any, error: any) => {
             if (error) {
                 console.error("Connect error", error)
                 setError('Failed to connect to chat')
@@ -164,7 +163,7 @@ function SendBirdPage() {
         const text = messageText.trim()
         if (!text || !channelRef.current) return
 
-        channelRef.current.sendUserMessage(text, (message: any, err: any) => {
+        channelRef.current.sendUserMessage(text, (_message: any, err: any) => {
             if (!err) {
                 setMessageText('')
                 // Message will be added via onMessageReceived

@@ -296,9 +296,9 @@ async function deleteRating(ratingId: number) {
                         <Link to={`/user_account/${order.counterpart?.id}`} className="btn btn-success me-2">
                           See Buyer
                         </Link>
-                        <a href={`/chat/${order.id}`} className="btn btn-success me-2">
+                        <Link to={`/chat/${order.id}`} className="btn btn-success me-2">
                           Chat with buyer
-                        </a>
+                        </Link>
 
                         {order.ratingId ? (
                             <button
@@ -384,9 +384,9 @@ async function deleteRating(ratingId: number) {
                         <Link to={`/user_account/${order.counterpart?.id}`} className="btn btn-success me-2">
                           See Seller
                         </Link>
-                        <a href={`/chat/${order.id}`} className="btn btn-success me-2">
+                        <Link to={`/chat/${order.id}`} className="btn btn-success me-2">
                           Chat with seller
-                        </a>
+                        </Link>
 
                         {order.ratingId ? (
                           <button

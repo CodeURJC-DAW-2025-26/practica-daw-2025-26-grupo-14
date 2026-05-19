@@ -59,7 +59,7 @@ function AdminUsersPage() {
 
   async function deleteUser(userId: number) {
     try {
-      const res = await fetch(`/api/v1/users/${userId}`, {
+      await fetch(`/api/v1/users/${userId}`, {
         method: 'DELETE',
         credentials: 'include',
       })
@@ -134,9 +134,9 @@ function AdminUsersPage() {
             >
               <i className="fas fa-chart-pie me-2"></i>Statistics
             </Link>
-            <a href="/" className="d-block text-decoration-none py-3 px-3 text-muted" style={{ color: '#adb5bd' }}>
+            <Link to="/" className="d-block text-decoration-none py-3 px-3 text-muted" style={{ color: '#adb5bd' }}>
               <i className="fas fa-sign-out-alt me-2"></i>Home
-            </a>
+            </Link>
           </aside>
 
           <main className="col-md-10 p-4">
@@ -205,9 +205,9 @@ function AdminUsersPage() {
                                 >
                                   {savingId === user.id ? 'Saving...' : banned ? 'Unban' : 'Ban'}
                                 </button>
-                                <a href={`/user_account/${user.id}`} className="btn btn-outline-secondary btn-sm">
+                                <Link to={`/user_account/${user.id}`} className="btn btn-outline-secondary btn-sm">
                                   View
-                                </a>
+                                </Link>
                                 <button
                                     type="button"
                                     className="btn btn-outline-dark btn-sm ms-2"

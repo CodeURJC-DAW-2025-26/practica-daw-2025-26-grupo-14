@@ -65,9 +65,9 @@ function AdminListingsPage() {
             >
               <i className="fas fa-chart-pie me-2"></i>Statistics
             </Link>
-            <a href="/" className="d-block text-decoration-none py-3 px-3 text-muted" style={{ color: '#adb5bd' }}>
+            <Link to="/" className="d-block text-decoration-none py-3 px-3 text-muted" style={{ color: '#adb5bd' }}>
               <i className="fas fa-sign-out-alt me-2"></i>Home
-            </a>
+            </Link>
           </aside>
 
         <main className="col-md-10 p-4">

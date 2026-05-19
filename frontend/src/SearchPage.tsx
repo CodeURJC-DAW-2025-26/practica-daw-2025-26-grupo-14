@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { searchProducts, type ProductsState } from './products'
 
@@ -64,12 +64,12 @@ function SearchPage() {
                         {prod.products.map((p) => (
                             <div className="col-lg-4 col-md-6 col-sm-6 d-flex" key={p.id}>
                                 <div className="card w-100 my-2 shadow-2-strong">
-                                    <a href={`/new/product/${p.id}`}>
+                                    <Link to={`/product/${p.id}`}>
                                         <img 
                                             src={p.imageIds?.[0] ? `/images/${p.imageIds[0]}` : '/my_images/noImage.png'} 
                                             className="card-img-top" 
                                         />
-                                    </a>
+                                    </Link>
                                     <div className="card-body">
                                         <h5>{p.name}</h5>
                                         <p>{p.shortDescription ?? ''}</p>

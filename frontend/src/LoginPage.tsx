@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from './authStore'
 
 function LoginPage() {
@@ -77,7 +77,7 @@ async function handleSubmit(e: React.FormEvent) {
             </button>
           </form>
           <p className="mt-3 text-center">
-            Don't have an account? <a href="/register">Register</a>
+            Don't have an account? <Link to="/register">Register</Link>
           </p>
         </div>
       </div>

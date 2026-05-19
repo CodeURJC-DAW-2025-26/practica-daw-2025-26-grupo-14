@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { useAuthStore } from "./authStore"
 import { fetchLocalProducts, fetchProductsPage } from "./products"
 import type { Product, ProductsState} from "./products"
@@ -92,7 +93,7 @@ function HomePage() {
                         Everything you need, for less.
                         </h2>
                         <p className="text-white">Discover what you’ve been looking for at unbeatable prices on our marketplace, where users sell the things they don’t use anymore.</p>
-                        <a href="#" className="btn btn-light shadow-0 text-primary"> View more </a>
+                        <Link to="/search" className="btn btn-light shadow-0 text-primary"> View more </Link>
                     </div>
                     </div>
                 </main>
@@ -101,7 +102,7 @@ function HomePage() {
                     <div className="card-body text-center pb-5">
                         <h5 className="pt-5 text-white">Don’t use it anymore? Sell it.</h5>
                         <p className="text-white">oin our website and start selling your unused items easily.</p>
-                        <a href="#" className="btn btn-light shadow-0 text-primary"><i className="fas fa-user-alt m-1 me-md-2"></i> Sign in </a>
+                        <Link to="/login" className="btn btn-light shadow-0 text-primary"><i className="fas fa-user-alt m-1 me-md-2"></i> Sign in </Link>
                     </div>
                     </div>
                 </aside>
@@ -157,9 +158,9 @@ function HomePage() {
                 { recommendedProd.products.map((product: Product) => (
                     <div className="col-lg-3 col-md-6 col-sm-6" key={product.id}>
                         <div className="card my-2 shadow-0">
-                            <a href={`/product/${product.id}`}>
+                            <Link to={`/product/${product.id}`}>
                                 <img src={product.imageIds?.[0] ? `/images/${product.imageIds[0]}` : '/my_images/noImage.png'} className="card-img-top rounded-2" style={{ aspectRatio: '1/1' }} />
-                            </a>
+                            </Link>
                             <div className="card-body p-0 pt-3">
                                 <h5 className="card-title">{product.price.toFixed(2)} €</h5>
                                 <p className="card-text mb-0">{product.name}</p>

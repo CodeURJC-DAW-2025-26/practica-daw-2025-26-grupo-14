@@ -17,7 +17,7 @@ function Header() {
             credentials: 'include',
         })
         logout()
-        window.location.href = '/'
+        navigate('/')
     }
 
     function handleSearch(e: React.FormEvent) {
@@ -92,22 +92,22 @@ function Header() {
             <div className="collapse navbar-collapse" id="navbarLeftAlignExample">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="search?category=Clothing">Clothing</a>
+                    <Link className="nav-link text-dark" to="/search?category=Clothing">Clothing</Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="search?category=Electronics">Electronics</a>
+                    <Link className="nav-link text-dark" to="/search?category=Electronics">Electronics</Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="search?category=Home">Home</a>
+                    <Link className="nav-link text-dark" to="/search?category=Home">Home</Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="search?category=Sports">Sports</a>
+                    <Link className="nav-link text-dark" to="/search?category=Sports">Sports</Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="search?category=Books">Books</a>
+                    <Link className="nav-link text-dark" to="/search?category=Books">Books</Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-dark" href="search?category=Others">Others</a>
+                    <Link className="nav-link text-dark" to="/search?category=Others">Others</Link>
                 </li>
                 </ul>
             </div>

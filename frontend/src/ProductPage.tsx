@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useAuthStore } from './authStore'
 
 type Seller = {
@@ -115,7 +115,7 @@ function ProductPage() {
             <span className="text-muted">{p.price} €</span>
           </div>
           <div className="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
-            <a className="btn btn-outline-dark mt-auto" href={`/product/${p.id}`}>View</a>
+            <Link className="btn btn-outline-dark mt-auto" to={`/product/${p.id}`}>View</Link>
           </div>
         </div>
       </div>
@@ -183,7 +183,7 @@ function ProductPage() {
 
               {/* Seller box */}
               {product.seller && (
-                <a href={`/user_account/${product.seller.id}`} className="text-decoration-none text-dark">
+                <Link to={`/user_account/${product.seller.id}`} className="text-decoration-none text-dark">
                   <div className="p-3 border rounded mt-3">
                     <div className="d-flex align-items-center">
                       <img
@@ -207,7 +207,7 @@ function ProductPage() {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               )}
             </div>
 
