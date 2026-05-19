@@ -435,17 +435,17 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - [Alejandro Triguero]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Validaciones, parte de APIRest y solucion de errores de la misma]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Validación ratting](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/3ced9a34a28faa374a5e9da338f49b19f1156e6a)  | [Archivo1](URL_archivo_1)   |
+|2| [Validación model](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/9cea731c00a9764bca3125fac61c8f509838e260)  | [Archivo2](URL_archivo_2)   |
+|3| [Configuración seguridad API](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/17e6a75b64b94185a74a59f33d9421612942c35f)  | [Archivo3](URL_archivo_3)   |
+|4| [Configuración inicial para Postman](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/cf879870d631f20802c2a1f087b8cac6762d4395)  | [Archivo4](URL_archivo_4)   |
+|5| [Pequeños cambios y solucion de erroes](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/ce8dfa9f380a20254c5cd08853138594827ce063)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
@@ -554,7 +554,7 @@ Diagrama mostrando los componentes React, hooks personalizados, servicios y sus 
 |1| [Empezar a familiarizarnos](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/f0b90d78a28105f2ff17ecdbfc714792cb4b0abc)  | [Archivo1](URL_archivo_1)   |
 |2| [Arreglar errores](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/20c87850c29c60e92f7d0182f04b6b733c2c9fd7)  | [Archivo2](URL_archivo_2)   |
 |3| [Pagina principal ](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/20c87850c29c60e92f7d0182f04b6b733c2c9fd7)  | [Archivo3](URL_archivo_3)   |
-|4| Busqueda en react] (https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/7c21ef0c02399b3b74f2f305613780faf49f48e2)  | [Archivo4](URL_archivo_4)   |
+|4| [Busqueda en react](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/7c21ef0c02399b3b74f2f305613780faf49f48e2)  | [Archivo4](URL_archivo_4)   |
 |5| [Listado de productos](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/2be6484c9ee28b804c053cc002538502ae6e792a)  | [Archivo5](URL_archivo_5)   |
 
 ---
