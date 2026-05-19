@@ -531,44 +531,40 @@ Diagrama mostrando los componentes React, hooks personalizados, servicios y sus 
 
 ### **Participación de Miembros en la Práctica 3**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - [Sara Tuset Villoria]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Estructurar la app SPA, hacer parte de sus funcionalidades, enlazarlo a la app maven y readme]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Estructurar la app SPA](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/a40f3523420cf6bef8d00d31112c58f6f15005d6)  | [Archivo1](URL_archivo_1)   |
+|2| [Añadir funcionalidad](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/01e514a355eaa052e99123fe7dbf175995177301)  | [Archivo2](URL_archivo_2)   |
+|3| [Añadir otra funcionalidad](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/b313c7251013f4e5986fb78b0ef59ede562a13fb)  | [Archivo3](URL_archivo_3)   |
+|4| [Enlazar la app](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/6ac0832c5a75575a96f2a6c58ce675c548d0d958)  | [Archivo4](URL_archivo_4)   |
+|5| [Encargarme del README](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/9c554fbcf74d1df8d98b9dae7b810a44783291bd)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - [Alejandro Triguero Ruiz]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[EMpezar a familiarizarnos con las aplicaciones SPA, arreglar errores y añadir contenido.]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Empezar a familiarizarnos](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/f0b90d78a28105f2ff17ecdbfc714792cb4b0abc)  | [Archivo1](URL_archivo_1)   |
+|2| [Arreglar errores](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/20c87850c29c60e92f7d0182f04b6b733c2c9fd7)  | [Archivo2](URL_archivo_2)   |
+|3| [Arreglar errores](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/f4eb9e6e53003f660d1d05765e34492be1f252bd)  | [Archivo3](URL_archivo_3)   |
+|4| [Añadir contenido](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/2be6484c9ee28b804c053cc002538502ae6e792a)  | [Archivo4](URL_archivo_4)   |
+|5| [Añadir contenido](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/6bba781ed3bbd00297a6b1eb81356b68d3a0f610)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - [Sergio Villagarcía Sánchez]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Añadir contenido.]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Añadir contenido](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/commit/ae0572bdcce0c0b8c751623631a6a1bdfb8ecbbc)  | [Archivo1](URL_archivo_1)   |
 
 ---
