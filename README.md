@@ -337,7 +337,7 @@ Que se pueda acceder de forma segura y cambios menores de front.
 > Hemos usado Trello para organizarnos mejor.
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
+📹 **[Enlace al vídeo en YouTube](https://youtu.be/zMVI2Rk2z_8)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Documentación de la API REST**
