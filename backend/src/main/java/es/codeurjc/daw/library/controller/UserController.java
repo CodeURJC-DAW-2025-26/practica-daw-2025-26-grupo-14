@@ -182,11 +182,15 @@ public class UserController {
 		if (imageFields != null && !imageFields.isEmpty()) {
 			
 			for (MultipartFile imageField : imageFields) {
-				Image image = imageService.createImage(imageField.getInputStream());
-				product.setImage(image);
+				if (!imageField.isEmpty()){
+					Image image = imageService.createImage(imageField.getInputStream());
+					product.setImage(image);
+				}
 			}
 			
 		}
+
+		product.setSeller(seller.get());
 
 		productService.save(product);
 		return "redirect:/my_listings";
