@@ -156,14 +156,17 @@ public class UserController {
 			model.addAttribute("error", "You should be logged in to publish a product.");
 			return "publish";
 		}
-		product.setSeller(seller.get());
 		product.setDate();
 
 		if (product.getId() != null) {
 			Optional<Product> p = productService.getProductById(product.getId());
 			if (!p.isPresent()) {
-				model.addAttribute("error", "Product couldn´t be found.");
-				return "publish";
+				model.addAttribute("errorMessage", "Product couldn´t be found.");
+				return "error";
+			}
+			if (!p.get().getSeller().getName().equals(sellerName)) {
+				model.addAttribute("errorMessage", "You can only edit your own products.");
+				return "error";
 			}
 			if (deleteImageIds == null){
 				product.setImages(p.get().getImages());
