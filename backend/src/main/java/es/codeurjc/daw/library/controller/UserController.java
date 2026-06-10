@@ -34,6 +34,8 @@ import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.RatingService;
 import org.springframework.data.domain.Page;
 
+import org.springframework.web.client.HttpClientErrorException;
+
 
 @Controller
 public class UserController {
@@ -257,7 +259,7 @@ public class UserController {
 				int total = 0;
 				int sum = 0;
 				for (Rating rating : user.get().getMyRatings()) {
-					count_ratings[rating.getRating()] += 1;
+					count_ratings[rating.getRating()-1] += 1;
 					sum += rating.getRating();
 					total += 1;
 				}
@@ -437,13 +439,18 @@ public class UserController {
 		headers.add("Api-Token", apiToken);
 		HttpEntity<Void> request = new HttpEntity<>(headers);
 
-  
-        rt.exchange(
-            "https://api-" + appId + ".sendbird.com/v3/group_channels/" + channelUrl,
-            HttpMethod.DELETE,
-            request,
-            String.class
-        );
+		try {
+			rt.exchange(
+				"https://api-" + appId + ".sendbird.com/v3/group_channels/" + channelUrl,
+				HttpMethod.DELETE,
+				request,
+				String.class
+			);
+		} catch (HttpClientErrorException e) {
+			if (!e.getResponseBodyAsString().contains("\"code\":400201")) {
+				throw e;
+			}
+		}
 
 
 		Optional<Order> order = orderService.getOrderById(id);
