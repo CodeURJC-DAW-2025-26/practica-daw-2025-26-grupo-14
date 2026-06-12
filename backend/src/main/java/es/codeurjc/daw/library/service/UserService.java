@@ -43,7 +43,7 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 
-    	public boolean exist(long id) {
+    public boolean exist(long id) {
 		return userRepository.existsById(id);
 	}
 
@@ -55,10 +55,10 @@ public class UserService {
         return userRepository.countUsersByCreatedAt();
     }
 
-        public void banUser(Long id) {
+    public void banUser(Long id) {
         userRepository.findById(id).ifPresent(user -> {
-            user.setBanned(!user.getIsBanned()); // alterna ban/unban
-            userRepository.save(user);       // guarda el cambio
+            user.setBanned(!user.getIsBanned()); // switch ban/unban
+            userRepository.save(user);       
         });
     }
 
