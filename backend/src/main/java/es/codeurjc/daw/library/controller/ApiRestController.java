@@ -208,6 +208,9 @@ public class ApiRestController {
     @GetMapping("/users")
     public List<UserDto> getUsers(@RequestParam(defaultValue = "0") int page) {
         Page<User> userPage = userService.getUsersPage(page, 10);
+        if (!securityUtil.isAdmin()) {
+            userPage.getContent().forEach(dto -> dto.setDni(null));
+        }
         return DtoMapper.toUserDtoList(userPage.getContent());
     }
 
@@ -215,8 +218,13 @@ public class ApiRestController {
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
         User user = userService.getUserById(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id " + id));
-
-        return ResponseEntity.ok(DtoMapper.toDto(user));
+        UserDto dto = DtoMapper.toDto(user);
+        if (!securityUtil.isAdmin()) {
+            dto.setDni(null);
+        }else{
+            dto.setDni(user.getDni());
+        }
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping("/users") //Shouldn´t we use register?
