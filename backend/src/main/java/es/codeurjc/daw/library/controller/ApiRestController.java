@@ -585,12 +585,10 @@ public class ApiRestController {
         ChartDto dto = new ChartDto();
         dto.setName("userHistorical");
         
-        Map<String, Long> data = userService.getAllUsers().stream()
-            .collect(Collectors.groupingBy(
-                    p -> p.getCreatedAt().toString(),
-                    TreeMap::new,
-                    Collectors.counting()
-            ));
+        Map<String, Long> data = new TreeMap<>();
+        for (Object[] row : userService.countUsersByCreatedAt()) {
+            data.put(row[0].toString(), ((Number) row[1]).longValue());
+        }
         data.put("Total", (long) userService.getAllUsers().size());
 
         dto.setData(data);
