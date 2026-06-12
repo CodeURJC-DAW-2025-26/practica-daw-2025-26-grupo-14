@@ -177,7 +177,7 @@ A su vez, en la parte izquierda de la pagina, se puede ver un panel de administr
 ## 🛠 **Práctica 1: Web con HTML generado en servidor y AJAX**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://youtu.be/GAmT_ejYk7U)**
+📹 **[Enlace al vídeo en YouTube](https://youtu.be/VvV-W1bqf14)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Navegación y Capturas de Pantalla**
@@ -223,8 +223,8 @@ Han cambiado principalmente en como se ven porque ahora tienen datos, aunque se 
 
 1. **Clonar el repositorio**
    ```bash
-   git clone https://github.com/[usuario]/[nombre-repositorio].git
-   cd [nombre-repositorio]
+   git clone https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14.git
+   cd practica-daw-2025-26-grupo-14
    ```
 
 2. **Crear una base de datos donde guardar los datos**
