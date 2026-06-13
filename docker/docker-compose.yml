@@ -1,6 +1,9 @@
 services:
   db:
-    image: mysql:8.4
+    build:
+      context: .
+      dockerfile: db.Dockerfile
+    image: ladob-mysql:latest
     container_name: ladob-db
     hostname: db
     restart: unless-stopped
@@ -26,7 +29,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: ladob-api:latest #change this to <DockerHubUsername>/ladob-api:latest
+    image: ladob-api:latest #change this to <DockerHubUsername>/ladob-api:latest?
     container_name: ladob-app
     hostname: app
     ports:
