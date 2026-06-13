@@ -50,6 +50,11 @@ import es.codeurjc.daw.library.service.RatingService;
 import es.codeurjc.daw.library.service.UserService;
 import es.codeurjc.daw.library.util.SecurityUtil;
 
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.MediaTypeFactory;
+import java.sql.SQLException;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -497,14 +502,21 @@ public class ApiRestController {
     }
 
     @GetMapping("/images/{id}")
-    public ResponseEntity<ImageDto> getImage(@PathVariable Long id) {
-        Image image = imageService.getImage(id);
-        
-        if (image == null) {
+    public ResponseEntity<Resource> getImageFile(@PathVariable Long id){
+        try {
+            Resource imageFile = imageService.getImageFile(id);
+
+            MediaType mediaType = MediaTypeFactory
+                    .getMediaType(imageFile)
+                    .orElse(MediaType.IMAGE_JPEG);
+
+            return ResponseEntity
+                    .ok()
+                    .contentType(mediaType)
+                    .body(imageFile);
+        } catch (SQLException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found with id " + id);
         }
-
-        return ResponseEntity.ok(DtoMapper.toDto(image));
     }
 
     // --------- Charts ---------
