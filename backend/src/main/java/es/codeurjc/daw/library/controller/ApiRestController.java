@@ -89,7 +89,7 @@ public class ApiRestController {
     }
     
     @GetMapping("/products") 
-    public List<ProductDto> getProducts(
+    public Page<ProductDto> getProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) String category,
@@ -100,8 +100,9 @@ public class ApiRestController {
 
         Page<Product> productPage = productService.getProductsPage(page, 10, keyword, category, minPrice, maxPrice, minSellerRate, sellerId);
 
-        return DtoMapper.toProductDtoList(productPage.getContent());
+        return productPage.map(DtoMapper::toDto);
     }
+
 
     @GetMapping("/products/{id}")
     public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {
@@ -211,12 +212,12 @@ public class ApiRestController {
     // --------- Users ---------
 
     @GetMapping("/users")
-    public List<UserDto> getUsers(@RequestParam(defaultValue = "0") int page) {
+    public Page<UserDto> getUsers(@RequestParam(defaultValue = "0") int page) {
         Page<User> userPage = userService.getUsersPage(page, 10);
         if (!securityUtil.isAdmin()) {
             userPage.getContent().forEach(dto -> dto.setDni(null));
         }
-        return DtoMapper.toUserDtoList(userPage.getContent());
+        return userPage.map(DtoMapper::toDto);
     }
 
     @GetMapping("/users/{id}")
