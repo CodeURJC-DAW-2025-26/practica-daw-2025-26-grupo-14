@@ -404,36 +404,41 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 #### **Pasos para desplegar:**
 
-1.**Crear carpeta en maquina virtual**: 
-  ```bash
-   [ruta/a/clave.key] [usuario]@[IP-o-dominio-VM] mkdir -p /home/[usuario]/practica-daw-2025-26-grupo-14
-   ```
-2. **Clonar la carpeta en maquina virtual**:
-3. ```bash
-   scp -r -i [ruta/a/clave.key] ./* [usuario]@[IP-o-dominio-VM] mkdir -p /home/[usuario]/practica-daw-2025-26-grupo-14/
-   ```
-4.  **Conectar a la máquina virtual**:
+1.  **Conectar a la máquina virtual**:
    ```bash
    ssh -i [ruta/a/clave.key] [usuario]@[IP-o-dominio-VM]
    ```
    
    Ejemplo:
    ```bash
-   ssh -i ssh-keys/app.key vmuser@10.100.139.XXX
+   ssh -i ./ssh-keys/appWeb14.key vmuser@10.100.139.125
    ```
-4. **Descargar docker una vez dentro**:
+2. **Clonar la carpeta en maquina virtual**:
+   ```bash
+   git clone https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14
+   ```
+3. **Descargar docker una vez dentro**:
    ```bash
    sudo docker install
    ```
-6. **Ir a la carpeta adecuada**:
+4. **Ir a la carpeta adecuada**:
    ```bash
    cd /home/[usuario]/practica-daw-2025-26-grupo-14
    ```
-8. **Crear imagen**:
+   Ejemplo:
+   ```bash
+   cd /home/vmuser/practica-daw-2025-26-grupo-14
+   ```
+5. **Crear imagen**:
    ```bash
    sudo docker build -t ladob-api:latest -f docker/Dockerfile .
    ```
-10. **Lanzar imagen**:
+6. **Crear imagen con compose**:
+    ```bash
+   sudo docker compose up --build
+   ```
+
+7. **Lanzar imagen**:
    ```bash
    sudo docker compose up
    ```
