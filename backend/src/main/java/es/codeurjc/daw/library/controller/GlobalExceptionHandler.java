@@ -15,6 +15,18 @@ import jakarta.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler {
 
 
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    public ResponseEntity<?> handleAccessDenied(
+            org.springframework.security.access.AccessDeniedException ex,
+            HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(Map.of(
+                        "status", 403,
+                        "error", "Forbidden",
+                        "message", "Access denied",
+                        "path", request.getRequestURI()));
+    }
+
     @ExceptionHandler(Exception.class)
     public Object handleGeneralException(Exception ex, Model model, HttpServletRequest request) {
 

@@ -287,9 +287,14 @@ public class ApiRestController {
         if (userDto.getDni() != null) {
             existing.setDni(userDto.getDni());
         }
+
         if (userDto.getIsBanned() != null) {
+            if (!securityUtil.isAdmin()) {//check if the user is an admin before allowing to ban another user.
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only admins can ban users");
+            }
             existing.setBanned(userDto.getIsBanned());
         }
+
         if (userDto.getPassword() != null && !userDto.getPassword().isBlank()) {
             existing.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
@@ -489,8 +494,10 @@ public class ApiRestController {
         }
 
         Order order = rating.getOrder();
-        order.setRating(null);
-        orderService.save(order);
+        if (order != null) {
+            order.setRating(null);
+            orderService.save(order);
+        }
 
         ratingService.delete(id);
         return ResponseEntity.noContent().build();

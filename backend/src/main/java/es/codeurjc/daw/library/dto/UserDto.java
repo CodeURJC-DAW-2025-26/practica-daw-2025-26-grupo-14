@@ -1,19 +1,34 @@
 package es.codeurjc.daw.library.dto;
 
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 public class UserDto {
 
     private Long id;
+
     private String fullName;
+
     private String name;
+
     private String email;
+
     private String city;
+
+    @JsonProperty(access = Access.WRITE_ONLY) //This property is for not to expose the dni in the response, but it can be set in the request. we can do this or instead make 2 different DTOs, one for the request and another for the response, which is a better approach because with this aprroach the user cant see his own dni in the response, but with the other approach he can see it in the response.
     private String dni;
+
     private List<String> roles;
+
     private Boolean isBanned;
+
     private String createdAt;
+
     private Long profilePictureId;
+
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//This property is for not to expose the password in the response, but it can be set in the request.
     private String password;
 
     public UserDto() {

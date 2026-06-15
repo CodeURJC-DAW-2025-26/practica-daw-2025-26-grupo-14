@@ -87,7 +87,8 @@ public class WebSecurityConfig {
                 .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/v1/ratings/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/v1/ratings/**").hasAnyRole("USER", "ADMIN")
                 // Users management: only ADMIN
-                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/v1/users/**").hasRole("ADMIN")
+				.requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/v1/users/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/v1/users/**").hasAnyRole("ADMIN")
                 // Any other API route: authenticated
                 .anyRequest().authenticated()
             )
