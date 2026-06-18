@@ -1,11 +1,7 @@
 services:
   db:
-    build:
-      context: .
-      dockerfile: db.Dockerfile
-    image: ladob-mysql:latest
+    image: mysql:8.4
     container_name: ladob-db
-    hostname: db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ladob
@@ -20,34 +16,22 @@ services:
       timeout: 5s
       retries: 20
       start_period: 20s
-    networks:
-      ladob-network:
-        aliases:
-          - db
 
   app:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    image: ladob-api:latest #change this to <DockerHubUsername>/ladob-api:latest?
+    image: atrigueror/ladob-api:latest
     container_name: ladob-app
-    hostname: app
     ports:
       - "8443:8443"
       - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/ladob?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: ladob
+      SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Th1$$1$$MyP@$$$$W0Rd
-      SPRING_JPA_HIBERNATE_DDL_AUTO: ${DDL_AUTO:-update}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${DDL_AUTO:-none}
     depends_on:
       db:
         condition: service_healthy
-    networks:
-      - ladob-network
 
 volumes:
   mysql-data:
 
-networks:
-  ladob-network:
