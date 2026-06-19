@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
+import noImage from './assets/noImage.png'
 
 type Seller = {
   id: number
@@ -43,7 +44,7 @@ function ProductPage() {
       .then(res => res.json())
       .then(data => {
         setProduct(data)
-        setMainImage(data.imageIds?.[0] ? `/images/${data.imageIds[0]}` : '/my_images/noImage.png')
+        setMainImage(data.imageIds?.[0] ? `/images/${data.imageIds[0]}` : noImage)
         setLoading(false)
       })
   }, [id])
@@ -106,7 +107,7 @@ function ProductPage() {
       <div className="col mb-5">
         <div className="card h-100">
           <img
-            src={p.imageIds?.[0] ? `/images/${p.imageIds[0]}` : '/my_images/noImage.png'}
+            src={p.imageIds?.[0] ? `/images/${p.imageIds[0]}` : noImage}
             className="card-img-top rounded-2"
             style={{ aspectRatio: '1/1', objectFit: 'cover' }}
           />
@@ -188,7 +189,7 @@ function ProductPage() {
                     <div className="d-flex align-items-center">
                       <img
                         className="rounded-circle me-3"
-                        src={product.seller.profilePictureId ? `/images/${product.seller.profilePictureId}` : '/my_images/noImage.png'}
+                        src={product.seller.profilePictureId ? `/images/${product.seller.profilePictureId}` : noImage}
                         width="70" height="70"
                         style={{ objectFit: 'cover' }}
                       />

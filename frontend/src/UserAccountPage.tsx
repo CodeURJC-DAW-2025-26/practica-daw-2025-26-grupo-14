@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useAuthStore } from "./stores/authStore"
-
+import noImage from './assets/noImage.png'
 
 function UserAccountPage() {
   const { id } = useParams()
@@ -106,7 +106,7 @@ function UserAccountPage() {
                     src={
                       user.profilePicture
                         ? `/images/${user.profilePicture.id}`
-                        : "/my_images/noImage.png"
+                        : noImage
                     }
                     className="rounded-circle img-fluid mb-3"
                     style={{ width: 150, height: 150, objectFit: "cover" }}
@@ -205,7 +205,7 @@ function UserAccountPage() {
                       src={
                         p.images && p.images.length > 0
                           ? `/images/${p.images[0].id}`
-                          : "/my_images/noImage.png"
+                          : noImage
                       }
                       className="card-img-top"
                       style={{ height: 200, objectFit: "cover" }}

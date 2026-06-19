@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
+import noImage from './assets/noImage.png'
 
 type Product = {
   id: number
@@ -74,7 +75,7 @@ function MyListingsPage() {
               <div className="card h-100 shadow-sm">
                 <Link to={`/product/${p.id}`}>
                   <img
-                    src={p.imageIds?.[0] ? `/images/${p.imageIds[0]}` : '/my_images/noImage.png'}
+                    src={p.imageIds?.[0] ? `/images/${p.imageIds[0]}` : noImage}
                     className="card-img-top rounded-2"
                     style={{ aspectRatio: '1/1', objectFit: 'cover' }}
                   />

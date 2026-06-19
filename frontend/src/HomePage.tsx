@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useAuthStore } from "./stores/authStore"
+import noImage from './assets/noImage.png';
 import { fetchLocalProducts, fetchProductsPage } from "./components/products"
 import type { Product, ProductsState} from "./components/products"
 
@@ -124,7 +125,7 @@ function HomePage() {
                         <div className="card me-3 shadow-sm border rounded-2 flex-shrink-0" style={{ minWidth: '220px', border: '1px solid #ccc' }}>
                         <a href={product.imageIds?.[0]
                                 ? `/images/${product.imageIds[0]}`
-                                : '/my_images/noImage.png'
+                                : noImage
                             }>
                             
                         </a>
@@ -159,7 +160,7 @@ function HomePage() {
                     <div className="col-lg-3 col-md-6 col-sm-6" key={product.id}>
                         <div className="card my-2 shadow-0">
                             <Link to={`/product/${product.id}`}>
-                                <img src={product.imageIds?.[0] ? `/images/${product.imageIds[0]}` : '/my_images/noImage.png'} className="card-img-top rounded-2" style={{ aspectRatio: '1/1' }} />
+                                <img src={product.imageIds?.[0] ? `/images/${product.imageIds[0]}` : noImage} className="card-img-top rounded-2" style={{ aspectRatio: '1/1' }} />
                             </Link>
                             <div className="card-body p-0 pt-3">
                                 <h5 className="card-title">{product.price.toFixed(2)} €</h5>

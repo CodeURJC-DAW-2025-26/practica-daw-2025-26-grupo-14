@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
+import noImage from './assets/noImage.png'
 
 type Order = {
   id: number
@@ -257,7 +258,7 @@ async function deleteRating(ratingId: number) {
                       <div className="col-lg-7">
                         <div className="d-flex">
                           <img
-                            src={`/images/${order.product?.imageIds?.[0] ?? 'noImage.png' }`}
+                            src={`/images/${order.product?.imageIds?.[0] ?? noImage }`}
                             className="border rounded me-3"
                             style={{ width: 120, height: 120, objectFit: 'cover' }}
                             alt={product?.name ?? 'Product image'}
@@ -338,7 +339,7 @@ async function deleteRating(ratingId: number) {
                       <div className="col-lg-7">
                         <div className="d-flex">
                           <img
-                            src={`/images/${order.product?.imageIds?.[0] ?? 'noImage.png' }`}
+                            src={`/images/${order.product?.imageIds?.[0] ?? noImage }`}
                             className="border rounded me-3"
                             style={{ width: 120, height: 120, objectFit: 'cover' }}
                             alt={product?.name ?? 'Product image'}

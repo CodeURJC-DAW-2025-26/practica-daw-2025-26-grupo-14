@@ -1,6 +1,7 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { searchProducts, type ProductsState } from './components/products'
+import noImage from './assets/noImage.png'
 
 function SearchPage() {
     const [searchParams] = useSearchParams()
@@ -66,7 +67,7 @@ function SearchPage() {
                                 <div className="card w-100 my-2 shadow-2-strong">
                                     <Link to={`/product/${p.id}`}>
                                         <img 
-                                            src={p.imageIds?.[0] ? `/images/${p.imageIds[0]}` : '/my_images/noImage.png'} 
+                                            src={p.imageIds?.[0] ? `/images/${p.imageIds[0]}` : noImage} 
                                             className="card-img-top" 
                                         />
                                     </Link>
