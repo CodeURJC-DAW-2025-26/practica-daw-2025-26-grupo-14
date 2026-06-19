@@ -155,7 +155,7 @@ function HomePage() {
                 <header className="mb-4"> {/* Change one next to the other */ }
                 <h3>Recommended for You</h3>
                 </header>   
-             
+                <div className="row">
                 { recommendedProd.products.map((product: Product) => (
                     <div className="col-lg-3 col-md-6 col-sm-6" key={product.id}>
                         <div className="card my-2 shadow-0">
@@ -170,6 +170,7 @@ function HomePage() {
                         </div>
                     </div>
                 ))}
+                </div>
                 </div>
                 </section>
             </>}
