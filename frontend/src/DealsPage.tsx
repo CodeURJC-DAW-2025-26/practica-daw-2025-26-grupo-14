@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuthStore } from './authStore'
+import { useAuthStore } from './stores/authStore'
 
 type Order = {
   id: number

@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { searchProducts, type ProductsState } from './products'
+import { searchProducts, type ProductsState } from './components/products'
 
 function SearchPage() {
     const [searchParams] = useSearchParams()

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useAuthStore } from './authStore'
+import { useAuthStore } from './stores/authStore'
 
 type AdminStats = {
   totalUsers: number

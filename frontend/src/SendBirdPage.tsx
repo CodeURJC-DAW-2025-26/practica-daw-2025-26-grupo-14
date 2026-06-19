@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
-import { useAuthStore } from './authStore'
+import { useAuthStore } from './stores/authStore'
 
 declare global {
   interface Window {

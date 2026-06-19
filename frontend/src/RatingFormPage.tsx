@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useAuthStore } from './authStore'
+import { useAuthStore } from './stores/authStore'
 
 function RatingFormPage() {
   const { orderId, ratingId } = useParams<{ orderId?: string; ratingId?: string }>()

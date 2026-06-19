@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { Product } from './products';
+import type { Product } from './components/products';
 import { Link } from 'react-router-dom';
 
 function AdminListingsPage() {

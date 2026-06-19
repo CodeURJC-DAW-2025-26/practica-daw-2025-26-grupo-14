@@ -1,9 +1,9 @@
 
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { useAuthStore } from "./authStore"
-import { fetchLocalProducts, fetchProductsPage } from "./products"
-import type { Product, ProductsState} from "./products"
+import { useAuthStore } from "./stores/authStore"
+import { fetchLocalProducts, fetchProductsPage } from "./components/products"
+import type { Product, ProductsState} from "./components/products"
 
 
 
