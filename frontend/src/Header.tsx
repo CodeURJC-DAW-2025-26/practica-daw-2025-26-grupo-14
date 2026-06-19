@@ -1,7 +1,7 @@
 import { useAuthStore } from "./stores/authStore"
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import "./styles.css"
+import "./assets/styles.css"
 
 function Header() {
     const logged = useAuthStore((state) => state.logged)
