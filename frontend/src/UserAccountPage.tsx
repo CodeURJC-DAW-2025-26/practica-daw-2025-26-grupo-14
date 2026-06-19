@@ -104,8 +104,8 @@ function UserAccountPage() {
                 <div className="col-md-3 text-center">
                   <img
                     src={
-                      user.profilePicture
-                        ? `/images/${user.profilePicture.id}`
+                      user.profilePictureId
+                        ? `/images/${user.profilePictureId}`
                         : noImage
                     }
                     className="rounded-circle img-fluid mb-3"

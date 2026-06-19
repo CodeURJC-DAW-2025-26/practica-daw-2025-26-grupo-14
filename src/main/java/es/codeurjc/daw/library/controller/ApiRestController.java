@@ -327,6 +327,15 @@ public class ApiRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/users/{id}/profilePicture")
+    public ResponseEntity<Void> uploadProfilePicture(
+            @PathVariable Long id,
+            @RequestParam("imageField") MultipartFile file
+    ) {
+        userService.saveProfilePicture(id, file);
+        return ResponseEntity.ok().build();
+    }
+
     // --------- Orders ---------
 
     @GetMapping("/orders")

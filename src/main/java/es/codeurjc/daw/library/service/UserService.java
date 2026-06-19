@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.UserRepository;
@@ -17,6 +18,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired  
+    private ImageService imageService;
     
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -53,6 +57,17 @@ public class UserService {
             userRepository.save(user);       // guarda el cambio
         });
     }
+
+        public void saveProfilePicture(Long id, MultipartFile file) {
+        userRepository.findById(id).ifPresent(user -> {
+            try {
+                user.setImage(imageService.createImage(file.getInputStream()));
+                userRepository.save(user);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            });
+        }
 
     
         
