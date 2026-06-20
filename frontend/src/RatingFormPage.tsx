@@ -13,8 +13,9 @@ function RatingFormPage() {
     rating: 5,
     summery: '',
     description: '',
+    orderId: Number(orderId),
   })
-
+  
   const isEdit = !!ratingId
 
   useEffect(() => {
@@ -31,6 +32,7 @@ function RatingFormPage() {
             rating: data.rating || 5,
             summery: data.summery || '',
             description: data.description || '',
+            orderId: Number(orderId),
           })
         })
         .catch(err => {
@@ -52,6 +54,7 @@ function RatingFormPage() {
         rating: formData.rating,
         summery: formData.summery,
         description: formData.description,
+        orderId: formData.orderId,
       }
 
       if (isEdit && ratingId) {
@@ -63,9 +66,13 @@ function RatingFormPage() {
         const orderRes = await fetch(`/api/v1/orders/${orderId}`, { credentials: 'include' })
         if (!orderRes.ok) throw new Error('Failed to load order')
         const order = await orderRes.json()
+
+        const productRes = await fetch(`/api/v1/products/${order.productId}`, { credentials: 'include'})
+        if (!productRes.ok) throw new Error('Failed to load product')
+        const product = await productRes.json()
         
-        const isSeller = order.product?.sellerId === userId
-        body.ratedId = isSeller ? order.buyerId : order.product?.sellerId
+        const isSeller = product.sellerId === userId
+        body.ratedId = isSeller ? order.buyerId : product.sellerId
         body.raterId = userId
       } else {
         throw new Error('Missing orderId or ratingId')

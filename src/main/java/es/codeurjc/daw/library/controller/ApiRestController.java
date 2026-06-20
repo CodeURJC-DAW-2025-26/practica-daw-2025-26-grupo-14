@@ -454,7 +454,13 @@ public class ApiRestController {
         rating.setRating(ratingDto.getRating());
         rating.setDescription(ratingDto.getDescription());
 
+        Order order = orderService.getOrderById(ratingDto.getOrderId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Order not found with id " + ratingDto.getOrderId()));
+
+        order.setRating(rating);
         ratingService.save(rating);
+        orderService.save(order);
 
         URI location = URI.create(String.format("/api/v1/ratings/%d", rating.getId()));
         return ResponseEntity.created(location).body(DtoMapper.toDto(rating));

@@ -32,8 +32,8 @@ type OrderWithProduct = Order & {
 
 type Rating = {
   id: number
-  score: number
-  comment: string
+  rating: number
+  summery: string
 }
 
 function getStateBadgeClass(state: string) {
@@ -278,7 +278,7 @@ async function deleteRating(ratingId: number) {
 
                             {order.ratingId ? ( <>
                               <p className="mb-0">
-                                <strong>Rating:</strong>{ratings?.find(r => r.id === order.ratingId)?.score ?? 'N/A'} / 5 - {ratings?.find(r => r.id === order.ratingId)?.comment ?? ''}
+                                <strong>Rating:</strong>{ratings?.find(r => r.id === order.ratingId)?.rating ?? 'N/A'} / 5 - {ratings?.find(r => r.id === order.ratingId)?.summery ?? ''}
                               </p>
                               </>
                             ) : (
@@ -359,7 +359,7 @@ async function deleteRating(ratingId: number) {
 
                             {order.ratingId ? ( <>
                               <p className="mb-0">
-                                <strong>Rating:</strong>{ratings?.find(r => r.id === order.ratingId)?.score ?? 'N/A'} / 5 - {ratings?.find(r => r.id === order.ratingId)?.comment ?? ''}
+                                <strong>Rating:</strong>{ratings?.find(r => r.id === order.ratingId)?.rating ?? 'N/A'} / 5 - {ratings?.find(r => r.id === order.ratingId)?.summery ?? ''}
                               </p>
                               <p>
                                 <Link to={`/edit_rating/${order.ratingId}`} className="link-secondary">
