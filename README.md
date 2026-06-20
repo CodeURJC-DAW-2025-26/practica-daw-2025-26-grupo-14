@@ -346,7 +346,7 @@ Que se pueda acceder de forma segura y cambios menores de front.
 📄 **[Especificación OpenAPI (YAML)](/api-docs/api-docs.yaml)**
 
 #### **Documentación HTML**
-📖 **[Documentación API REST (HTML)](https://raw.githack.com/[usuario]/[repositorio]/main/api-docs/api-docs.html)**
+📖 **[Documentación API REST (HTML)](https://raw.githack.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14/p2_resit/api-docs/api-docs.html)**
 
 > La documentación de la API REST se encuentra en la carpeta `/api-docs` del repositorio. Se ha generado automáticamente con SpringDoc a partir de las anotaciones en el código Java.
 
@@ -358,91 +358,107 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ### **Instrucciones de Ejecución con Docker**
 
-#### **Requisitos previos:**
+Se pueden de 2 formas actualmente:
+
+#### **Opción A: Ejecutar usando el OCI Artifact publicado en DockerHub**
+
+No requiere clonar el repositorio ni tener el código fuente. Solo se necesita Docker y Docker Compose instalados:
+
+```bash
+docker compose -f oci://docker.io/atrigueror/ladob-compose:latest up -d
+```
+
+La aplicación quedará disponible en `https://localhost:8443`.
+
+si deseas parar la aplicación:
+```bash
+docker compose -f oci://docker.io/atrigueror/ladob-compose:latest down
+```
+
+#### **Opción B: Ejecutar en local desde el código fuente**
+
+##### **Requisitos previos:**
 - Docker instalado (versión 20.10 o superior)
 - Docker Compose instalado (versión 2.0 o superior)
 
-#### **Pasos para ejecutar con docker-compose:**
+##### **Pasos:**
 
-1. **Clonar el repositorio** (si no lo has hecho ya):
-   ```bash
-   git clone https://github.com/[usuario]/[repositorio].git
-   cd [repositorio]
-   ```
+1. **Clonar el repositorio**:
+```bash
+   git clone https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14.git
+   cd practica-daw-2025-26-grupo-14
+```
 
-2. **Crear la imagen**:
-   Explicado justo debajo.
-   
-3. **Lanzar el Docker Compose**:
-    ```bash
+2. **Construir la imagen** (ver sección siguiente).
+
+3. **Lanzar con docker compose**:
+```bash
+   cd docker
    docker compose up
-   ```
+```
 
-### **Construcción de la Imagen Docker**
+### **Construcción y Publicación de la Imagen Docker**
 
 #### **Requisitos:**
-- Docker instalado en el sistema
+- Docker en el sistema
+- Cuenta en DockerHub (para publicar)
 
-#### **Pasos para construir y publicar la imagen:**
+#### **Construir la imagen** (no requiere Maven ni JDK instalados, solo Docker):
+```powershell
+.\docker\create_image.ps1 -ImageName "ladob-api"
+```
 
-1. **Navegar al directorio de Docker**:
-   ```bash
-   cd docker
-   ```
+#### **Publicar la imagen en DockerHub**:
+```powershell
+docker login
+.\docker\publish_image.ps1 -ImageName "ladob-api" -DockerHubUsername "atrigueror"
+```
 
-2. **Crear la imagen** 
-   ```bash
-     powershell -File build-and-run.ps1
-   ```
+### **Publicación del docker-compose.yml como OCI Artifact**
+
+Para que la aplicación se pueda ejecutar con un único comando, el `docker-compose.yml` se publica también en DockerHub como OCI Artifact:
+
+```powershell
+.\docker\publish_docker-compose.ps1 -DockerHubUsername "atrigueror"
+```
+
+Esto sube el fichero a `docker.io/atrigueror/ladob-compose:latest`, y permite ejecutar la aplicación completa siguiendo la Opción A de más arriba.
 
 ### **Despliegue en Máquina Virtual**
 
 #### **Requisitos:**
 - Acceso a la máquina virtual (SSH)
 - Clave privada para autenticación
-- Conexión a la red correspondiente o VPN configurada
+- Conexión a la red wifi de la universidad o a una máquina en myApps
+- Docker y Docker Compose instalados en la máquina virtual
 
 #### **Pasos para desplegar:**
 
-1.  **Conectar a la máquina virtual**:
-   ```bash
-   ssh -i [ruta/a/clave.key] [usuario]@[IP-o-dominio-VM]
-   ```
-   
-   Ejemplo:
-   ```bash
-   ssh -i ./ssh-keys/appWeb14.key vmuser@10.100.139.125
-   ```
-2. **Clonar la carpeta en maquina virtual**:
-   ```bash
-   git clone https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-14
-   ```
-3. **Descargar docker una vez dentro**:
-   ```bash
-   sudo docker install
-   ```
-4. **Ir a la carpeta adecuada**:
-   ```bash
-   cd /home/[usuario]/practica-daw-2025-26-grupo-14
-   ```
-   Ejemplo:
-   ```bash
-   cd /home/vmuser/practica-daw-2025-26-grupo-14
-   ```
-5. **Crear imagen**:
-   ```bash
-   sudo docker build -t ladob-api:latest -f docker/Dockerfile .
-   ```
-6. **Crear imagen con compose**:
-    ```bash
-   sudo docker compose up --build
-   ```
+1. **Conectar a la máquina virtual**:
+```bash
+   ssh -i ./ssh-keys/appWeb14.key vmuser@appWeb14.dawgis.etsii.urjc.es
+```
 
-7. **Lanzar imagen**:
-   ```bash
-   sudo docker compose up
-   ```
-Da error con la base de datos al lanzarse así, dice que no existe la tabla USERS en la BBDD.
+2. **Modo inicialización** (primer arranque, crea las tablas y carga los datos de ejemplo):
+```bash
+   sudo DDL_AUTO=create docker compose -f oci://docker.io/atrigueror/ladob-compose:latest up -d
+```
+
+3. **Modo ejecución** (arranques posteriores, no modifica el esquema ni recarga los datos):
+```bash
+   sudo docker compose -f oci://docker.io/atrigueror/ladob-compose:latest up -d
+```
+
+4. **Parar la aplicación**:
+```bash
+   sudo docker compose -f oci://docker.io/atrigueror/ladob-compose:latest down
+```
+
+#### **Aplicación desplegada**
+
+🌐 **[https://appWeb14.dawgis.etsii.urjc.es:8443](https://appWeb14.dawgis.etsii.urjc.es:8443)**
+
+> AVISO: debido a restricciones del SSH, la aplicación desplegada solo accesible desde la red wifi de la universidad o desde una máquina en myApps.
 
 #### **Credenciales de Usuarios de Ejemplo**
 

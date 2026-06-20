@@ -7,9 +7,10 @@ param(
 $ErrorActionPreference = "Stop"
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$composeFile = Join-Path $scriptDir "docker-compose.yml"
-$ociTarget = "oci://$DockerHubUsername/ladob-compose"
+$composeTarget = "$DockerHubUsername/ladob-compose:latest"
 
 Write-Host "Publishing docker-compose.yml to Docker Hub as OCI Artifact..."
-docker buildx imagetools create --file $composeFile $ociTarget
-Write-Host "docker-compose.yml published successfully as '$ociTarget'."
+Push-Location $scriptDir
+docker compose publish $composeTarget --with-env
+Pop-Location
+Write-Host "docker-compose.yml published successfully as 'docker.io/$composeTarget'."
