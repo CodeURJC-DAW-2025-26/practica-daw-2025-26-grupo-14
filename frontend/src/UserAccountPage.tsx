@@ -20,7 +20,14 @@ function UserAccountPage() {
     if (!id) return
 
     Promise.all([
-      fetch(`/api/v1/users/${id}`, { credentials: "include" }).then(res => res.json()),
+      fetch(`/api/v1/users/${id}`, { credentials: "include" }).then(res => {
+        if (!res.ok) {
+          setLoading(false)
+          throw new Error('Failed to fetch user data')
+        } else {
+          return res.json()
+        }
+      }),
       fetch(`/api/v1/products?sellerId=${id}`).then(res => res.json()),
       fetch(`/api/v1/users/${id}/ratings`).then(res => res.json()).catch(() => ({ avgRating: 0, totalRatings: 0 }))
     ])
@@ -34,7 +41,9 @@ function UserAccountPage() {
         const currentUserId = authUser.id
         setIsOwner(currentUserId === parseInt(id))
       })
-      .catch(err => console.error("Error loading user data:", err))
+      .catch(err => {
+        console.error("Error loading user data:", err);
+      })
       .finally(() => setLoading(false))
   }, [id, authUser.id])
 

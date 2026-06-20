@@ -62,7 +62,8 @@ async function initApp() {
           { path: 'administrator', element: <AdministratorPage /> },
           { path: 'admin_users', element: <AdminUsersPage /> },
           { path: 'admin_listings', element: <AdminListingsPage /> },
-          { path: 'admin_stats', element: <AdminStatsPage /> }
+          { path: 'admin_stats', element: <AdminStatsPage /> },
+          { path: '*', element: <div className="text-center mt-5"><h1>404 - Page Not Found</h1></div> },
         ],
       },
     ],

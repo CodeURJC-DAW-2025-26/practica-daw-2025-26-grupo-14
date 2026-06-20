@@ -41,7 +41,13 @@ function ProductPage() {
 
   useEffect(() => {
     fetch(`/api/v1/products/${id}`, { credentials: 'include' })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          setLoading(false)
+          throw new Error('Failed to fetch product')
+        }
+        return res.json()
+      })
       .then(data => {
         setProduct(data)
         setMainImage(data.imageIds?.[0] ? `/images/${data.imageIds[0]}` : noImage)
