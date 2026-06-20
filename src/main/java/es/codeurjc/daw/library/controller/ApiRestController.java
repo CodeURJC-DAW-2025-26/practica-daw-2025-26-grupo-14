@@ -505,6 +505,8 @@ public class ApiRestController {
                     HttpStatus.FORBIDDEN, "You don't have permission to delete this rating");
         }
 
+        rating.getOrder().setRating(null);
+
         ratingService.delete(id);
         return ResponseEntity.noContent().build();
     }
