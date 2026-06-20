@@ -1,6 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
+import {
+  Chart,
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+} from 'chart.js'
+
+Chart.register(
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend
+)
 
 type CategoryStat = {
   category: string
@@ -30,12 +48,25 @@ function AdminStatsPage() {
   const { logged, role } = useAuthStore()
   const navigate = useNavigate()
   const location = useLocation()
+    // -----------------------------
+    // REFERENCES TO CHART ELEMENTS
+    // -----------------------------
+    const productChartRef = useRef<HTMLCanvasElement | null>(null)
+    const userChartRef = useRef<HTMLCanvasElement | null>(null)
+    const ratingChartRef = useRef<HTMLCanvasElement | null>(null)
+ 
+  // --------------------
+  // STATE
+  // --------------------
   const [stats, setStats] = useState<AdminStatsData>({
     totalUsers: 0,
     totalListings: 0,
     totalRatings: 0,
     categoryStats: [],
   })
+  const [productChartData, setProductChartData] = useState<any>(null)
+const [userChartData, setUserChartData] = useState<any>(null)
+const [ratingChartData, setRatingChartData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -52,53 +83,150 @@ function AdminStatsPage() {
 
     async function loadStats() {
       try {
-        const [usersRes, productsRes] = await Promise.all([
-          fetch('/api/v1/users?page=0', { credentials: 'include' }),
-          fetch('/api/v1/products?page=0', { credentials: 'include' }),
+        const [categoriesRes, productsRes, userHistoricalRes, ratingsRes] = await Promise.all([
+          fetch('/api/v1/charts/categories', { credentials: 'include' }),
+          fetch('/api/v1/charts/productHistorical', { credentials: 'include' }),
+          fetch('/api/v1/charts/userHistorical', { credentials: 'include' }),
+          fetch('/api/v1/charts/ratings', { credentials: 'include' }),
         ])
 
-        if (!usersRes.ok || !productsRes.ok) {
+        if (!categoriesRes.ok || !productsRes.ok || !userHistoricalRes.ok || !ratingsRes.ok) {
           throw new Error('Failed to load admin stats')
         }
 
-        const usersData = await usersRes.json()
+        const categoriesData = await categoriesRes.json()
         const productsData = await productsRes.json()
+        const usersData = await userHistoricalRes.json()
+        const ratingsData = await ratingsRes.json()
 
-        // Calculate category statistics
-        const categoryMap = new Map<string, number>()
-        const products = Array.isArray(productsData) ? productsData : []
-        
-        products.forEach((product: any) => {
-          const category = product.category || 'Unknown'
-          categoryMap.set(category, (categoryMap.get(category) || 0) + 1)
-        })
+      // -----------------------------
+    // TOTALS
+    // -----------------------------
+    const totalListings = productsData.data?.Total ?? 0
+    const totalUsers = usersData.data?.Total ?? 0
+    const totalRatings = ratingsData.data?.Total ?? 0
 
-        // Convert to array and calculate percentages
-        const totalProducts = Array.from(categoryMap.values()).reduce((a, b) => a + b, 0)
-        const categoryStats: CategoryStat[] = Array.from(categoryMap.entries())
-          .map(([category, count]) => ({
-            category,
-            count,
-            percent: totalProducts > 0 ? Math.round((count / totalProducts) * 100) : 0,
-          }))
-          .sort((a, b) => b.count - a.count)
+    // -----------------------------
+    // CATEGORY STATS
+    // -----------------------------
+    const categoryStats = Object.entries(categoriesData.data || {})
+      .filter(([key]) => key !== 'Total')
+      .map(([category, count]) => ({
+        category,
+        count: Number(count),
+        percent:
+          totalListings > 0
+            ? Math.round((Number(count) / totalListings) * 100)
+            : 0,
+      }))
 
-        setStats({
-          totalUsers: Array.isArray(usersData) ? usersData.length : 0,
-          totalListings: products.length,
-          totalRatings: 0, // Will be updated with actual ratings count from API if available
-          categoryStats,
-        })
-      } catch (err) {
-        console.error(err)
-        setError('No se pudieron cargar los datos de estadísticas.')
-      } finally {
-        setLoading(false)
-      }
+    setStats({
+      totalUsers,
+      totalListings,
+      totalRatings,
+      categoryStats,
+    })
+
+    // -----------------------------
+    // (Optional) CHART DATA PREP
+    // -----------------------------
+    const productLabels = Object.keys(productsData.data || {}).filter(k => k !== 'Total')
+    const productValues = productLabels.map(k => productsData.data[k])
+
+    const userLabels = Object.keys(usersData.data || {}).filter(k => k !== 'Total')
+    const userValues = userLabels.map(k => usersData.data[k])
+
+    const ratingLabels = Object.keys(ratingsData.data || {}).filter(k => k !== 'Total')
+    const ratingValues = ratingLabels.map(k => ratingsData.data[k])
+
+    // Aquí luego puedes meter Chart.js si quieres:
+    console.log({ productLabels, productValues })
+    console.log({ userLabels, userValues })
+    console.log({ ratingLabels, ratingValues })
+
+    setProductChartData({
+      labels: productLabels,
+      values: productValues,
+    })
+
+    setUserChartData({
+      labels: userLabels,
+      values: userValues,
+    })
+
+    setRatingChartData({
+      labels: ratingLabels,
+      values: ratingValues,
+    })
+
+  } catch (err) {
+    console.error(err)
+    setError('Could not load statistics data.')
+  } finally {
+    setLoading(false)
+  }
     }
 
     loadStats()
   }, [logged, role, navigate])
+
+
+  useEffect(() => {
+    if (!productChartData || !userChartData || !ratingChartData) return
+
+    // destroy old charts (importante)
+    Chart.getChart('productsByDateChart')?.destroy()
+    Chart.getChart('usersByDateChart')?.destroy()
+    Chart.getChart('usersRatingsChart')?.destroy()
+
+    // PRODUCTS
+    if (productChartRef.current) {
+      new Chart(productChartRef.current, {
+        type: 'bar',
+        data: {
+          labels: productChartData.labels,
+          datasets: [
+            {
+              label: 'Products',
+              data: productChartData.values,
+            },
+          ],
+        },
+      })
+    }
+
+    // USERS
+    if (userChartRef.current) {
+      new Chart(userChartRef.current, {
+        type: 'bar',
+        data: {
+          labels: userChartData.labels,
+          datasets: [
+            {
+              label: 'Users',
+              data: userChartData.values,
+            },
+          ],
+        },
+      })
+    }
+
+    // RATINGS
+    if (ratingChartRef.current) {
+      new Chart(ratingChartRef.current, {
+        type: 'bar',
+        data: {
+          labels: ratingChartData.labels,
+          datasets: [
+            {
+              label: 'Ratings',
+              data: ratingChartData.values,
+            },
+          ],
+        },
+      })
+    }
+  }, [productChartData, userChartData, ratingChartData])
 
   return (
     <div style={{ background: '#f4f6f9', minHeight: '100vh' }}>
@@ -202,7 +330,7 @@ function AdminStatsPage() {
                         Chart integration available when connected to backend API
                       </p>
                       {/* Placeholder for Chart.js integration */}
-                      <canvas id="productsByDateChart" height="180"></canvas>
+                      <canvas ref={productChartRef} height="180"></canvas>
                     </div>
                   </div>
                 </div>
@@ -217,7 +345,7 @@ function AdminStatsPage() {
                         Chart integration available when connected to backend API
                       </p>
                       {/* Placeholder for Chart.js integration */}
-                      <canvas id="usersByDateChart" height="180"></canvas>
+                      <canvas ref={userChartRef} height="180"></canvas>
                     </div>
                   </div>
 
@@ -228,7 +356,7 @@ function AdminStatsPage() {
                         Chart integration available when connected to backend API
                       </p>
                       {/* Placeholder for Chart.js integration */}
-                      <canvas id="usersRatingsChart" height="180"></canvas>
+                      <canvas ref={ratingChartRef} height="180"></canvas>
                     </div>
                   </div>
                 </div>

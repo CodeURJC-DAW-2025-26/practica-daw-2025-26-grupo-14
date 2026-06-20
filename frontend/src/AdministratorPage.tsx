@@ -114,8 +114,8 @@ function AdministratorPage() {
               </div>
               <div className="col-md-3">
                 <div className="card shadow-sm p-3 h-100" style={{ borderRadius: '12px', border: 'none' }}>
-                  <h6 className="text-muted">Items Sold Today</h6>
-                  <h3>—</h3>
+                  <h6 className="text-muted">Total Orders</h6>
+                  <h3>{loading ? '...' : stats.totalOrders}</h3>
                 </div>
               </div>
               <div className="col-md-3">
