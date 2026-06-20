@@ -145,13 +145,19 @@ function SendBirdPage() {
         const text = messageText.trim()
         if (!text || !channelRef.current) return
 
-        channelRef.current.sendUserMessage(text, (_msg: any, err: any) => {
+        channelRef.current.sendUserMessage(text, (msg: any, err: any) => {
             if (err) {
-                setError('Failed to send message:' + err.message)
+                setError('Failed to send message: ' + err.message)
                 return
             }
 
+            // 🔥 INMEDIATE UI UPDATE (optimistic update)
+            setMessages(prev => [...prev, msg])
+
             setMessageText('')
+
+            // 🔥 scroll after render
+            setTimeout(() => scrollToBottom(), 50)
         })
     }
 
