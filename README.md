@@ -480,7 +480,7 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 ## 🛠 **Práctica 3: Implementación de la web con arquitectura SPA**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://youtu.be/kezqjPdSSv4)**
+📹 **[Enlace al vídeo en YouTube](https://youtu.be/I5dyoll0exo)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Preparación del Entorno de Desarrollo**
