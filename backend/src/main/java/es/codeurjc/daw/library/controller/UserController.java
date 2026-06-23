@@ -1,12 +1,12 @@
 package es.codeurjc.daw.library.controller;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,14 +28,11 @@ import es.codeurjc.daw.library.model.Product;
 import es.codeurjc.daw.library.model.Rating;
 import es.codeurjc.daw.library.model.User;
 import es.codeurjc.daw.library.repository.UserRepository;
-import es.codeurjc.daw.library.service.UserService;
 import es.codeurjc.daw.library.service.ImageService;
 import es.codeurjc.daw.library.service.OrderService;
 import es.codeurjc.daw.library.service.ProductService;
 import es.codeurjc.daw.library.service.RatingService;
-import org.springframework.data.domain.Page;
-
-import org.springframework.web.client.HttpClientErrorException;
+import es.codeurjc.daw.library.service.UserService;
 
 
 @Controller
@@ -176,6 +174,8 @@ public class UserController {
 				for (Image image : p.get().getImages()) {
 					if (!deleteImageIds.contains(image.getId())){
 						product.setImage(image);
+					} else {
+						imageService.deleteImage(image.getId());
 					}
 				}
 			}
@@ -292,19 +292,28 @@ public class UserController {
 	@GetMapping("/edituser/{id}")
 	public String editUser(@PathVariable Long id, Model model) {
 		Optional<User> user = userService.getUserById(id);
-		if (user.isPresent()) {
-			model.addAttribute("user", user.get());
-			model.addAttribute("cityOptions", List.of(
-				Map.of("value", "Madrid", "selected", "Madrid".equals(user.get().getCity())),
-				Map.of("value", "Barcelona", "selected", "Barcelona".equals(user.get().getCity())),
-				Map.of("value", "Valencia", "selected", "Valencia".equals(user.get().getCity())),
-				Map.of("value", "Sevilla", "selected", "Sevilla".equals(user.get().getCity())),
-				Map.of("value", "Zaragoza", "selected", "Zaragoza".equals(user.get().getCity()))
-			));
-			return "register";
-		} else {
+		if (!user.isPresent()) {
 			return "pageerror";
 		}
+
+		String currentUser = (String) model.getAttribute("userName");
+		boolean isAdmin = Boolean.TRUE.equals(model.getAttribute("admin"));
+		boolean isOwner = currentUser != null && currentUser.equals(user.get().getName());
+
+		if (!isOwner && !isAdmin) {
+			model.addAttribute("errorMessage", "You don't have permission to edit this user.");
+			return "error";
+		}
+
+		model.addAttribute("user", user.get());
+		model.addAttribute("cityOptions", List.of(
+			Map.of("value", "Madrid", "selected", "Madrid".equals(user.get().getCity())),
+			Map.of("value", "Barcelona", "selected", "Barcelona".equals(user.get().getCity())),
+			Map.of("value", "Valencia", "selected", "Valencia".equals(user.get().getCity())),
+			Map.of("value", "Sevilla", "selected", "Sevilla".equals(user.get().getCity())),
+			Map.of("value", "Zaragoza", "selected", "Zaragoza".equals(user.get().getCity()))
+		));
+		return "register";
 	}
 
 	@PostMapping("/report_product/{id}")
@@ -365,6 +374,16 @@ public class UserController {
 			return "error";
 		}
 		Order o = order.get();
+
+		String currentUser = (String) model.getAttribute("userName");
+		boolean isBuyer = currentUser != null && o.getBuyer().getName().equals(currentUser);
+		boolean isSeller = currentUser != null && o.getSellUser().getName().equals(currentUser);
+
+		if (!isBuyer && !isSeller) {
+			model.addAttribute("errorMessage", "You don't have permission to modify this order.");
+			return "error";
+		}
+
 		switch (action) {
 			case "accepted":
 				o.setState("Accepted");
