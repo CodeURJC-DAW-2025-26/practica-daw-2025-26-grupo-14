@@ -1,5 +1,5 @@
 $kind: http-request
 name: API Health Check
 method: GET
-url: '{{baseUrl}}'
+url: '{{baseUrl}}/api/v1'
 order: 9000

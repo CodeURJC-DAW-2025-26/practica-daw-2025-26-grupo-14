@@ -1,7 +1,7 @@
 $kind: http-request
 name: Create Product
 method: POST
-url: '{{baseUrl}}/products'
+url: '{{baseUrl}}/api/v1/products'
 order: 3000
 headers:
   - key: Content-Type
@@ -10,13 +10,11 @@ body:
   type: json
   content: |-
     {
-      "name": "Vintage Jacket",
-      "price": 25.99,
-      "category": "Clothing",
-      "shortDescription": "A great vintage jacket",
-      "fullDescription": "Full description of the vintage jacket",
-      "condition": "Good",
-      "contactPreference": "Email",
-      "reported": false,
-      "reportedMessage": null
+      "name": "Laptop Gaming",
+      "price": 800,
+      "category": "Electronics",
+      "shortDescription": "High performance gaming laptop",
+      "fullDescription": "Full description of the gaming laptop",
+      "condition": "New",
+      "contactPreference": "Email"
     }

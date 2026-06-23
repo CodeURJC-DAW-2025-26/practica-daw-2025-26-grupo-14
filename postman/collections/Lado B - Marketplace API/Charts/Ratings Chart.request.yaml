@@ -1,5 +1,5 @@
 $kind: http-request
 name: Ratings Chart
 method: GET
-url: '{{baseUrl}}/charts/ratings'
+url: '{{baseUrl}}/api/v1/charts/ratings'
 order: 5000

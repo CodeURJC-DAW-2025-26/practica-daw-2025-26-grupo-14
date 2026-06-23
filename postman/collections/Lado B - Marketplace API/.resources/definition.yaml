@@ -7,6 +7,6 @@ auth:
       value: '{{token}}'
 variables:
   - key: baseUrl
-    value: 'http://localhost:8080/api/v1'
+    value: 'https://appWeb14.dawgis.etsii.urjc.es:8443'
   - key: token
     value: ''

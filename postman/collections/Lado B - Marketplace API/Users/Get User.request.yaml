@@ -1,5 +1,5 @@
 $kind: http-request
 name: Get User
 method: GET
-url: '{{baseUrl}}/users/{{userId}}'
+url: '{{baseUrl}}/api/v1/users/{{userId}}'
 order: 2000

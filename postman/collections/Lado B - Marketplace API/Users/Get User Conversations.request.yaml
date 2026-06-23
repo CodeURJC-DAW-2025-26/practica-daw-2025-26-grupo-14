@@ -1,5 +1,5 @@
 $kind: http-request
 name: Get User Conversations
 method: GET
-url: '{{baseUrl}}/users/{{userId}}/conversations'
+url: '{{baseUrl}}/api/v1/users/{{userId}}/conversations'
 order: 6000

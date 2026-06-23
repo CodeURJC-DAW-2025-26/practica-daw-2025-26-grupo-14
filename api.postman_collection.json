@@ -1,0 +1,394 @@
+{
+  "info": {
+    "name": "Lado B - Marketplace API",
+    "_postman_id": "ladob-marketplace-api",
+    "description": "API REST para la aplicación web de compra-venta de segunda mano",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://appWeb14.dawgis.etsii.urjc.es:8443",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/auth/login", "host": ["{{baseUrl}}"], "path": ["api","v1","auth","login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"Mario\",\n  \"password\": \"pass\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/auth/logout", "host": ["{{baseUrl}}"], "path": ["api","v1","auth","logout"] }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/auth/refresh", "host": ["{{baseUrl}}"], "path": ["api","v1","auth","refresh"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products?page=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","v1","products"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "keyword", "value": "", "disabled": true },
+                { "key": "category", "value": "", "disabled": true },
+                { "key": "minPrice", "value": "", "disabled": true },
+                { "key": "maxPrice", "value": "", "disabled": true },
+                { "key": "minSellerRate", "value": "", "disabled": true },
+                { "key": "sellerId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/products/1", "host": ["{{baseUrl}}"], "path": ["api","v1","products","1"] }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/products", "host": ["{{baseUrl}}"], "path": ["api","v1","products"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop Gaming\",\n  \"price\": 800,\n  \"category\": \"Electronics\",\n  \"condition\": \"Like new\",\n  \"shortDescription\": \"Laptop gaming en perfecto estado\",\n  \"fullDescription\": \"Laptop gaming con RTX 3060, 16GB RAM, 512GB SSD. En perfecto estado, apenas usada.\",\n  \"contactPreference\": \"Chat\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/products/1", "host": ["{{baseUrl}}"], "path": ["api","v1","products","1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 750,\n  \"shortDescription\": \"Precio rebajado\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/products/1", "host": ["{{baseUrl}}"], "path": ["api","v1","products","1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users?page=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","v1","users"],
+              "query": [{ "key": "page", "value": "0" }]
+            }
+          }
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/users/1", "host": ["{{baseUrl}}"], "path": ["api","v1","users","1"] }
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/users", "host": ["{{baseUrl}}"], "path": ["api","v1","users"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Ana Lopez\",\n  \"name\": \"AnaL\",\n  \"email\": \"ana@lopez.com\",\n  \"city\": \"Madrid\",\n  \"dni\": \"12345678E\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/users/1", "host": ["{{baseUrl}}"], "path": ["api","v1","users","1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"Barcelona\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/users/1", "host": ["{{baseUrl}}"], "path": ["api","v1","users","1"] }
+          }
+        },
+        {
+          "name": "Get User Conversations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/users/1/conversations", "host": ["{{baseUrl}}"], "path": ["api","v1","users","1","conversations"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "List Orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/orders?page=0&size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","v1","orders"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/orders/1", "host": ["{{baseUrl}}"], "path": ["api","v1","orders","1"] }
+          }
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/orders", "host": ["{{baseUrl}}"], "path": ["api","v1","orders"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Order",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/orders/1", "host": ["{{baseUrl}}"], "path": ["api","v1","orders","1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"Accepted\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Order",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/orders/1", "host": ["{{baseUrl}}"], "path": ["api","v1","orders","1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ratings",
+      "item": [
+        {
+          "name": "List Ratings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/ratings?page=0&size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","v1","ratings"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Rating",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/ratings/1", "host": ["{{baseUrl}}"], "path": ["api","v1","ratings","1"] }
+          }
+        },
+        {
+          "name": "Create Rating",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/ratings", "host": ["{{baseUrl}}"], "path": ["api","v1","ratings"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ratedId\": 2,\n  \"summery\": \"Excelente vendedor\",\n  \"rating\": 5,\n  \"description\": \"Todo perfecto, muy rápido y producto en perfecto estado.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Rating",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/ratings/1", "host": ["{{baseUrl}}"], "path": ["api","v1","ratings","1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"summery\": \"Muy buen vendedor\",\n  \"rating\": 4\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Rating",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/ratings/1", "host": ["{{baseUrl}}"], "path": ["api","v1","ratings","1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "item": [
+        {
+          "name": "List Images",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/images", "host": ["{{baseUrl}}"], "path": ["api","v1","images"] }
+          }
+        },
+        {
+          "name": "Get Image",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/images/1", "host": ["{{baseUrl}}"], "path": ["api","v1","images","1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Charts",
+      "item": [
+        {
+          "name": "All Charts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/charts", "host": ["{{baseUrl}}"], "path": ["api","v1","charts"] }
+          }
+        },
+        {
+          "name": "Categories Chart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/charts/categories", "host": ["{{baseUrl}}"], "path": ["api","v1","charts","categories"] }
+          }
+        },
+        {
+          "name": "Product Historical Chart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/charts/productHistorical", "host": ["{{baseUrl}}"], "path": ["api","v1","charts","productHistorical"] }
+          }
+        },
+        {
+          "name": "User Historical Chart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/charts/userHistorical", "host": ["{{baseUrl}}"], "path": ["api","v1","charts","userHistorical"] }
+          }
+        },
+        {
+          "name": "Ratings Chart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/charts/ratings", "host": ["{{baseUrl}}"], "path": ["api","v1","charts","ratings"] }
+          }
+        },
+        {
+          "name": "Ratings Chart by User ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/charts/ratings/1", "host": ["{{baseUrl}}"], "path": ["api","v1","charts","ratings","1"] }
+          }
+        },
+        {
+          "name": "User Ratings Chart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/charts/users/1/ratings", "host": ["{{baseUrl}}"], "path": ["api","v1","charts","users","1","ratings"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "API Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{baseUrl}}/api/v1", "host": ["{{baseUrl}}"], "path": ["api","v1"] }
+      }
+    }
+  ]
+}

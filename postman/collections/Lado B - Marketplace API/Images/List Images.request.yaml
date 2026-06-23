@@ -1,5 +1,5 @@
 $kind: http-request
 name: List Images
 method: GET
-url: '{{baseUrl}}/images'
+url: '{{baseUrl}}/api/v1/images'
 order: 1000

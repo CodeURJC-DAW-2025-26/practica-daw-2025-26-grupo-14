@@ -1,7 +1,7 @@
 $kind: http-request
 name: Update User
 method: PUT
-url: '{{baseUrl}}/users/{{userId}}'
+url: '{{baseUrl}}/api/v1/users/{{userId}}'
 order: 4000
 headers:
   - key: Content-Type
@@ -10,7 +10,5 @@ body:
   type: json
   content: |-
     {
-      "fullName": "John Updated",
-      "email": "john.updated@example.com",
       "city": "Barcelona"
     }

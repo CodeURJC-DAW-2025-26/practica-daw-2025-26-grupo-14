@@ -1,5 +1,5 @@
 $kind: http-request
 name: Delete Rating
 method: DELETE
-url: '{{baseUrl}}/ratings/{{ratingId}}'
+url: '{{baseUrl}}/api/v1/ratings/{{ratingId}}'
 order: 5000

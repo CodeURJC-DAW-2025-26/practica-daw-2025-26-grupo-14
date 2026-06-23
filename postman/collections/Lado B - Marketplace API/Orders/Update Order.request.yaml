@@ -1,7 +1,7 @@
 $kind: http-request
 name: Update Order
 method: PUT
-url: '{{baseUrl}}/orders/{{orderId}}'
+url: '{{baseUrl}}/api/v1/orders/{{orderId}}'
 order: 4000
 headers:
   - key: Content-Type
@@ -10,5 +10,5 @@ body:
   type: json
   content: |-
     {
-      "state": "COMPLETED"
+      "state": "Accepted"
     }

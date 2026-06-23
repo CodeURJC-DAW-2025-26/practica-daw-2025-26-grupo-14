@@ -1,7 +1,7 @@
 $kind: http-request
 name: Update Product
 method: PUT
-url: '{{baseUrl}}/products/{{productId}}'
+url: '{{baseUrl}}/api/v1/products/{{productId}}'
 order: 4000
 headers:
   - key: Content-Type
@@ -16,7 +16,5 @@ body:
       "condition": "Fair",
       "shortDescription": "Updated short description",
       "fullDescription": "Updated full description",
-      "contactPreference": "Phone",
-      "reported": false,
-      "reportedMessage": null
+      "contactPreference": "Phone"
     }

@@ -1,7 +1,7 @@
 $kind: http-request
 name: Update Rating
 method: PUT
-url: '{{baseUrl}}/ratings/{{ratingId}}'
+url: '{{baseUrl}}/api/v1/ratings/{{ratingId}}'
 order: 4000
 headers:
   - key: Content-Type
@@ -10,7 +10,6 @@ body:
   type: json
   content: |-
     {
-      "summery": "Updated summary",
-      "rating": 4,
-      "description": "Updated description"
+      "summery": "Muy buen vendedor",
+      "rating": 4
     }

@@ -1,7 +1,7 @@
 $kind: http-request
 name: Create User
 method: POST
-url: '{{baseUrl}}/users'
+url: '{{baseUrl}}/api/v1/users'
 order: 3000
 headers:
   - key: Content-Type
@@ -10,10 +10,10 @@ body:
   type: json
   content: |-
     {
-      "name": "johndoe",
-      "fullName": "John Doe",
-      "email": "john@example.com",
-      "password": "securepassword",
+      "fullName": "Ana Lopez",
+      "name": "AnaL",
+      "email": "ana@lopez.com",
       "city": "Madrid",
-      "dni": "12345678A"
+      "dni": "12345678E",
+      "password": "password123"
     }

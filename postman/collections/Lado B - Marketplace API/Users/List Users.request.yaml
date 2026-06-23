@@ -1,7 +1,7 @@
 $kind: http-request
 name: List Users
 method: GET
-url: '{{baseUrl}}/users'
+url: '{{baseUrl}}/api/v1/users'
 order: 1000
 queryParams:
   - key: page

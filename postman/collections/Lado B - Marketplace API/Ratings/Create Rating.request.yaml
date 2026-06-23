@@ -1,7 +1,7 @@
 $kind: http-request
 name: Create Rating
 method: POST
-url: '{{baseUrl}}/ratings'
+url: '{{baseUrl}}/api/v1/ratings'
 order: 3000
 headers:
   - key: Content-Type
@@ -10,9 +10,8 @@ body:
   type: json
   content: |-
     {
-      "orderId": 1,
       "ratedId": 2,
-      "summery": "Great seller!",
+      "summery": "Excelente vendedor",
       "rating": 5,
-      "description": "The product was exactly as described and delivery was fast."
+      "description": "Muy buen vendedor, el producto llegó en perfecto estado"
     }

@@ -1,0 +1,5 @@
+$kind: http-request
+name: Ratings Chart by User ID
+method: GET
+url: '{{baseUrl}}/api/v1/charts/ratings/{{ratingId}}'
+order: 6000

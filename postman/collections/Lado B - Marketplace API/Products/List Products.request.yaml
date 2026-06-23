@@ -1,7 +1,7 @@
 $kind: http-request
 name: List Products
 method: GET
-url: '{{baseUrl}}/products'
+url: '{{baseUrl}}/api/v1/products'
 order: 1000
 queryParams:
   - key: page
@@ -10,5 +10,17 @@ queryParams:
     value: ''
     disabled: true
   - key: category
+    value: ''
+    disabled: true
+  - key: minPrice
+    value: ''
+    disabled: true
+  - key: maxPrice
+    value: ''
+    disabled: true
+  - key: minSellerRate
+    value: ''
+    disabled: true
+  - key: sellerId
     value: ''
     disabled: true
